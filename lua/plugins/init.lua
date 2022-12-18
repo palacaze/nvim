@@ -230,26 +230,26 @@ return packer.startup(function(use)
 
     -- colorschemes
     use({
-        "ellisonleao/gruvbox.nvim",
-        config = get_config("gruvbox"),
-    })
-    use({
-        "EdenEast/nightfox.nvim",
-        config = get_config("nightfox"),
-    })
-    use({
-        "Mofiqul/dracula.nvim",
-        config = get_config("dracula"),
-    })
-    use("lifepillar/vim-gruvbox8")
-    -- use({
-    --     "rmehri01/onenord.nvim",
-    --     config = get_config("onenord"),
-    -- })
-    use({
-        "catppuccin/nvim",
-        as = "catppuccin",
-        config = get_config("catppuccin"),
+        {
+            "ellisonleao/gruvbox.nvim",
+            config = get_config("gruvbox"),
+        }, {
+            "EdenEast/nightfox.nvim",
+            config = get_config("nightfox"),
+        }, {
+            "Mofiqul/dracula.nvim",
+            config = get_config("dracula"),
+        }, {
+            "lifepillar/vim-gruvbox8"
+        }, {
+            "rmehri01/onenord.nvim",
+            config = get_config("onenord"),
+        }, {
+            "catppuccin/nvim",
+            as = "catppuccin",
+            config = get_config("catppuccin"),
+        },
+        config = get_config("colors")
     })
 
     --  Quoting/parenthesizing made simple

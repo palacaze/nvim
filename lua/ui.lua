@@ -12,4 +12,6 @@ vim.opt.background = "dark"
 
 -- vim.cmd("colorscheme dracula")
 
-vim.cmd("colorscheme nightfox")
+-- vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme terafox")
+
