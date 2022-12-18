@@ -64,6 +64,8 @@ neo_tree.setup({
                 ["h"] = "toggle_hidden",
                 ["ga"] = "git_add_file",
                 ["gu"] = "git_unstage_file",
+                ["«"] = "prev_source",
+                ["»"] = "next_source",
             },
         },
     },
@@ -86,6 +88,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
-u.map_ni("M-e", "<Cmd>Neotree focus<CR>", "Toggle Explorer")
+u.map_ni("<M-e>", "<Cmd>Neotree focus<CR>", "Toggle Explorer")
 u.map_ni("<F5>", "<Cmd>Neotree toggle<CR>", "Toggle Explorer")
 
