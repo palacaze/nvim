@@ -4,6 +4,14 @@ local u = require("util")
 u.map_n("q:", ":q", "Quit")
 u.map_n("Y", "y$", "copy to the end of the line")
 
+-- For bépo keyboard
+u.map_nv("<C-»>", "<C-]>", "Jump to tag")
+u.map_nv("<C-«>", "<C-t>", "Jump back from tag")
+u.map_n("«", "<", "Decrease indentation")
+u.map_n("»", ">", "Increase indentation")
+u.map_v("«", "<gv", "Decrease indentation")
+u.map_v("»", ">gv", "Increase indentation")
+
 -- Change directory to that of current file
 u.map_n("<Leader>cd", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of the current file")
 
@@ -19,12 +27,6 @@ u.map_nv("<Leader>P", '"+P', "Paste before from to clipboard")
 -- Text formating
 u.map_n("Q", "gwip", "Reformat paragraph")
 u.map_n("<Leader>Q", "ggVGgq", "Reformat the full file")
-
--- Easy indenting, bépo keyword
-u.map_n("«", "<", "Decrease indentation")
-u.map_n("»", ">", "Increase indentation")
-u.map_v("«", "<gv", "Decrease indentation")
-u.map_v("»", ">gv", "Increase indentation")
 
 -- Folding
 u.map_n("z1", function() vim.opt_local.foldlevel = 0 end, "Unfold 1 level")
@@ -81,19 +83,19 @@ if smart_ok then
     u.map_ni("<S-Right>", smart_splits.move_cursor_right, "Move to right split")
 
     -- Resize with arrows
-    u.map_ni("<C-S-Up>",   smart_splits.resize_up, "Resize split up")
-    u.map_ni("<C-S-Down>", smart_splits.resize_down, "Resize split down")
-    u.map_ni("<C-S-Left>", smart_splits.resize_left, "Resize split left")
-    u.map_ni("<C-S-Right>",smart_splits.resize_right, "Resize split right")
+    u.map_ni("<M-Up>",   smart_splits.resize_up, "Resize split up")
+    u.map_ni("<M-Down>", smart_splits.resize_down, "Resize split down")
+    u.map_ni("<M-Left>", smart_splits.resize_left, "Resize split left")
+    u.map_ni("<M-Right>",smart_splits.resize_right, "Resize split right")
 else
     u.map_ni("<S-Left>",  "<C-w>h", "Move to left split")
     u.map_ni("<S-Down>",  "<C-w>j",  "Move to below split")
     u.map_ni("<S-Up>",    "<C-w>k",  "Move to above split")
     u.map_ni("<S-Right>", "<C-w>l", "Move to right split")
-    u.map_ni("<C-S-Up>",    "<Cmd>resize -2<CR>", "Resize split up")
-    u.map_ni("<C-S-Down>",  "<Cmd>resize +2<CR>", "Resize split down")
-    u.map_ni("<C-S-Left>",  "<Cmd>vertical resize -2<CR>", "Resize split left")
-    u.map_ni("<C-S-Right>", "<Cmd>vertical resize +2<CR>", "Resize split right")
+    u.map_ni("<M-Up>",    "<Cmd>resize -2<CR>", "Resize split up")
+    u.map_ni("<M-Down>",  "<Cmd>resize +2<CR>", "Resize split down")
+    u.map_ni("<M-Left>",  "<Cmd>vertical resize -2<CR>", "Resize split left")
+    u.map_ni("<M-Right>", "<Cmd>vertical resize +2<CR>", "Resize split right")
 end
 
 -- Buffers navigation
