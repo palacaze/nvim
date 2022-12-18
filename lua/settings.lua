@@ -111,6 +111,7 @@ opt.shiftwidth = 4
 opt.shiftround = true
 opt.mouse = "a"
 opt.mousehide = true
+opt.mousemoveevent = true
 opt.clipboard = "unnamed"
 opt.synmaxcol = 200
 opt.completeopt = "menu,menuone,noselect"
