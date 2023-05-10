@@ -49,6 +49,14 @@ end
 
 M.esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
 
+-- Open or create file under cursor
+function M.open_or_create_file_under_cursor()
+    local link = vim.fn.expand("<cfile>")
+    local file = vim.loop.fs_realpath(link) or link
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    vim.cmd(":e " .. file)
+end
+
 -- A function to trim trailing spaces
 function M.strip_trailing_spaces()
     local save = vim.fn.winsaveview()
