@@ -147,7 +147,8 @@ return {
                 },
             },
         },
-        config = function()
+        config = function(_, opts)
+            require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
             local fb = require("telescope").load_extension("file_browser")
             local u = require("config.utils")
