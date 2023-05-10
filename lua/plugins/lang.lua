@@ -50,6 +50,15 @@ return {
     { "tyru/open-browser.vim" },
     { "weirongxu/plantuml-previewer.vim" },
 
+    {
+        "iamcco/markdown-preview.nvim",
+        ft = { "markdown", "plantuml" },
+        build = "cd app && npm install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown", "plantuml" }
+        end,
+    },
+
     -- Gentoo and portage related syntax highlighting, filetype, and indent settings for vim
     { "gentoo/gentoo-syntax" }
 
