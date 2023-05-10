@@ -163,22 +163,21 @@ return {
         opts = {
             plugins = { spelling = true },
             defaults = {
-                mode = { "n", "v" },
-                ["b"] = { name = "Buffer" },
-                ["f"] = { name = "Find (Telescope)" },
-                ["g"] = { name = "Git (Telescope)" },
-                ["h"] = { name = "Git hunks" },
-                ["l"] = { name = "LSP" },
-                ["t"] = { name = "Toggle" },
-                ["T"] = { name = "Terminal" },
-                ["x"] = { name = "Diagnostics" },
+                b = { name = "Buffer" },
+                f = { name = "Find (Telescope)" },
+                g = { name = "Git (Telescope)" },
+                h = { name = "Git hunks" },
+                l = { name = "LSP" },
+                t = { name = "Toggle" },
+                T = { name = "Terminal" },
+                x = { name = "Diagnostics" },
             },
         },
         event = "VeryLazy",
         config = function(_, opts)
             local wk = require("which-key")
             wk.setup(opts)
-            wk.register(opts.defaults)
+            wk.register(opts.defaults, { prefix = "<Leader>" })
         end,
     },
 
