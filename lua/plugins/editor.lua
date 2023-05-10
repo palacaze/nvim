@@ -26,19 +26,8 @@ return {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
             },
-            {
-                "nvim-telescope/telescope-file-browser.nvim",
-                config = function()
-                    local fb = require("telescope").load_extension("file_browser")
-                    local u = require("config.utils")
-                    u.map_ni("<S-F6>", function() fb.file_browser({ grouped = true }) end, "Browse Files")
-                    u.map_n("<Leader>fb", function() fb.file_browser({ grouped = true }) end, "Browse Files")
-                end,
-            },
+            "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-symbols.nvim",
         },
         cmd = "Telescope",
@@ -49,7 +38,7 @@ return {
             { "<S-F7>" },  -- file browser
             { "<Leader>fF", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
             { "<Leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Search in files" },
-            { "<Leader>fo", "<Cmd>Telescope frecency<CR>", desc = "Find in history" },
+            { "<Leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "Find in history" },
             { "<Leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Find help" },
             { "<Leader>fs", "<Cmd>Telescope symbols<CR>", desc = "Find symbols" },
             { "<Leader>gc", "<Cmd>Telescope git_commits<CR>", desc = "Find git commits" },
@@ -158,6 +147,13 @@ return {
                 },
             },
         },
+        config = function()
+            require("telescope").load_extension("fzf")
+            local fb = require("telescope").load_extension("file_browser")
+            local u = require("config.utils")
+            u.map_ni("<S-F6>", function() fb.file_browser({ grouped = true }) end, "Browse Files")
+            u.map_n("<Leader>fb", function() fb.file_browser({ grouped = true }) end, "Browse Files")
+        end,
     },
 
     -- Which key is that? Which-key!
