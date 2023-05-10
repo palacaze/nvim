@@ -29,11 +29,6 @@ u.map_nv("Q", "gwip", "Reformat paragraph")
 u.map_n("<Leader>Q", "ggVGgq", "Reformat the full file")
 
 -- Allow moving up and down in wrapped lines.
--- vim.keymap.set("n", "<Up>", "gk", { desc = "Go up", noremap = true, silent = true, nowait = true })
--- vim.keymap.set("i", "<Up>", "<C-o>gk", { desc = "Go up", noremap = true, silent = true, nowait = true })
--- vim.keymap.set("n", "<Down>", "gj", { desc = "Go down", noremap = true, silent = true, nowait = true })
--- vim.keymap.set("i", "<Down>", "<C-o>gj", { desc = "Go down", noremap = true, silent = true, nowait = true })
-
 u.map({"n", "v", "x"}, "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
 u.map("i", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "<Up>" : "<C-o>gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
 u.map({"n", "v", "x"}, "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
