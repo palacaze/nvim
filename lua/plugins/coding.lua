@@ -49,10 +49,6 @@ return {
         dependencies = {
             -- Snippets ready for use
             "rafamadriz/friendly-snippets",
-            config = function()
-                -- load snippets provided by friendly-snippets
-                require("luasnip.loaders.from_vscode").lazy_load()
-            end
         },
         keys = {
             {
@@ -78,6 +74,9 @@ return {
                     },
                 }
             })
+
+            -- load snippets provided by friendly-snippets
+            require("luasnip.loaders.from_vscode").lazy_load()
         end,
     },
 
