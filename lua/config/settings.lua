@@ -156,21 +156,4 @@ g.editorconfig = true
 g.gruvbox_plugin_hi_groups = 1
 
 g.markdown_recommended_style = 0
-g.vim_markdown_auto_insert_bullets = 1
-g.vim_markdown_autowrite = 1
-g.vim_markdown_conceal = 2
-g.vim_markdown_conceal_code_blocks = 0
-g.vim_markdown_edit_url_in = "tab"
-g.vim_markdown_emphasis_multiline = 1
-g.vim_markdown_follow_anchor = 1
-g.vim_markdown_frontmatter = 1
-g.vim_markdown_frontmatter = 1
-g.vim_markdown_json_frontmatter = 1
-g.vim_markdown_math = 1
-g.vim_markdown_new_list_item_indent = 1
-g.vim_markdown_strikethrough = 1
-g.vim_markdown_toml_frontmatter = 1
 
-g.table_mode_disable_mappings = 1
-g.table_mode_disable_tableize_mappings = 1
-g.table_mode_map_prefix = "<Leader>T"
