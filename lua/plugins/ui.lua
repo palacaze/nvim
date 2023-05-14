@@ -325,20 +325,6 @@ return {
                     },
                 },
             },
-            -- event_handlers = {
-            --     {
-            --         event = "neo_tree_buffer_enter",
-            --         handler = function()
-            --             -- Disable italic for some highlight groups
-            --             vim.cmd[[
-            --             highlight! NeoTreeGitUntracked guifg=#4F87F0 gui=nocombine
-            --             highlight! NeoTreeGitConflict guifg=#FF8700 gui=nocombine
-            --             highlight! NeoTreeGitUnstaged guifg=#CF6780 gui=nocombine
-            --             ]]
-            --             vim.wo.signcolumn = "auto"
-            --         end
-            --     },
-            -- },
         },
         config = function(_, opts)
             require("neo-tree").setup(opts)
