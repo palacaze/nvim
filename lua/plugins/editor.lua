@@ -1,3 +1,72 @@
+-- The following two functions are taken form LazyVim
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
+
+-- Returns the root directory based on:
+-- * lsp workspace folders
+-- * lsp root_dir
+-- * root pattern of filename of the current buffer
+-- * root pattern of cwd
+---@return string
+local function get_project_root()
+    ---@type string?
+    local path = vim.api.nvim_buf_get_name(0)
+    path = path ~= "" and vim.loop.fs_realpath(path) or nil
+    ---@type string[]
+    local roots = {}
+    if path then
+        for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+            local workspace = client.config.workspace_folders
+            local paths = workspace
+                and vim.tbl_map(function(ws)
+                    return vim.uri_to_fname(ws.uri)
+                end, workspace)
+                or client.config.root_dir and { client.config.root_dir }
+                or {}
+            for _, p in ipairs(paths) do
+                local r = vim.loop.fs_realpath(p)
+                if path:find(r, 1, true) then
+                    roots[#roots + 1] = r
+                end
+            end
+        end
+    end
+    table.sort(roots, function(a, b)
+        return #a > #b
+    end)
+    ---@type string?
+    local root = roots[1]
+    if not root then
+        path = path and vim.fs.dirname(path) or vim.loop.cwd()
+        ---@type string?
+        root = vim.fs.find({ ".git", ".clang-format" }, { path = path, upward = true })[1]
+        root = root and vim.fs.dirname(root) or vim.loop.cwd()
+    end
+    ---@cast root string
+    return root
+end
+
+
+-- Returns a function that calls telescope.
+-- cwd defaults to project root, if any. the "files" builtin chooses between
+-- git_files if we are in a git repo and find_fifes otherwise.
+local function telescope(builtin, opts)
+    local params = { builtin = builtin, opts = opts }
+    return function()
+        builtin = params.builtin
+        opts = params.opts
+        opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+        if builtin == "files" then
+            if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+                opts.show_untracked = true
+                builtin = "git_files"
+            else
+                builtin = "find_files"
+            end
+        end
+        require("telescope.builtin")[builtin](opts)
+    end
+end
+
 return {
 
     -- Nicer search
@@ -32,13 +101,23 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<F6>", "<Cmd>Telescope find_files<CR>", desc = "Find files", mode = {"n", "i"} },
-            { "<S-F6>" },  -- file browser
-            { "<F7>", "<Cmd>Telescope live_grep<CR>", desc = "Search in files", mode = {"n", "i"} },
-            { "<S-F7>" },  -- file browser
-            { "<Leader>fF", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
-            { "<Leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Search in files" },
-            { "<Leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "Find in history" },
+            { "<Leader>,", "<Cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
+            { "<Leader>/", telescope("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
+            { "<Leader><Space>", telescope("files"), desc = "Find files (root dir)" },
+
+            { "<S-F6>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
+            { "<Leader>fb", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
+            { "<Leader>fB", "<Cmd>Telescope file_browser path=%:p:h<CR>", desc = "Browse Files (file dir)" },
+            { "<F6>", telescope("files"), desc = "Find files (root dir)", mode = {"n", "i"} },
+            { "<Leader>ff", telescope("files"), desc = "Find files (root dir)" },
+            { "<Leader>fF", telescope("files", { cwd = false }), desc = "Find files (cmd)" },
+            { "<F7>", telescope("live_grep"), desc = "Grep (root dir)", mode = {"n", "i"} },
+            { "<Leader>fg", telescope("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>fG", telescope("live_grep", { cwd = vim.loop.cwd() }), desc = "Grep (cwd)" },
+            { "<Leader>fr", telescope("oldfiles"), desc = "Recent files (root dir)" },
+            { "<Leader>fR", telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent files (cwd)" },
+
             { "<Leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Find help" },
             { "<Leader>fs", "<Cmd>Telescope symbols<CR>", desc = "Find symbols" },
             { "<Leader>gc", "<Cmd>Telescope git_commits<CR>", desc = "Find git commits" },
@@ -143,6 +222,7 @@ return {
                     case_mode = "smart_case",
                 },
                 file_browser = {
+                    grouped = true,
                     hijack_netrw = true,
                 },
             },
@@ -150,10 +230,7 @@ return {
         config = function(_, opts)
             require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
-            local fb = require("telescope").load_extension("file_browser")
-            local u = require("config.utils")
-            u.map_ni("<S-F6>", function() fb.file_browser({ grouped = true }) end, "Browse Files")
-            u.map_n("<Leader>fb", function() fb.file_browser({ grouped = true }) end, "Browse Files")
+            require("telescope").load_extension("file_browser")
         end,
     },
 
