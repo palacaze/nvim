@@ -475,6 +475,34 @@ return {
         },
     },
 
+    {
+        "karb94/neoscroll.nvim",
+        opts = {
+            -- easing_function = "quadratic",
+            stop_eof = false,
+            -- Boost performance by firing less events
+            pre_hook = function()
+                vim.opt.eventignore:append({
+                    "WinScrolled",
+                    "CursorMoved",
+                })
+            end,
+            post_hook = function()
+                vim.opt.eventignore:remove({
+                    "WinScrolled",
+                    "CursorMoved",
+                })
+            end,
+        },
+        config = function(_, opts)
+            require("neoscroll").setup(opts)
+            local t = {}
+            t["<PageUp>"] = { "scroll", { "-vim.wo.scroll", "true", "250" } }
+            t["<PageDown>"] = { "scroll", {  "vim.wo.scroll", "true", "250" } }
+            require("neoscroll.config").set_mappings(t)
+        end,
+    },
+
     -- Icons, for neo-tree and others
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
