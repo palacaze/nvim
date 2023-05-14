@@ -465,6 +465,16 @@ return {
         end,
     },
 
+    {
+        "axieax/urlview.nvim",
+        keys = {
+            { "<Leader>u", "<Cmd>UrlView<CR>", desc = "View buffer URLs" },
+        },
+        opts = {
+            default_picker = "telescope",
+        },
+    },
+
     -- Icons, for neo-tree and others
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
