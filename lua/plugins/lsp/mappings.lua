@@ -133,7 +133,8 @@ function M.setup_native(client, bufnr)
     end
 
     if caps.documentFormattingProvider then
-        lmap({"n", "v"}, "<leader>ff", vim.lsp.buf.format, "Format code")
+        lmap({"n", "v"}, "<leader>lf", vim.lsp.buf.format, "Format code")
+        lmap({"n", "v"}, "<leader>F", vim.lsp.buf.format, "Format code")
     end
 
     if caps.hoverProvider then
@@ -235,7 +236,8 @@ function M.setup_lspsaga(client, bufnr)
     end
 
     if caps.documentFormattingProvider then
-        lmap({"n", "v"}, "<leader>ff", vim.lsp.buf.format, "Format code")
+        lmap({"n", "v"}, "<leader>lf", vim.lsp.buf.format, "Format code")
+        lmap({"n", "v"}, "<leader>F", vim.lsp.buf.format, "Format code")
     end
 
     if caps.hoverProvider then
