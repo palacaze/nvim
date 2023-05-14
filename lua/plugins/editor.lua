@@ -238,7 +238,7 @@ return {
     {
         "folke/which-key.nvim",
         opts = {
-            plugins = { spelling = true },
+            plugins = { spelling = false },
             defaults = {
                 b = { name = "Buffer" },
                 f = { name = "Find (Telescope)" },
