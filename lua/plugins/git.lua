@@ -4,12 +4,12 @@ return {
     {
         "sindrets/diffview.nvim",
         keys = {
-            { "<F11>", "<Cmd>DiffviewOpen<CR>", "Open projet diffview", mode = {"n", "i"} },
-            { "<S-F11>", "<Cmd>DiffviewClose<CR>", "Close diffview", mode = {"n", "i"} },
-            { "<Leader>gD", "<Cmd>DiffviewOpen<CR>", "Open projet diffview" },
-            { "<Leader>gd", "<Cmd>DiffviewOpen HEAD -- %<CR>", "Open buffer diffview", mode = {"n", "v"} },
-            { "<Leader>gH", "<Cmd>DiffviewFileHistory<CR>", "Open projet git history" },
-            { "<Leader>gh", "<Cmd>DiffviewFileHistory %<CR>", "Open buffer git history", mode = {"n", "v"} },
+            { "<F11>", "<Cmd>DiffviewOpen<CR>", desc = "Open projet diffview", mode = {"n", "i"} },
+            { "<S-F11>", "<Cmd>DiffviewClose<CR>", desc = "Close diffview", mode = {"n", "i"} },
+            { "<Leader>gD", "<Cmd>DiffviewOpen<CR>", desc = "Open projet diffview" },
+            { "<Leader>gd", "<Cmd>DiffviewOpen HEAD -- %<CR>", desc = "Open buffer diffview", mode = {"n", "v"} },
+            { "<Leader>gH", "<Cmd>DiffviewFileHistory<CR>", desc = "Open projet git history" },
+            { "<Leader>gh", "<Cmd>DiffviewFileHistory %<CR>", desc = "Open buffer git history", mode = {"n", "v"} },
         },
         cmd = {
             "DiffviewOpen",
