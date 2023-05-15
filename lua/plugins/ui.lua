@@ -174,7 +174,7 @@ return {
         event = "BufReadPre",
         opts = {
             hide = {
-                cursorline = true,
+                cursorline = false,
                 focused_win = false,
                 only_win = true,
             },

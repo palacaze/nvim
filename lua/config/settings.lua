@@ -25,7 +25,7 @@ opt.backupskip = { "/tmp/*", "$TMPDIR/*", "$TMP/*", "$TEMP/*" }
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noinsert,noselect"
 opt.conceallevel = 3
-opt.cursorline = true
+opt.cursorline = false
 opt.diffopt:append("linematch:60")
 opt.directory = swapdir
 opt.emoji = true
