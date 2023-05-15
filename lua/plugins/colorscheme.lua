@@ -63,8 +63,19 @@ return {
             terminalColors = true,       -- define vim.g.terminal_color_{0,17}
             colors = {                   -- add/modify theme and palette colors
                 palette = {},
-                theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+                theme = { wave = {}, lotus = {}, dragon = {}, all = { ui = { bg_gutter = "none" } } },
             },
+            overrides = function(colors)
+                return {
+                    -- custom colors for markup header levels
+                    ["@text.title.1"] = { fg = colors.palette.springGreen, bold = true },
+                    ["@text.title.2"] = { fg = colors.palette.lotusRed, bold = true },
+                    ["@text.title.3"] = { fg = colors.palette.crystalBlue, bold = true },
+                    ["@text.title.4"] = { fg = colors.palette.lotusOrange, bold = true },
+                    ["@text.title.5"] = { fg = colors.palette.lotusPink, bold = true },
+                    ["@text.title.6"] = { fg = colors.palette.oniViolet, bold = true },
+                }
+            end,
             theme = "wave",              -- Load "wave" theme when 'background' option is not set
             background = {               -- map the value of 'background' option to a theme
                 dark = "wave",           -- try "dragon" !

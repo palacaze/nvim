@@ -179,29 +179,6 @@ return {
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
 
-            -- Allow configuration of per title level highlights
-            extend_query("markdown", "highlights", [[
-                ((atx_heading (atx_h1_marker)) @TSMarkdownHeaderLevel1
-                 (#set! "priority" 110))
-                ((atx_heading (atx_h2_marker)) @TSMarkdownHeaderLevel2
-                 (#set! "priority" 110))
-                ((atx_heading (atx_h3_marker)) @TSMarkdownHeaderLevel3
-                (#set! "priority" 110))
-                ((atx_heading (atx_h4_marker)) @TSMarkdownHeaderLevel4
-                (#set! "priority" 110))
-                ((atx_heading (atx_h5_marker)) @TSMarkdownHeaderLevel5
-                (#set! "priority" 110))
-                ((atx_heading (atx_h6_marker)) @TSMarkdownHeaderLevel6
-                (#set! "priority" 110))
-            ]])
-
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel1", { link = "markdownH1" })
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel2", { link = "markdownH2" })
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel3", { link = "markdownH3" })
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel4", { link = "markdownH4" })
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel5", { link = "markdownH5" })
-            vim.api.nvim_set_hl(0, "@TSMarkdownHeaderLevel6", { link = "markdownH6" })
-
             -- Inject reST syntax highlighting into python docstrings
             extend_query("python", "injections", [[
                 ((call
