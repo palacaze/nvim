@@ -75,8 +75,9 @@ return {
                 }
             })
 
-            -- load snippets provided by friendly-snippets
+            -- load snippets provided by friendly-snippets and my snippets
             require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets"  } })
         end,
     },
 

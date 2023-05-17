@@ -1,0 +1,11 @@
+{
+    "name": "PAL Snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": "plantuml",
+                "path": "./plantuml.json"
+            }
+        ]
+    }
+}
