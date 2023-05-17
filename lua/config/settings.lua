@@ -157,3 +157,6 @@ g.gruvbox_plugin_hi_groups = 1
 
 g.markdown_recommended_style = 0
 
+g.puml_server = "http://localhost:8080"
+g.puml_viewer = "nomacs"
+g.puml_tmpdir = "/tmp/puml"
