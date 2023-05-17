@@ -478,7 +478,7 @@ return {
     {
         "karb94/neoscroll.nvim",
         opts = {
-            -- easing_function = "quadratic",
+            easing_function = "quadratic",
             stop_eof = false,
             -- Boost performance by firing less events
             pre_hook = function()
@@ -494,13 +494,6 @@ return {
                 })
             end,
         },
-        config = function(_, opts)
-            require("neoscroll").setup(opts)
-            local t = {}
-            t["<PageUp>"] = { "scroll", { "-vim.wo.scroll", "true", "250" } }
-            t["<PageDown>"] = { "scroll", {  "vim.wo.scroll", "true", "250" } }
-            require("neoscroll.config").set_mappings(t)
-        end,
     },
 
     -- Icons, for neo-tree and others
