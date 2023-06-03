@@ -127,70 +127,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- Stop plantuml previewing
-local function puml_update_preview_stop(bufnr)
-    local grp = vim.api.nvim_buf_get_var(bufnr, "puml_preview_augroup")
-    if grp then
-        vim.api.nvim_buf_del_var(bufnr, "puml_preview_augroup")
-        vim.api.nvim_del_augroup_by_id(grp)
-    end
-    local viewer_job = vim.api.nvim_buf_get_var(bufnr, "puml_viewer_job")
-    if viewer_job then
-        vim.api.nvim_buf_del_var(bufnr, "puml_viewer_job")
-        vim.fn.jobstop(viewer_job)
-    end
-    print("Plantuml previewer stopped")
-end
-
--- Start previewing a plantuml file in an image viewer
-local function puml_update_preview_start(bufnr)
-    local grp = vim.api.nvim_create_augroup("puml_preview_" .. bufnr, { clear = true })
-    local file = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(bufnr))
-    local out_dir = vim.g.puml_tmpdir or vim.fn.stdpath("cache")
-    local out_file = out_dir .. vim.fn.fnamemodify(file, ":p:t") .. ".svg"
-
-    -- First way, using classic GET method
-    -- puml_cmd = "curl http://localhost:8080/svg/$(cat " .. file .. " | zlib-flate -compress | base64 --wrap 0 | tr 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\\-_') > " .. svg_file
-    -- Lazy way, POSTING the file, allowing bigger data
-    local puml_cmd = string.format("curl --data-binary @'%s' %s/svg >| '%s' 2> /dev/null",
-                                   file,
-                                   vim.g.puml_server,
-                                   out_file)
-
-    vim.fn.mkdir(out_dir, "p")
-    vim.api.nvim_buf_set_var(0, "puml_preview_augroup", grp)
-
-    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        group = grp,
-        callback = function(_)
-            vim.fn.jobstart(puml_cmd)
-        end,
-    })
-    vim.api.nvim_create_autocmd({ "BufDelete" }, {
-        group = grp,
-        buffer = bufnr,
-        callback = function(_)
-            puml_update_preview_stop(bufnr)
-        end
-    })
-
-    -- generate the image immediately and open the result in an viewer
-    vim.fn.jobstart(puml_cmd, {
-        on_exit = function()
-            local viewer_id = vim.fn.jobstart({vim.g.puml_viewer, out_file })
-            vim.api.nvim_buf_set_var(bufnr, "puml_viewer_job", viewer_id)
-        end
-    })
-
-    print("Plantuml previewer started")
-end
-
--- Toggle previsualization of a plantuml file in an image viewer
-vim.api.nvim_create_user_command('PumlToggle', function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    if vim.b.puml_preview_augroup then
-        puml_update_preview_stop(bufnr)
-    else
-        puml_update_preview_start(bufnr)
-    end
-end, {})
+require("config.puml").setup({
+    format = "svg",
+    viewer = "nomacs",
+    tempdir = "/tmp",
+    generator = "server",
+    server = vim.g.puml_server,
+})
