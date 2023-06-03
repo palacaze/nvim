@@ -113,7 +113,7 @@ return {
             },
             conceal = {
                 enable = true,
-                disable = { "json" },
+                disable = { "json", "markdown" },
             },
             context_commentstring = {
                 enable = true,
