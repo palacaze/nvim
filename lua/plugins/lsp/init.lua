@@ -64,7 +64,7 @@ local function on_attach(attached_func)
         callback = function(args)
             local buffer = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            attached_func(client, buffer)
+            return attached_func(client, buffer) or false
         end,
     })
 end
@@ -183,18 +183,23 @@ return {
     -- LSP helper plugins
     {
         "ray-x/lsp_signature.nvim",
-        event = "LspAttach",
-        opts = {
-            bind = true,
-            fix_pos = false,
-            floating_window = false,
-            floating_window_above_cur_line = true,
-            hint_enable = false,
-            always_trigger = false,
-            transparency = 0,
-            toggle_key = "<M-k>",
-            select_signature_key = "<M-n>",
-        },
+        lazy = true,
+        init = function()
+            on_attach(function(_, bufnr)
+                require("lsp_signature").on_attach({
+                    bind = true,
+                    fix_pos = false,
+                    floating_window = false,
+                    floating_window_above_cur_line = true,
+                    hint_enable = false,
+                    always_trigger = false,
+                    transparency = 0,
+                    toggle_key = "<M-k>",
+                    toggle_key_flip_floatwin_setting = true,
+                    select_signature_key = "<M-n>",
+                }, bufnr)
+            end)
+        end
     },
 
     -- Server progress information
