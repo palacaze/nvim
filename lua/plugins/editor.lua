@@ -559,7 +559,7 @@ return {
                 hsl_fn = true,
                 css = false,
                 css_fn = true,
-                mode = "virtualtext",
+                mode = "background",
                 virtualtext = "",
             },
         },
