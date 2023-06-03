@@ -445,10 +445,12 @@ return {
         "phaazon/hop.nvim",
         branch = "v2",
         keys = {
-            { "f", function() require("hop").hint_char1() end, desc = "Hop 1 char", mode = { "n", "x", "o" } },
-            { "F", function() require("hop").hint_char2() end, desc = "Hop 2 chars", mode = { "n", "x", "o" } },
-            { "t", function() require("hop").hint_lines_skip_whitespace() end, desc = "Hop to line", mode = { "n", "x", "o" } },
-            { "T", function() require("hop").hint_words() end, desc = "Hop to word", mode = { "n", "x", "o" } },
+            { "é", "<Cmd>HopWord<CR>", desc = "Hop to word", mode = { "n", "v", "o" } },
+            { "è", "<Cmd>HopWordMW<CR>", desc = "Hop to word Multi-Window", mode = { "n", "v", "o" } },
+            { "t", "<Cmd>HopLineStart<CR>", desc = "Hop to line", mode = { "n", "v", "o" } },
+            { "T", "<Cmd>HopLineStartMW<CR>", desc = "Hop to line Multi-Window", mode = { "n", "v", "o" } },
+            { "f", "<Cmd>HopChar1CurrentLineAC<CR>", desc = "Hop to char after cursor", mode = { "n", "v", "o" } },
+            { "F", "<Cmd>HopChar1CurrentLineBC<CR>", desc = "Hop to char before cursor", mode = { "n", "v", "o" } },
         },
         opts = {
             keys = "ecitusarnmovpdélbjkqxgyhàf",
