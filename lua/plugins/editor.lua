@@ -562,6 +562,14 @@ return {
         },
     },
 
+    -- Surround stuff
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        config = true,
+    },
+
     -- Bionic Reading
     {
         "nullchilly/fsread.nvim",
