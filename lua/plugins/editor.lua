@@ -315,10 +315,11 @@ return {
                 "treesitter",
                 "regex",
             },
-            delay = 200,
+            delay = 500,
             filetypes_denylist = {
                 "alpha",
                 "dashboard",
+                "DiffviewFiles",
                 "dirvish",
                 "DoomInfo",
                 "DressingSelect",
@@ -328,6 +329,7 @@ return {
                 "lsgsagaoutline",
                 "markdown",
                 "neogitstatus",
+                "neo-tree",
                 "norg",
                 "NvimTree",
                 "Outline",
@@ -337,7 +339,8 @@ return {
                 "toggleterm",
                 "Trouble",
             },
-            under_cursor = true,
+            under_cursor = false,
+            min_count_to_highlight = 2,
         },
         config = function(_, opts)
             require("illuminate").configure(opts)
