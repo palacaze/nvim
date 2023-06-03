@@ -28,15 +28,20 @@ end
 
 -- Toggle diagnostics
 local function toggle_diagnostics()
-    if vim.b.diagnostics_enabled == nil then
-        vim.b.diagnostics_enabled = true
-    end
-
-    vim.b.diagnostics_enabled = not vim.b.diagnostics_enabled
-    if vim.b.diagnostics_enabled then
-        vim.diagnostic.enable()
+    if vim.diagnostic.is_disabled(0) then
+        vim.diagnostic.enable(0)
     else
-        vim.diagnostic.disable()
+        vim.diagnostic.disable(0)
+    end
+end
+
+-- Toggle diagnostics
+local function toggle_virtual_diagnostics()
+    local cfg = vim.diagnostic.config()
+    if cfg.virtual_text and cfg.virtual_text == true then
+        vim.diagnostic.config({ virtual_text = false })
+    else
+        vim.diagnostic.config({ virtual_text = true })
     end
 end
 
@@ -61,6 +66,7 @@ function M.setup_native(client, bufnr)
     lmap("n", "<M-d>", vim.diagnostic.open_float, "Hover diagnostics")
     lmap("n", "<leader>lq", vim.diagnostic.setloclist, "Fill loclist with diagnostics")
     lmap("n", "<leader>lt", toggle_diagnostics, "Toggle diagnostics")
+    lmap("n", "<leader>lT", toggle_virtual_diagnostics, "Toggle virtual diagnostics")
 
     if caps.declarationProvider then
         lmap("n", "gD", vim.lsp.buf.declaration, "Go to symbol declaration")
@@ -178,6 +184,7 @@ function M.setup_lspsaga(client, bufnr)
     lmap("n", "<M-d>", "<Cmd>Lspsaga show_line_diagnostics<CR>", "Hover diagnostics")
     lmap("n", "<leader>lq", vim.diagnostic.setloclist, "Fill loclist with diagnostics")
     lmap("n", "<leader>lt", toggle_diagnostics, "Toggle diagnostics")
+    lmap("n", "<leader>lT", toggle_virtual_diagnostics, "Toggle virtual diagnostics")
 
     if caps.declarationProvider then
         lmap("n", "gD", vim.lsp.buf.declaration, "Go to symbol declaration")
