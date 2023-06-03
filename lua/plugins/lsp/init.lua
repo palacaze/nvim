@@ -174,11 +174,6 @@ return {
 
                     b.diagnostics.markdownlint,
                     b.diagnostics.shellcheck,
-                    b.diagnostics.selene.with({
-                        condition = function(utils)
-                            return utils.root_has_file({ "selene.toml" })
-                        end,
-                    }),
                     b.diagnostics.flake8,
                 },
             }
