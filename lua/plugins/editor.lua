@@ -410,7 +410,7 @@ return {
                 end,
             })
 
-            vim.api.nvim_create_autocmd("BufRead", {
+            vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
                 pattern = "*",
                 group = gid,
                 callback = function()

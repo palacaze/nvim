@@ -3,8 +3,9 @@ return {
     -- A buffer line
     {
         "romgrk/barbar.nvim",
-        dependencies = { "gitsigns.nvim" },
-        event = "VimEnter",
+        dependencies = { "gitsigns.nvim", "nvim-web-devicons" },
+        lazy = true,
+        event = {"BufNewFile", "BufReadPost", "SessionLoadPost", "TabEnter"},
         keys = {
             {"<A-Left>", "<Cmd>BufferPrevious<CR>", desc = "Go to previous buffer", mode = {"n", "i", "t"} },
             {"<A-Right>", "<Cmd>BufferNext<CR>", desc = "Go to next buffer", mode = {"n", "i", "t"} },
@@ -52,6 +53,7 @@ return {
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
+        event = "UIEnter",
         init = function()
             -- Detect trailing spaces and mixed indent on file saving
             vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
@@ -171,7 +173,8 @@ return {
     -- Window names with global statusbar
     {
         "b0o/incline.nvim",
-        event = "BufReadPre",
+        enabled = false,
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             hide = {
                 cursorline = false,
@@ -197,7 +200,7 @@ return {
     {
         "petertriho/nvim-scrollbar",
         dependencies = { "nvim-hlslens" },
-        event = "BufReadPost",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             excluded_filetypes = {
                 "alpha",

@@ -30,6 +30,7 @@ return {
     -- Sphinx / reST support
     {
         "stsewd/sphinx.nvim",
+        ft = { "python", "rst" },
         build = ":UpdateRemotePlugins"
     },
 
@@ -46,9 +47,18 @@ return {
     },
 
     -- PlantUML stuff
-    { "aklt/plantuml-syntax" },
-    { "tyru/open-browser.vim" },
-    { "weirongxu/plantuml-previewer.vim" },
+    {
+        "aklt/plantuml-syntax",
+        ft = { "plantuml", "markdown" },
+    },
+    {
+        "tyru/open-browser.vim",
+        lazy = true,
+    },
+    {
+        "weirongxu/plantuml-previewer.vim",
+        ft = { "plantuml", "markdown" },
+    },
 
     {
         "iamcco/markdown-preview.nvim",
