@@ -194,6 +194,10 @@ return {
                     entries = { name = "custom", selection_order = "near_cursor" },
                 },
                 experimental = { ghost_text = false },
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
                 formatting = {
                     format = function(entry, vim_item)
                         -- Kind icons
