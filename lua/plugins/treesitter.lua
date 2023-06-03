@@ -34,8 +34,12 @@ return {
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         keys = {
-            { "<CR>", desc = "Increment selection" },
-            { "<BS>", desc = "Decrement selection", mode = "x" },
+            { "<CR>", desc = "Increment selection", mode = { "o", "x" } },
+            { "<BS>", desc = "Decrement selection", mode = { "o", "x" } },
+            { ".", desc = "Smart select (textsubject)", mode = { "o", "x" } },
+            { ";", desc = "Select outer (textsubject)", mode = { "o", "x" } },
+            { "i;", desc = "Select inner (textsubject)", mode = { "o", "x" } },
+            { ",", desc = "Previous selection (textsubject)", mode = { "o", "x" } },
         },
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
