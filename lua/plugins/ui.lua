@@ -69,7 +69,7 @@ return {
             options = {
                 component_separators = "",
                 section_separators = "",
-                globalstatus = true,
+                globalstatus = false,
                 icons_enabled = true,
                 theme = "auto",
                 disabled_filetypes = { statusline = { "dashboard", "alpha" } },
