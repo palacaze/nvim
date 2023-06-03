@@ -562,6 +562,17 @@ return {
         },
     },
 
+    -- Bionic Reading
+    {
+        "nullchilly/fsread.nvim",
+        cmd = { "FSRead", "FSClear", "FSToggle" },
+        config = function()
+            vim.g.flow_strengh = 0.5
+            vim.api.nvim_set_hl(0, "FSPrefix", { fg = "#d8d0A3", bold = true })
+            vim.api.nvim_set_hl(0, "FSSuffix", { fg = "#A2A199", bold = false })
+        end,
+    },
+
     -- Repeat commands
     { "tpope/vim-repeat" },
 
