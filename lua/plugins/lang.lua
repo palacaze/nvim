@@ -66,6 +66,9 @@ return {
         build = "cd app && npm install",
         init = function()
             vim.g.mkdp_filetypes = { "markdown", "plantuml" }
+            vim.g.mkdp_preview_options = vim.empty_dict()
+            vim.g.mkdp_preview_options.uml = { imageFormat = "svg", server = vim.g.puml_server }
+            -- vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/mkdp.css"
         end,
     },
 
