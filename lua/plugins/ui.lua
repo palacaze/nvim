@@ -350,7 +350,9 @@ return {
             { "<F12>", desc = "Run lazygit in a floating terminal", mode = { "n", "t" } },
             { "<Leader>Tp", desc = "Run python3 in a terminal" },
             { "<S-F1>", desc = "Send current line to terminal", mode = { "n", "i" } },
+            { "<F13>", desc = "Send current line to terminal", mode = { "n", "i" } },
             { "<S-F1>", desc = "Send selection to terminal", mode = "v" },
+            { "<F13>", desc = "Send selection to terminal", mode = "v" },
         },
         opts = {
             open_mapping = "<F1>",
@@ -410,7 +412,9 @@ return {
             u.map({"n", "t"}, "<F12>", toggle_lazygit, "Run lazygit in a floating terminal")
             u.map_n("<Leader>Tp", toggle_python, "Run python3 in a terminal")
             u.map_ni("<S-F1>", "<Cmd>ToggleTermSendCurrentLine<CR>", "Send current line to terminal")
+            u.map_ni("<F13>", "<Cmd>ToggleTermSendCurrentLine<CR>", "Send current line to terminal")
             u.map_v("<S-F1>", "<Cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal")
+            u.map_v("<F13>", "<Cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal")
         end,
 
     },

@@ -54,7 +54,9 @@ function M.setup_native(client, bufnr)
     end
 
     lmap("n", "<S-F2>", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    lmap("n", "<F14>", vim.diagnostic.goto_prev, "Go to previous diagnostic")
     lmap("n", "<S-F3>", vim.diagnostic.goto_next, "Go to next diagnostic")
+    lmap("n", "<F15>", vim.diagnostic.goto_next, "Go to next diagnostic")
 
     lmap("n", "<M-d>", vim.diagnostic.open_float, "Hover diagnostics")
     lmap("n", "<leader>lq", vim.diagnostic.setloclist, "Fill loclist with diagnostics")

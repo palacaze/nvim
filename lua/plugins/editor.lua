@@ -107,6 +107,7 @@ return {
             { "<Leader><Space>", telescope("files"), desc = "Find files (root dir)" },
 
             { "<S-F6>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
+            { "<F18>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<Leader>fb", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<Leader>fB", "<Cmd>Telescope file_browser path=%:p:h<CR>", desc = "Browse Files (file dir)" },
             { "<F6>", telescope("files"), desc = "Find files (root dir)", mode = {"n", "i"} },
@@ -435,6 +436,7 @@ return {
         cmd = { "UndotreeToggle" },
         keys = {
             { "<S-F4>", "<Cmd>UndotreeToggle<CR>", desc = "Toggle Undo tree", mode = {"n", "i"} },
+            { "<F16>", "<Cmd>UndotreeToggle<CR>", desc = "Toggle Undo tree", mode = {"n", "i"} },
         },
     },
 
