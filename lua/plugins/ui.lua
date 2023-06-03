@@ -25,10 +25,10 @@ return {
             tabpages = true,
             closable = true,
             icons = {
-                button = "",
+                button = false, -- "󰅖",
                 separator = { left = "▎" },
                 modified = { button = "●", },
-                pinned = { button = "車", },
+                pinned = { button = "󰐃", },
                 filetype = { enabled = true },
                 diagnostics = {
                     { enabled = false }, -- ERROR
@@ -85,9 +85,9 @@ return {
                             if vim.wo.spell then
                                 local lang = vim.bo.spelllang
                                 if lang ~= "" then
-                                    return "暈" .. lang
+                                    return "󰓆 " .. lang
                                 end
-                                return "暈"
+                                return "󰓆 "
                             end
                             return ""
                         end,
@@ -271,7 +271,7 @@ return {
                 icon = {
                     folder_closed = "",
                     folder_open   = "",
-                    folder_empty  = "ﰊ",
+                    folder_empty  = "󰜌",
                 },
                 name = {
                     trailing_slash = true,
@@ -281,13 +281,13 @@ return {
                     symbols = {
                         added     = "",
                         modified  = "",
-                        deleted   = "",
-                        renamed   = "",
-                        untracked = "留",
-                        ignored   = "∅",
-                        unstaged  = "✗",
-                        staged    = "✓",
-                        conflict  = "",
+                        deleted   = "󰆴",
+                        renamed   = "󰁕",
+                        untracked = "󱇬",
+                        ignored   = "󰟢",
+                        unstaged  = "󱎘",
+                        staged    = "󰄬",
+                        conflict  = "󰘬",
                     },
                 },
             },
