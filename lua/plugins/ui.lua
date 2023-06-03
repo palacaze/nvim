@@ -19,7 +19,9 @@ return {
             { "<Leader>bl", "<Cmd>BufferOrderByLanguage<CR>", desc = "Order buffers by language" },
             { "<Leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", desc = "Order buffers by window number" },
         },
-        init = function() vim.g.barbar_auto_setup = false end,
+        init = function()
+            vim.g.barbar_auto_setup = false
+        end,
         opts = {
             animation = false,
             auto_hide = true,
@@ -44,7 +46,7 @@ return {
             highlight_alternate = false,
             highlight_visible = true,
             sidebar_filenames = {
-                ['neo-tree'] = {event = 'BufWipeout'},
+                ["neo-tree"] = {event = "BufWipeout"},
             },
             letters = "ecitusaranmovpdélbjzkqxgyhàfECITUSARANMOVPDÉLBJZKQXGYHÀF",
         },
@@ -472,6 +474,7 @@ return {
         end,
     },
 
+    -- Get a list of URLs to pick from
     {
         "axieax/urlview.nvim",
         keys = {
@@ -482,6 +485,7 @@ return {
         },
     },
 
+    -- Smooth scrolling
     {
         "karb94/neoscroll.nvim",
         opts = {
