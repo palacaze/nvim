@@ -123,6 +123,81 @@ local defaults = {
 
 M.options = {}
 
+local function make_preview_command(opts)
+    -- Plantuml command
+    if opts.generator == "command" then
+        return string.format("%s -t%s -o '%s' '%s'", opts.command, opts.format, opts.out_dir, opts.file)
+    end
+
+    -- POSTING the file using curl
+    if not M.http_post_unavailable then
+        return string.format("curl -X POST -s -o '%s' -w '%%{http_code}' --data-binary @'%s' %s/%s",
+                             opts.out_file, opts.file, opts.server, opts.format)
+    end
+    -- GET method
+    local encoded = puml_b64encode(z_deflate_buf(opts.bufnr))
+    return string.format("curl -s -o '%s' -w '%%{http_code}' '%s/%s/%s'",
+                         opts.out_file, opts.server, opts.format, encoded)
+end
+
+-- Start up the image viewer
+local function start_viewer(image_ok, opts)
+    if image_ok then
+        local viewer_id = vim.fn.jobstart({ opts.viewer, opts.out_file })
+        vim.api.nvim_buf_set_var(opts.bufnr, "puml_viewer_job", viewer_id)
+        print(string.format("Plantuml previewer started at %s", opts.out_file))
+    end
+end
+
+-- Start a preview job
+-- continuation is a function taking a bool (true on generation success) and opts
+local function generate_preview(opts, continuation)
+    local cmd = make_preview_command(opts)
+    local out_chunks = { "" }
+    -- generate the image immediately and open the result in an viewer
+    vim.fn.jobstart(cmd, {
+        stdout_buffered = true,
+        on_stdout = function(_, output, _)
+            for _, x in pairs(output) do
+                out_chunks[#out_chunks+1] = x
+            end
+        end,
+        on_exit = function(_, exit_code, _)
+            local out_text = table.concat(out_chunks)
+            vim.print(string.format("Got text: %s", out_text))
+            -- signal failure
+            if exit_code ~= 0 then
+                vim.print(string.format("Plantuml preview generation failed with code: %d", exit_code))
+                vim.print(string.format("Ouput: %s", out_text))
+            end
+
+            -- if POSTing was attempted and failed, deactivate POST
+            local was_posting = M.http_post_unavailable == false and opts.generator ~= "command"
+            if was_posting then
+                local http_code = tonumber(out_text)
+                if not http_code or (http_code and http_code ~= 200) then
+                    vim.print("seems like POST did not work, deactivate it and try again")
+                    M.http_post_unavailable = true
+                end
+            end
+
+            -- Empty file and posting, try again
+            local stat = vim.loop.fs_stat(opts.out_file)
+            local image_ok = stat and stat.size > 0
+            if not image_ok then
+                if was_posting then
+                    generate_preview(opts, continuation)
+                    return
+                end
+            end
+
+            if continuation then
+                continuation(image_ok, opts)
+            end
+        end
+    })
+end
+
 -- Stop plantuml previewing
 function M.stop_preview(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
@@ -132,6 +207,7 @@ function M.stop_preview(bufnr)
         vim.api.nvim_buf_del_var(bufnr, "puml_preview_augroup")
         vim.api.nvim_del_augroup_by_id(grp)
     end
+
     if vim.b[bufnr].puml_viewer_job then
        local viewer_job = vim.b[bufnr].puml_viewer_job
         vim.api.nvim_buf_del_var(bufnr, "puml_viewer_job")
@@ -144,63 +220,37 @@ end
 -- Start previewing a plantuml file in an image viewer
 function M.start_preview(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
-
-    local fmt = M.options.format
+    local format = M.options.format
     local grp = vim.api.nvim_create_augroup("puml_preview_" .. bufnr, { clear = true })
     local file = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(bufnr)) or string.format("buffer%d", bufnr)
     local out_dir = vim.fs.normalize(M.options.tempdir .. "/puml_preview")
-    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, vim.fs.basename(file),  fmt))
+    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, vim.fs.basename(file),  format))
+
+    local opts = vim.tbl_deep_extend("force", M.options, {
+        bufnr = bufnr,
+        format = format,
+        grp = grp,
+        file = file,
+        out_dir = out_dir,
+        out_file = out_file,
+    })
+
+    -- Reset attempt to POST
     M.http_post_unavailable = false
-
-    local function make_cmd(opts)
-        -- Plantuml command
-        if opts.generator == "command" then
-            return string.format("%s -t%s -o '%s' '%s'", opts.command, fmt, out_dir, file)
-        end
-
-        -- POSTING the file using curl
-        if not M.http_post_unavailable then
-            return string.format("curl -X POST -s -o '%s' -w '%%{http_code}' --data-binary @'%s' %s/%s",
-                                 out_file, file, opts.server, fmt)
-        end
-        -- GET method
-        local encoded = puml_b64encode(z_deflate_buf(bufnr))
-        return string.format("curl -s -o '%s' -w '%%{http_code}' '%s/%s/%s'",
-                             out_file, opts.server, fmt, encoded)
-    end
 
     vim.fn.mkdir(out_dir, "p")
     vim.api.nvim_buf_set_var(bufnr, "puml_preview_augroup", grp)
 
+    -- Regenerate preview whenever the buffer gets written
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         group = grp,
         buffer = bufnr,
         callback = function()
-            local cmd = make_cmd(M.options)
-            vim.fn.jobstart(cmd, {
-                stdout_buffered = true,
-                generator = M.options.generator,
-                out_text = { "" },
-                -- on_stdout = function(_, output, _)
-                --     self.out_text:append(output)
-                -- end,
-                on_exit = function(_, exit_code, _)
-                    -- local out_text = table.concat(self.out_text)
-                    if exit_code ~= 0 then
-                        vim.print("Plantuml preview generation failed with code: %d", exit_code)
-                        -- vim.print("Ouput: %s", out_text)
-                    end
-                    -- if M.options.generator ~= "command" then
-                        -- local http_code = tonumber(out_text)
-                        -- if http_code and http_code ~= 200 then
-                            -- vim.print("PlantUML server responded with error: %d", http_code)
-                        -- end
-                    -- end
-                end
-            })
+            generate_preview(opts)
         end,
     })
 
+    -- Stop preview on buffer deletion
     vim.api.nvim_create_autocmd({ "BufDelete" }, {
         group = grp,
         buffer = bufnr,
@@ -209,44 +259,8 @@ function M.start_preview(bufnr)
         end,
     })
 
-    local function start_viewer()
-        local viewer_id = vim.fn.jobstart({ M.options.viewer, out_file })
-        vim.api.nvim_buf_set_var(bufnr, "puml_viewer_job", viewer_id)
-        print(string.format("Plantuml previewer started at %s", out_file))
-    end
-
-    -- generate the image immediately and open the result in an viewer
-    vim.fn.jobstart(make_cmd(M.options), {
-        stdout_buffered = true,
-        generator = M.options.generator,
-        out_text = { "" },
-        -- on_stdout = function(_, output, _)
-            -- self.out_text:append(output)
-        -- end,
-        on_exit = function(_, exit_code, _)
-            -- local out_text = table.concat(self.out_text)
-            if exit_code ~= 0 then
-                vim.print("Plantuml preview generation failed with code: %d", exit_code)
-                -- vim.print("Ouput: %s", out_text)
-            end
-            -- if self.generator ~= "command" then
-            --     local http_code = tonumber(out_text)
-            --     if http_code and http_code ~= 200 then
-            --         vim.print("seems like POST did not work, deactivate it and try again")
-            --         M.http_post_unavailable = true
-            --     end
-            -- end
-            local stat = vim.loop.fs_stat(out_file)
-            if (not stat) or stat.size == 0 then
-                M.http_post_unavailable = true
-                vim.fn.jobstart(make_cmd(M.options), {
-                    on_exit = start_viewer,
-                })
-            else
-                start_viewer()
-            end
-        end
-    })
+    -- Generate the image immediately and open the result in an viewer
+    generate_preview(opts, start_viewer)
 end
 
 -- Toggle previsualization of a plantuml file in an image viewer
@@ -259,7 +273,7 @@ vim.api.nvim_create_user_command('PumlToggle', function()
     end
 end, {})
 
-
+-- Setup the plugin
 function M.setup(options)
     M.options = vim.tbl_deep_extend("force", {}, defaults, options or {})
 end
