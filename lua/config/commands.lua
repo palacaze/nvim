@@ -33,6 +33,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+-- No spell in Terms
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = gid,
+    pattern = "*",
+    callback = function()
+        vim.opt_local.spell = false
+    end,
+})
+
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = gid,
