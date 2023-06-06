@@ -169,6 +169,7 @@ return {
                     "--smart-case",
                     "--trim",
                 },
+                file_ignore_patterns = { "^cmake/vcpkg/" },
                 prompt_prefix = " 🔍  ",
                 initial_mode = "insert",
                 selection_strategy = "reset",
