@@ -304,8 +304,8 @@ return {
                         nowait = false,
                     },
                     ["o"] = "open",
-                    ["<Left>"] = "prev_source",
-                    ["<Right>"] = "next_source",
+                    ["<C-Left>"] = "prev_source",
+                    ["<C-Right>"] = "next_source",
                     ["<C-v>"] = "open_vsplit",
                     ['<tab>'] = function (state)
                         local node = state.tree:get_node()
