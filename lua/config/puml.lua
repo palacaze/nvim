@@ -220,15 +220,19 @@ end
 -- Start previewing a plantuml file in an image viewer
 function M.start_preview(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
-    local format = M.options.format
-    local grp = vim.api.nvim_create_augroup("puml_preview_" .. bufnr, { clear = true })
-    local file = vim.loop.fs_realpath(vim.api.nvim_buf_get_name(bufnr)) or string.format("buffer%d", bufnr)
+    local file = vim.loop.fs_realpath(vim.fn.expand(vim.api.nvim_buf_get_name(bufnr), true))
+
+    if not file then
+        vim.print("Cannot preview unnamed buffer")
+        return
+    end
+
     local out_dir = vim.fs.normalize(M.options.tempdir .. "/puml_preview")
-    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, vim.fs.basename(file),  format))
+    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, vim.fs.basename(file), M.options.format))
+    local grp = vim.api.nvim_create_augroup("puml_preview_" .. bufnr, { clear = true })
 
     local opts = vim.tbl_deep_extend("force", M.options, {
         bufnr = bufnr,
-        format = format,
         grp = grp,
         file = file,
         out_dir = out_dir,
