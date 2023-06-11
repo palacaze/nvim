@@ -576,12 +576,12 @@ return {
         "phaazon/hop.nvim",
         branch = "v2",
         keys = {
-            { "é", "<Cmd>HopWord<CR>", desc = "Hop to word", mode = { "n", "v", "o" } },
-            { "è", "<Cmd>HopWordMW<CR>", desc = "Hop to word Multi-Window", mode = { "n", "v", "o" } },
-            { "t", "<Cmd>HopLineStart<CR>", desc = "Hop to line", mode = { "n", "v", "o" } },
-            { "T", "<Cmd>HopLineStartMW<CR>", desc = "Hop to line Multi-Window", mode = { "n", "v", "o" } },
-            { "f", "<Cmd>HopChar1CurrentLineAC<CR>", desc = "Hop to char after cursor", mode = { "n", "v", "o" } },
-            { "F", "<Cmd>HopChar1CurrentLineBC<CR>", desc = "Hop to char before cursor", mode = { "n", "v", "o" } },
+            { "é", "<Cmd>HopWord<CR>", desc = "Hop to word", mode = { "n", "x", "o" } },
+            { "è", "<Cmd>HopWordMW<CR>", desc = "Hop to word Multi-Window", mode = { "n", "x", "o" } },
+            { "t", "<Cmd>HopLineStart<CR>", desc = "Hop to line", mode = { "n", "x", "o" } },
+            { "T", "<Cmd>HopLineStartMW<CR>", desc = "Hop to line Multi-Window", mode = { "n", "x", "o" } },
+            { "f", "<Cmd>HopChar1CurrentLineAC<CR>", desc = "Hop to char after cursor", mode = { "n", "x", "o" } },
+            { "F", "<Cmd>HopChar1CurrentLineBC<CR>", desc = "Hop to char before cursor", mode = { "n", "x", "o" } },
         },
         opts = {
             keys = "ecitusarnmovpdélbjkqxgyhàf",
