@@ -77,7 +77,7 @@ if not u.has_mapping("<A-Left", "n") then
 end
 
 -- Terminal navigation
-u.map_t("<C-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
+u.map_t("<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
 
 -- F keys
 
