@@ -444,11 +444,11 @@ return {
                 [[██   ████ ███████  ██████    ████   ██ ██      ██]]
             }
             dashboard.section.buttons.val = {
-                dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-                dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-                dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-                dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+                dashboard.button("f", " " .. " Find file", "<Cmd>FzfLua find_files<CR>"),
+                dashboard.button("n", " " .. " New file", ":silent enew <BAR> startinsert<CR>"),
+                dashboard.button("r", " " .. " Recent files", "<Cmd>FzfLua oldfiles<CR>"),
+                dashboard.button("g", " " .. " Find text", "<Cmd>FzfLua live_grep<CR>"),
+                dashboard.button("c", " " .. " Config", ":e $MYVIMRC<CR>"),
                 dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
                 dashboard.button("q", " " .. " Quit", ":qa<CR>"),
             }
@@ -483,11 +483,13 @@ return {
     -- Get a list of URLs to pick from
     {
         "axieax/urlview.nvim",
+        dependencies = { "fzf-lua" },
+        cmd = { "UrlView" },
         keys = {
             { "<Leader>u", "<Cmd>UrlView<CR>", desc = "View buffer URLs" },
         },
         opts = {
-            default_picker = "telescope",
+            default_picker = "native",
         },
     },
 

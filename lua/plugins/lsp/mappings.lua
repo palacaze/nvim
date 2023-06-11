@@ -45,8 +45,27 @@ local function toggle_virtual_diagnostics()
     end
 end
 
+-- Use a picker to display results
+local function pick(method)
+    local with_fzf, fzflua = pcall(require, "fzf-lua")
+    if with_fzf then
+        return function()
+            fzflua[method](--[[ { winopts = { width = 0.5, height = 0.5 }} ]])
+        end
+    end
+
+    local tel = require("telescope.builtin")
+    return function()
+        local theme = require("telescope.theme").get_cursor()
+        tel[method](theme)
+    end
+end
+
 function M.setup_native(client, bufnr)
-    local telescope_ok, tel_builtin = pcall(require, "telescope.builtin")
+    local with_picker, picker = pcall(require, "fzf-lua")
+    if not with_picker then
+        with_picker, picker = pcall(require, "telescope.builtin")
+    end
     local caps = client.server_capabilities
 
     -- Mappings
@@ -73,17 +92,17 @@ function M.setup_native(client, bufnr)
     end
 
     if caps.definitionProvider then
-        if telescope_ok then
-            lmap("n", "gd", tel_builtin.lsp_definitions, "Go to symbol definition")
+        if with_picker then
+            lmap("n", "gd", pick("lsp_definitions"), "Go to symbol definition")
         else
             lmap("n", "gd", vim.lsp.buf.definition, "Go to symbol definition")
         end
     end
 
     if caps.referencesProvider then
-        if telescope_ok then
-            lmap("n", "gr", tel_builtin.lsp_references, "Find references to symbol")
-            lmap("n", "<leader>lR", tel_builtin.lsp_references, "Find references to symbol")
+        if with_picker then
+            lmap("n", "gr", pick("lsp_references"), "Find references to symbol")
+            lmap("n", "<leader>lR", pick("lsp_references"), "Find references to symbol")
         else
             lmap("n", "gr", vim.lsp.buf.references, "Find references to symbol")
             lmap("n", "<leader>lR", vim.lsp.buf.references, "Find references to symbol")
@@ -95,8 +114,8 @@ function M.setup_native(client, bufnr)
     end
 
     if caps.implementationProvider then
-        if telescope_ok then
-            lmap("n", "gi", tel_builtin.lsp_implementations, "List Implementations")
+        if with_picker then
+            lmap("n", "gi", pick("lsp_implementations"), "List Implementations")
         else
             lmap("n", "gi", vim.lsp.buf.implementation, "List Implementations")
         end
@@ -107,9 +126,9 @@ function M.setup_native(client, bufnr)
     end
 
     if caps.callHierarchyProvider then
-        if telescope_ok then
-            lmap("n", "<leader>lI", tel_builtin.lsp_incoming_calls, "Incoming calls")
-            lmap("n", "<leader>lO", tel_builtin.lsp_outgoing_calls, "Outgoing calls")
+        if with_picker then
+            lmap("n", "<leader>lI", pick("lsp_incoming_calls"), "Incoming calls")
+            lmap("n", "<leader>lO", pick("lsp_outgoing_calls"), "Outgoing calls")
         else
             lmap("n", "<leader>lI", vim.lsp.buf.incoming_calls, "Incoming calls")
             lmap("n", "<leader>lO", vim.lsp.buf.outgoing_calls, "Outgoing calls")
@@ -117,16 +136,16 @@ function M.setup_native(client, bufnr)
     end
 
     if caps.documentSymbolProvider then
-        if telescope_ok then
-            lmap("n", "<leader>ls", tel_builtin.lsp_document_symbols, "Document symbols")
+        if with_picker then
+            lmap("n", "<leader>ls", pick("lsp_document_symbols"), "Document symbols")
         else
             lmap("n", "<leader>ls", vim.lsp.buf.document_symbol, "Document symbol")
         end
     end
 
     if caps.workspaceSymbolProvider then
-        if telescope_ok then
-            lmap("n", "<leader>lS", tel_builtin.lsp_workspace_symbols, "Workspace symbols")
+        if with_picker then
+            lmap("n", "<leader>lS", pick("lsp_workspace_symbols"), "Workspace symbols")
         else
             lmap("n", "<leader>lS", vim.lsp.buf.workspace_symbol, "Workspace symbols")
         end
@@ -156,7 +175,7 @@ end
 
 -- create LSP key mappings for the given buffer and lspsaga.lua
 function M.setup_lspsaga(client, bufnr)
-    local telescope_ok, tel_builtin = pcall(require, "telescope.builtin")
+    local with_picker, picker = pcall(require, "telescope.builtin")
     local caps = client.server_capabilities
 
     -- Mappings
@@ -204,8 +223,8 @@ function M.setup_lspsaga(client, bufnr)
     end
 
     if caps.implementationProvider then
-        if telescope_ok then
-            lmap("n", "gi", tel_builtin.lsp_implementations, "List Implementations")
+        if with_picker then
+            lmap("n", "gi", pick("lsp_implementations"), "List Implementations")
         else
             lmap("n", "gi", vim.lsp.buf.implementation, "List Implementations")
         end
@@ -221,16 +240,16 @@ function M.setup_lspsaga(client, bufnr)
     end
 
     if caps.documentSymbolProvider then
-        if telescope_ok then
-            lmap("n", "<leader>ls", tel_builtin.lsp_document_symbols, "Document symbols")
+        if with_picker then
+            lmap("n", "<leader>ls", pick("lsp_document_symbols"), "Document symbols")
         else
             lmap("n", "<leader>ls", vim.lsp.buf.document_symbol, "Document symbol")
         end
     end
 
     if caps.workspaceSymbolProvider then
-        if telescope_ok then
-            lmap("n", "<leader>lS", tel_builtin.lsp_dynamic_workspace_symbols, "Workspace symbols")
+        if with_picker then
+            lmap("n", "<leader>lS", pick("lsp_workspace_symbols"), "Workspace symbols")
         else
             lmap("n", "<leader>lS", vim.lsp.buf.workspace_symbol, "Workspace symbols")
         end

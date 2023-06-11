@@ -67,6 +67,27 @@ local function telescope(builtin, opts)
     end
 end
 
+-- Returns a function that calls fzf-lua.
+-- cwd defaults to project root, if any. the "files" builtin chooses between
+-- git_files if we are in a git repo and find_fifes otherwise.
+local function fzflua(builtin, opts)
+    local params = { builtin = builtin, opts = opts }
+    return function()
+        builtin = params.builtin
+        opts = params.opts
+        opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+        if builtin == "files" then
+            if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+                opts.show_untracked = true
+                builtin = "git_files"
+            else
+                builtin = "files"
+            end
+        end
+        require("fzf-lua")[builtin](opts)
+    end
+end
+
 return {
 
     -- Nicer search
@@ -90,6 +111,7 @@ return {
     -- Find, Filter, Preview, Pick. All lua, all the time
     {
         "nvim-telescope/telescope.nvim",
+        enabled = false,
         version = false,
         dependencies = {
             {
@@ -233,6 +255,111 @@ return {
             require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
             require("telescope").load_extension("file_browser")
+        end,
+    },
+
+    {
+        "ibhagwan/fzf-lua",
+        requires = { 'nvim-tree/nvim-web-devicons' },
+        cmd = { "FzfLua" },
+        keys = {
+            { "<Leader>,", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
+            { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
+            { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
+
+            { "<F6>", fzflua("files"), desc = "Find files (root dir)", mode = {"n", "i"} },
+            { "<Leader>ff", fzflua("files"), desc = "Find files (root dir)" },
+            { "<Leader>fF", fzflua("files", { cwd = false }), desc = "Find files (cmd)" },
+            { "<F7>", fzflua("live_grep"), desc = "Grep (root dir)", mode = {"n", "i"} },
+            { "<Leader>fg", fzflua("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>fG", fzflua("live_grep", { cwd = vim.loop.cwd() }), desc = "Grep (cwd)" },
+            { "<Leader>fr", fzflua("oldfiles"), desc = "Recent files (root dir)" },
+            { "<Leader>fR", fzflua("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent files (cwd)" },
+
+            { "<Leader>fh", "<Cmd>FzfLua help_tags<CR>", desc = "Find help" },
+            { "<Leader>gc", "<Cmd>FzfLua git_commits<CR>", desc = "Find git commits" },
+            { "<Leader>gb", "<Cmd>FzfLua git_branches<CR>", desc = "Find git branches" },
+            { "<Leader>gs", "<Cmd>FzfLua git_status<CR>", desc = "Find git status" },
+            { "<Leader>fm", "<Cmd>FzfLua man_pages<CR>", desc = "Find man pages" },
+            {
+                "<Leader>fv",
+                function()
+                    require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
+                end,
+                desc = "Find files in vim config"
+            },
+            {
+                "<Leader>fS",
+                function()
+                    require("fzf-lua").files({ cwd = "~/travail/SURFO/indu" })
+                end,
+                desc = "Find files in SURFO"
+            },
+            {
+                "z=",
+                function()
+                    local word = vim.fn.expand("<cword>")
+                    local position = vim.api.nvim_win_get_position(0)
+                    local line = vim.fn.winline() + position[1]
+                    local col = vim.fn.wincol() + position[2]
+                    local prompt = "Spell suggestions for " .. word .. ": "
+                    require("fzf-lua").spell_suggest({
+                        prompt = prompt,
+                        winopts = { width = 0.5, height = 0.2, row = line, col = col }
+                    })
+                end,
+                desc = "Spell suggestions",
+            },
+        },
+        opts = {
+            winopts = {
+                width   = 0.9,
+                height  = 0.9,
+                preview = { layout = "flex" },
+            },
+            fzf_opts = {
+                ["--layout"] = "reverse",
+                ["--marker"] = "+",
+            },
+            keymap = {
+                builtin = {
+                    ["<F1>"] = "toggle-help",
+                    ["<F2>"] = "toggle-fullscreen",
+                    ["<F3>"] = "toggle-preview-wrap",
+                    ["<F4>"] = "toggle-preview",
+                    ["<F5>"] = "toggle-preview-ccw",
+                    ["<F6>"] = "toggle-preview-cw",
+                    ["<C-d>"] = "preview-page-down",
+                    ["<C-u>"] = "preview-page-up",
+                    ["<C-down>"] = "preview-page-down",
+                    ["<C-up>"] = "preview-page-up",
+                },
+                fzf = {
+                    ["ctrl-z"] = "abort",
+                    ["ctrl-f"] = "half-page-down",
+                    ["ctrl-b"] = "half-page-up",
+                    ["ctrl-a"] = "beginning-of-line",
+                    ["ctrl-e"] = "end-of-line",
+                    ["alt-a"]  = "toggle-all",
+                    ["ctrl-d"] = "preview-page-down",
+                    ["ctrl-u"] = "preview-page-up",
+                    ["ctrl-q"] = "select-all+accept",
+                },
+            },
+            files = {
+                cwd_prompt = false,
+            },
+            grep = {
+                no_header = true,
+            }
+        },
+        config = function(_, opts)
+            require("fzf-lua").setup(opts)
+
+            -- register fzf-lua as default vim.ui.select provider
+            local ui_select = require("fzf-lua.providers.ui_select")
+            ui_select.register({ winopts = { width = 0.8, height = 0.4 } }, true)
         end,
     },
 
