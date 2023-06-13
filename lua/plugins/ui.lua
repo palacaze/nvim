@@ -437,7 +437,7 @@ return {
                 [[██   ████ ███████  ██████    ████   ██ ██      ██]]
             }
             dashboard.section.buttons.val = {
-                dashboard.button("f", " " .. " Find file", "<Cmd>FzfLua find_files<CR>"),
+                dashboard.button("f", " " .. " Find file", "<Cmd>FzfLua files<CR>"),
                 dashboard.button("n", " " .. " New file", ":silent enew <BAR> startinsert<CR>"),
                 dashboard.button("r", " " .. " Recent files", "<Cmd>FzfLua oldfiles<CR>"),
                 dashboard.button("g", " " .. " Find text", "<Cmd>FzfLua live_grep<CR>"),
