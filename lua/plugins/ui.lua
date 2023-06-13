@@ -356,22 +356,30 @@ return {
         "akinsho/toggleterm.nvim",
         version = "*",
         keys = {
+            { "<F1>", "<Cmd>ToggleTermToggleAll<CR>", desc = "Toggle all terminals", mode = { "n", "t", "i" } },
+            { "<Leader>Ta", desc = "Toggle all terminals" },
+            { "<F2>", desc = "Start a shell in a terminal", mode = { "n", "t", "i" } },
             { "<Leader>Tt", desc = "Start a shell in a terminal" },
-            { "<Leader>Tg", desc = "Run lazygit in a floating terminal" },
             { "<F12>", desc = "Run lazygit in a floating terminal", mode = { "n", "t" } },
+            { "<Leader>Tg", desc = "Run lazygit in a floating terminal" },
             { "<Leader>Tp", desc = "Run python3 in a terminal" },
-            { "<S-F1>", desc = "Send current line to terminal", mode = { "n", "i" } },
-            { "<F13>", desc = "Send current line to terminal", mode = { "n", "i" } },
-            { "<S-F1>", desc = "Send selection to terminal", mode = "v" },
-            { "<F13>", desc = "Send selection to terminal", mode = "v" },
+            { "<S-F1>", "<Cmd>ToggleTermSendCurrentLine<CR>", desc = "Send current line to terminal", mode = { "n", "i" } },
+            { "<F13>", "<Cmd>ToggleTermSendCurrentLine<CR>", desc = "Send current line to terminal", mode = { "n", "i" } },
+            { "<S-F1>", "<Cmd>ToggleTermSendVisualSelection<CR>", desc = "Send selection to terminal", mode = "v" },
+            { "<F13>", "<Cmd>ToggleTermSendVisualSelection<CR>", desc = "Send selection to terminal", mode = "v" },
         },
         opts = {
-            open_mapping = "<F1>",
+            open_mapping = "<F2>",
             shade_terminals = false,
             start_in_insert = true,
+            direction = "horizontal",
+            close_on_exit = true,
             -- Create a buffer variable "pal_term_name" containing the terminal "name"
             -- on opening. This name will be used by lualine to display a nicer label.
             on_open = function(term)
+                if term.term_name == nil then
+                    term.term_name = "Shell"
+                end
                 vim.api.nvim_buf_set_var(term.bufnr, "pal_term_name", term.term_name)
             end
         },
@@ -396,16 +404,6 @@ return {
                 lazygit:toggle()
             end
 
-            local shell = Terminal:new({
-                direction = "horizontal",
-                close_on_exit = true,
-                term_name = "Shell",
-            })
-
-            local toggle_shell = function()
-                shell:toggle()
-            end
-
             local python = Terminal:new({
                 cmd = "ipython",
                 direction = "horizontal",
@@ -418,14 +416,9 @@ return {
             end
 
             local u = require("config.utils")
-            u.map_n("<Leader>Tt", toggle_shell, "Start a shell in a terminal")
             u.map_n("<Leader>Tg", toggle_lazygit, "Run lazygit in a floating terminal")
             u.map({"n", "t"}, "<F12>", toggle_lazygit, "Run lazygit in a floating terminal")
             u.map_n("<Leader>Tp", toggle_python, "Run python3 in a terminal")
-            u.map_ni("<S-F1>", "<Cmd>ToggleTermSendCurrentLine<CR>", "Send current line to terminal")
-            u.map_ni("<F13>", "<Cmd>ToggleTermSendCurrentLine<CR>", "Send current line to terminal")
-            u.map_v("<S-F1>", "<Cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal")
-            u.map_v("<F13>", "<Cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal")
         end,
 
     },

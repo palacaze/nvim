@@ -81,12 +81,9 @@ u.map_t("<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
 
 -- F keys
 
--- F1 = ToggleTerm
+-- F1 = ToggleTerm all terms
 -- S-F1 = ToggleTerm sends data to terminal
-
--- folding
-u.map_nvi("<F2>", "<Cmd>foldclose<CR>", "Fold")
-u.map_nvi("<F3>", "<Cmd>foldopen<CR>", "Unfold")
+-- F2 = Open/Toggle first term
 -- S-F2 = Previous error in lsp
 -- S-F3 = Next error in lsp
 
