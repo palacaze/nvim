@@ -85,6 +85,7 @@ u.map_t("<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
 -- S-F1 = ToggleTerm sends data to terminal
 -- F2 = Open/Toggle first term
 -- S-F2 = Previous error in lsp
+-- F3 = Resume last search (fzf / telescope)
 -- S-F3 = Next error in lsp
 
 u.map_ni("<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header and source file")

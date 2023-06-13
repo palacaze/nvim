@@ -127,6 +127,7 @@ return {
             { "<Leader>/", telescope("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", telescope("files"), desc = "Find files (root dir)" },
+            { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
 
             { "<S-F6>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<F18>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
@@ -267,6 +268,7 @@ return {
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
+            { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
 
             { "<F6>", fzflua("files"), desc = "Find files (root dir)", mode = {"n", "i"} },
             { "<Leader>ff", fzflua("files"), desc = "Find files (root dir)" },
