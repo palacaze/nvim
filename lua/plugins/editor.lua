@@ -731,8 +731,8 @@ return {
 
     -- Surround stuff
     {
-        "kylechui/nvim-surround",
-        version = "*",
+        "echasnovski/mini.surround",
+        version = false,
         event = "VeryLazy",
         config = true,
     },
