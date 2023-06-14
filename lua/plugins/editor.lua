@@ -354,7 +354,12 @@ return {
             },
             grep = {
                 no_header = true,
-            }
+            },
+            previewers = {
+                man = {
+                    cmd = "man %s | col -bx",
+                },
+            },
         },
         config = function(_, opts)
             require("fzf-lua").setup(opts)
