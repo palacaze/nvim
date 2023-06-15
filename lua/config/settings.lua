@@ -110,6 +110,7 @@ opt.smartindent = true
 opt.smarttab = true
 opt.spelllang = { "en" }
 opt.softtabstop = 4
+opt.splitkeep = "topline"
 opt.splitbelow = true
 opt.splitright = true
 opt.swapfile = true

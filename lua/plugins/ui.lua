@@ -160,6 +160,7 @@ return {
                     filetypes = { "toggleterm" },
                     sections = {
                         lualine_a = {
+                            { "mode", fmt = function(str) return str:sub(1, 1) end },
                             function()
                                 -- `pal_term_name` was created by us in toggleterm.lua,
                                 -- `toggle_number` was set by the toggleterm plugin.
@@ -358,6 +359,9 @@ return {
         },
         opts = {
             open_mapping = "<F2>",
+            insert_mappings = true,
+            terminal_mappings = true,
+            persist_size= false,
             shade_terminals = false,
             start_in_insert = true,
             direction = "horizontal",
@@ -369,7 +373,8 @@ return {
                     term.term_name = "Shell"
                 end
                 vim.api.nvim_buf_set_var(term.bufnr, "pal_term_name", term.term_name)
-            end
+                vim.cmd("startinsert!")
+            end,
         },
         config = function(_, opts)
             require("toggleterm").setup(opts)
@@ -379,11 +384,14 @@ return {
 
             local lazygit = Terminal:new({
                 cmd = "lazygit",
-                direction = "tab",
+                direction = "float",
+                hidden = true,
                 close_on_exit = true,
                 float_opts = {
-                    border = "single",
+                    border = "none",
                     winblend = 0,
+                    width = function() return vim.o.columns end,
+                    height = function() return vim.o.lines end,
                 },
                 term_name = "Lazygit",
                 on_close = function(_)
@@ -415,7 +423,6 @@ return {
             u.map({"n", "t"}, "<F12>", toggle_lazygit, "Run lazygit in a floating terminal")
             u.map_n("<Leader>Tp", toggle_python, "Run python3 in a terminal")
         end,
-
     },
 
     -- dashboard
