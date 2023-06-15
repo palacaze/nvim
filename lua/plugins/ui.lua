@@ -337,18 +337,6 @@ return {
                 },
             },
         },
-        config = function(_, opts)
-            require("neo-tree").setup(opts)
-            -- update tree git status after lazygit invocation
-            vim.api.nvim_create_autocmd("TermClose", {
-                pattern = "*lazygit",
-                callback = function()
-                    if package.loaded["neo-tree.sources.git_status"] then
-                        require("neo-tree.sources.git_status").refresh()
-                    end
-                end,
-            })
-        end,
     },
 
     -- A neovim lua plugin to help easily manage multiple terminal windows
@@ -398,6 +386,13 @@ return {
                     winblend = 0,
                 },
                 term_name = "Lazygit",
+                on_close = function(_)
+                    -- BUG: neotree git status watching is broken
+                    -- update the tree git status manually after lazygit invocation
+                    if package.loaded["neo-tree.sources.git_status"] then
+                        require("neo-tree.sources.git_status").refresh()
+                    end
+                end,
             })
 
             local toggle_lazygit = function()

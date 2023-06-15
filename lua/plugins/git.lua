@@ -96,6 +96,13 @@ return {
                             vim.cmd("IndentBlanklineDisable")
                         end
                     end,
+                    view_closed = function(_)
+                        -- BUG: neotree git status watching is broken
+                        -- update the tree git status manually after lazygit invocation
+                        if package.loaded["neo-tree.sources.git_status"] then
+                            require("neo-tree.sources.git_status").refresh()
+                        end
+                    end,
                 },
             })
         end,
