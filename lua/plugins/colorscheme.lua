@@ -74,6 +74,7 @@ return {
                     ["@text.title.4"] = { fg = colors.palette.lotusOrange, bold = true },
                     ["@text.title.5"] = { fg = colors.palette.lotusPink, bold = true },
                     ["@text.title.6"] = { fg = colors.palette.oniViolet, bold = true },
+                    ["@comment.documentation.cpp"] = { fg = colors.palette.springViolet2 },
                     ["FSPrefix"] = { fg = colors.theme.fg },
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
                 }
