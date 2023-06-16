@@ -111,7 +111,7 @@ return {
     -- Find, Filter, Preview, Pick. All lua, all the time
     {
         "nvim-telescope/telescope.nvim",
-        enabled = false,
+        enabled = true,
         version = false,
         dependencies = {
             {
@@ -193,16 +193,15 @@ return {
                     "--trim",
                 },
                 file_ignore_patterns = { "^cmake/vcpkg/" },
-                prompt_prefix = " 🔍  ",
+                prompt_prefix = "   ",
                 initial_mode = "insert",
                 selection_strategy = "reset",
                 sorting_strategy = "ascending",
-                layout_strategy = "horizontal",
+                layout_strategy = "flex",
                 layout_config = {
                     horizontal = {
                         prompt_position = "top",
-                        -- preview_width = 0.5,
-                        -- results_width = 0.5,
+                        preview_width = 0.5,
                     },
                     vertical = {
                         mirror = false,
@@ -210,26 +209,36 @@ return {
                     width = 0.9,
                     height = 0.9,
                 },
-                winblend = 20,
-                border = {},
-                borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+                winblend = 0,
+                border = true,
                 color_devicons = true,
                 mappings = {
                     n = {
-                        ["q"] = function(...) require("telescope.actions").close(...) end,
-                        ["<C-Up>"] = function(...) require("telescope.actions").preview_scrolling_up(...) end,
-                        ["<C-Down>"] = function(...) require("telescope.actions").preview_scrolling_down(...) end,
+                        ["q"] = "close",
+                        ["<C-Up>"] = "preview_scrolling_up",
+                        ["<C-Down>"] = "preview_scrolling_down",
                     },
                     i = {
-                        ["<c-t>"] = function(...)
+                        ["<esc>"] = "close",
+                        ["<C-Up>"] = "preview_scrolling_up",
+                        ["<C-Down>"] = "preview_scrolling_down",
+                        ["<F1>"] = "which_key",
+                        ["<F4>"] = function(...)
+                            return require("telescope.actions.layout").toggle_preview(...)
+                        end,
+                        ["<F5>"] = function(...)
+                            return require("telescope.actions.layout").cycle_layout_next(...)
+                        end,
+                        ["<F6>"] = function(...)
+                            return require("telescope.actions.layout").cycle_layout_prev(...)
+                        end,
+                        ["<C-t>"] = function(...)
                             return require("trouble.providers.telescope").open_with_trouble(...)
                         end,
-                        ["<a-t>"] = function(...)
+                        ["<M-t>"] = function(...)
                             return require("trouble.providers.telescope").open_selected_with_trouble(...)
                         end,
-                        ["<esc>"] = function(...) require("telescope.actions").close(...) end,
-                        ["<C-Up>"] = function(...) require("telescope.actions").preview_scrolling_up(...) end,
-                        ["<C-Down>"] = function(...) require("telescope.actions").preview_scrolling_down(...) end,
+                        ["<M-a>"]  = "toggle_all",
                     },
                 },
             },
@@ -261,6 +270,7 @@ return {
 
     {
         "ibhagwan/fzf-lua",
+        enabled = false,
         requires = { 'nvim-tree/nvim-web-devicons' },
         cmd = { "FzfLua" },
         keys = {

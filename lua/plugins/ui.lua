@@ -439,10 +439,10 @@ return {
                 [[██   ████ ███████  ██████    ████   ██ ██      ██]]
             }
             dashboard.section.buttons.val = {
-                dashboard.button("f", " " .. " Find file", "<Cmd>FzfLua files<CR>"),
+                dashboard.button("f", " " .. " Find file", "<Cmd>Telescope find_files<CR>"),
                 dashboard.button("n", " " .. " New file", ":silent enew <BAR> startinsert<CR>"),
-                dashboard.button("r", " " .. " Recent files", "<Cmd>FzfLua oldfiles<CR>"),
-                dashboard.button("g", " " .. " Find text", "<Cmd>FzfLua live_grep<CR>"),
+                dashboard.button("r", " " .. " Recent files", "<Cmd>Telescope oldfiles<CR>"),
+                dashboard.button("g", " " .. " Find text", "<Cmd>Telescope live_grep<CR>"),
                 dashboard.button("c", " " .. " Config", ":e $MYVIMRC<CR>"),
                 dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
                 dashboard.button("q", " " .. " Quit", ":qa<CR>"),
