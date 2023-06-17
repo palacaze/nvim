@@ -288,15 +288,4 @@ return {
         },
     },
 
-    -- LSP Symbols outline
-    {
-        "simrat39/symbols-outline.nvim",
-        cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-        keys = {
-            { "<S-F5>", "<Cmd>SymbolsOutline<CR>", desc = "Toggle Symbols outline", mode = {"n", "i"} },
-            { "<F17>", "<Cmd>SymbolsOutline<CR>", desc = "Toggle Symbols outline", mode = {"n", "i"} },
-        },
-        config = true,
-    }
-
 }
