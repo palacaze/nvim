@@ -208,8 +208,14 @@ return {
         event = "LspAttach",
         branch = "legacy",
         opts = {
-            text = { spinner = "dots" },
-            window = { blend = 0 },
+            text = {
+                spinner = "dots",
+                done = " ",
+            },
+            window = { blend = 100 },
+            fmt = {
+                max_messages = 1,
+            },
         },
     },
 
