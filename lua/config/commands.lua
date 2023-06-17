@@ -136,6 +136,29 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+-- Close some filetypes with <q>
+-- Taken from https://github.com/LazyVim/LazyVim
+vim.api.nvim_create_autocmd("FileType", {
+    group = gid,
+    pattern = {
+        "checkhealth",
+        "help",
+        "loclist",
+        "lspinfo",
+        "man",
+        "notify",
+        "PlenaryTestPopup",
+        "qf",
+        "spectre_panel",
+        "startuptime",
+        "tsplayground",
+    },
+    callback = function(event)
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+})
+
 require("config.puml").setup({
     format = "svg",
     viewer = "nomacs",
