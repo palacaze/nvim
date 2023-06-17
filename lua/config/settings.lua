@@ -54,7 +54,7 @@ opt.foldlevelstart = 99
 opt.foldmethod = "marker"
 opt.formatoptions = "lcqtrnj2"
 if vim.fn.executable("rg") then
-    opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+    opt.grepformat:append("%f:%l:%c:%m")
     opt.grepprg = "rg --vimgrep --no-heading --smart-case --trim"
 end
 opt.guicursor = {
