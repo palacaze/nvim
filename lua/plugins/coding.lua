@@ -270,7 +270,17 @@ return {
             require("nvim-autopairs").setup({
                 check_ts = true,
                 -- to make backspace work in some situations inside prompts and popups
-                disable_filetype = { "prompt", "spectre_panel", "neo-tree", "neo-tree-popup", "TelescopePrompt", "guihua", "guihua_rust", "clap_input" },
+                disable_filetype = {
+                    "clap_input",
+                    "dropbar_menu",
+                    "guihua",
+                    "guihua_rust",
+                    "neo-tree",
+                    "neo-tree-popup",
+                    "prompt",
+                    "spectre_panel",
+                    "TelescopePrompt",
+                },
             })
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
             require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -313,6 +323,29 @@ return {
             },
         },
         config = true
+    },
+
+    -- A breadcrumb bar showing symbols
+    {
+        "Bekaboo/dropbar.nvim",
+        event = { "VeryLazy" },
+        keys = {
+            { "<Leader>.", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
+            { "<M-.>", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
+        },
+        opts = {
+            menu = {
+                keymaps = {
+                    ["<Esc>"] = function()
+                        local menu = require("dropbar.api").get_current_dropbar_menu()
+                        if menu then
+                            menu:close(true)
+                        end
+                    end,
+                },
+            },
+        },
+        config = true,
     },
 
     -- Annotation generator
