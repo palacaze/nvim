@@ -319,7 +319,7 @@ return {
     {
         "danymat/neogen",
         keys = {
-             { "<Leader>cc", function() require("neogen").generate({}) end, desc = "Neogen Comment" }
+             { "<Leader>C", function() require("neogen").generate({}) end, desc = "Neogen Comment" }
         },
         opts = {
             snippet_engine = "luasnip",

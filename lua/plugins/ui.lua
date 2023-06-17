@@ -523,4 +523,8 @@ return {
         build = "cd lua/fzy && make",
     },
 
+    {
+        "stevearc/dressing.nvim",
+        config = true
+    },
 }
