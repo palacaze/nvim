@@ -40,9 +40,9 @@ return {
                     { enabled = false }, -- HINT
                 },
             },
-            exclude_ft = { "neo-tree", "Trouble" },
+            exclude_ft = { "neo-tree", "Trouble", "qf" },
             -- exclude_name = {"package.json"},
-            hide = {extensions = false, inactive = false},
+            hide = { extensions = false, inactive = false },
             highlight_alternate = false,
             highlight_visible = true,
             sidebar_filenames = {
