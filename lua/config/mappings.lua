@@ -13,7 +13,7 @@ u.map_v("«", "<gv", "Decrease indentation")
 u.map_v("»", ">gv", "Increase indentation")
 
 -- Change directory to that of current file
-u.map_n("<Leader>cd", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of the current file")
+u.map_n("<Leader>~", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of the current file")
 
 u.map_n("<M-CR>", u.open_or_create_file_under_cursor, "Create file under cursor")
 
