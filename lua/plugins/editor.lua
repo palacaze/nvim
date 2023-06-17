@@ -397,6 +397,7 @@ return {
                 c = { name = "CMake" },
                 cs = { name = "Select" },
                 csp = { name = "Preset" },
+                ["|"] = { name = "Table" },
             },
         },
         event = "VeryLazy",

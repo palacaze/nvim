@@ -227,10 +227,28 @@ return {
     -- make tables
     {
         "dhruvasagar/vim-table-mode",
+        keys = {
+            { "<Leader>||", desc = "Toggle table mode" },
+            { "<Leader><Bar>T", desc = "Convert selection into table (ask)" },
+            { "<Leader><Bar>t", desc = "Convert selection into table (,)" },
+            { "<Leader><Bar>a", desc = "Align table" },
+            { "<Leader><Bar>d", desc = "Delete row" },
+            { "<Leader><Bar>D", desc = "Delete column" },
+            { "<Leader><Bar>I", desc = "Insert column Before" },
+            { "<Leader><Bar>i", desc = "Insert column After" },
+        },
+        cmd = { "TableModeToggle", "TalbeModeEnable", "Tableize", "TableModeRealign" },
         init = function()
-            vim.g.table_mode_disable_mappings = 1
-            vim.g.table_mode_disable_tableize_mappings = 1
-            vim.g.table_mode_map_prefix = "<Leader>T"
+            vim.g.table_mode_corner = "|"
+            vim.g.table_mode_map_prefix = "<Leader><Bar>"
+            vim.g.table_mode_toggle_map = "<Bar>"
+            vim.g.table_mode_realign_map = "<Leader><Bar>a"
+            vim.g.table_mode_delete_row_map = "<Leader><Bar>d"
+            vim.g.table_mode_delete_column_map = "<Leader><Bar>D"
+            vim.g.table_mode_insert_column_before_map = "<Leader><Bar>I"
+            vim.g.table_mode_insert_column_after_map = "<Leader><Bar>i"
+            vim.g.table_mode_tableize_map = "<Leader><Bar>t"
+            vim.g.table_mode_tableize_d_map = "<Leader><Bar>T"
         end,
     },
 
