@@ -617,6 +617,7 @@ return {
             { "<leader>xl", "<Cmd>TroubleToggle loclist<CR>", desc = "Toggle the location list" },
             { "<leader>xq", "<Cmd>TroubleToggle quickfix<CR>", desc = "Toggle the quickfix list" },
             { "<leader>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle the list of LSP References" },
+            { "gR", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle the list of LSP References" },
             {
                 "[q",
                 function()
