@@ -217,28 +217,30 @@ return {
     {
         "glepnir/lspsaga.nvim",
         branch = "main",
-        lazy = true,
+        event = "LspAttach",
         opts = {
             scroll_preview = {
                 scroll_down = "<C-Down>",
                 scroll_up = "<C-Up>",
             },
             finder = {
-                edit = { "o", "<CR>" },
-                vsplit = "s",
-                split = "S",
-                tabe = "t",
-                quit = { "q", "<ESC>" },
+                keys = {
+                    expand_or_jump = { "o", "<CR>" },
+                    vsplit = "s",
+                    split = "S",
+                    tabe = "t",
+                    quit = { "q", "<ESC>" },
+                },
             },
             definition = {
                 edit = "<CR>",
                 vsplit = "<C-v>",
                 split = "<C-x>",
                 tabe = "<C-t>",
-                quit = "q",
-                close = "<Esc>",
+                quit = { "q", "<Esc>" },
             },
             code_action = {
+                show_server_name = true,
                 keys = {
                     quit = { "q", "<Esc>" },
                     exec = "<CR>",
@@ -248,14 +250,17 @@ return {
                 enable = true,
                 enable_in_insert = false,
                 sign = true,
-                sign_priority = 40,
                 virtual_text = false,
             },
             diagnostic = {
             },
             rename = {
+                quit = { "<C-c>", "<Esc>" },
             },
             outline = {
+                keys = {
+                    expand_or_jump = { "o", "<CR>" },
+                },
             },
             callhierarchy = {
                 edit = "o",
