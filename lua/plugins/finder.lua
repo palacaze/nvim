@@ -132,8 +132,8 @@ return {
             { "<Leader><Space>", telescope("files"), desc = "Find files (root dir)" },
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
 
-            { "<S-F6>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
-            { "<F18>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
+            { "<S-F5>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
+            { "<F17>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<Leader>fb", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<Leader>fB", "<Cmd>Telescope file_browser path=%:p:h<CR>", desc = "Browse Files (file dir)" },
             { "<F6>", telescope("files"), desc = "Find files (root dir)", mode = {"n", "i"} },

@@ -91,9 +91,8 @@ u.map_t("<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
 u.map_ni("<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header and source file")
 -- S-F4 = Undotree toggle
 -- F5 = Neo Tree toggle
--- S-F5 = Symbols Outline toggle
+-- S-F5 = Telescope file_browser
 -- F6 = Telescope find_files
--- S-F6 = Telescope file_brawser
 -- F7 = Telescope live_grep
 u.map_ni("<F8>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
 u.map_ni("<F9>", "<Cmd>set list!<CR>", "Toggle display of special chars")
