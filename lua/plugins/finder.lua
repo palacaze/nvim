@@ -126,10 +126,11 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<Leader>,", "<Cmd>Telescope buffers show_all_buffers=true<CR>", desc = "Switch Buffer" },
+            { "<Leader>,", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer" },
+            { "<M-Tab>", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer", mode = { "n", "i" } },
             { "<Leader>/", telescope("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
-            { "<Leader><Space>", telescope("files"), desc = "Find files (root dir)" },
+            { "<Leader><Space>", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
 
             { "<S-F5>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
@@ -137,8 +138,8 @@ return {
             { "<Leader>fb", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<Leader>fB", "<Cmd>Telescope file_browser path=%:p:h<CR>", desc = "Browse Files (file dir)" },
             { "<F6>", telescope("files"), desc = "Find files (root dir)", mode = {"n", "i"} },
-            { "<Leader>ff", telescope("files"), desc = "Find files (root dir)" },
-            { "<Leader>fF", telescope("files", { cwd = false }), desc = "Find files (cmd)" },
+            { "<Leader>ff", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
+            { "<Leader>fF", telescope("files", { hidden = true, cwd = false }), desc = "Find files (cmd)" },
             { "<F7>", telescope("live_grep"), desc = "Grep (root dir)", mode = {"n", "i"} },
             { "<Leader>fg", telescope("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>fG", telescope("live_grep", { cwd = vim.loop.cwd() }), desc = "Grep (cwd)" },
@@ -194,7 +195,6 @@ return {
                 file_ignore_patterns = { "^cmake/vcpkg/" },
                 prompt_prefix = "   ",
                 initial_mode = "insert",
-                selection_strategy = "reset",
                 sorting_strategy = "ascending",
                 layout_strategy = "flex",
                 layout_config = {
@@ -241,6 +241,24 @@ return {
                     },
                 },
             },
+            pickers = {
+                buffers = {
+                    previewer = false,
+                    show_all_buffers = true,
+                    sort_last_used = true,
+                    theme = "dropdown",
+                    mappings = {
+                        n = {
+                            ["<M-Tab>"] = "move_selection_next",
+                            ["<M-S-Tab>"] = "move_selection_previous",
+                        },
+                        i = {
+                            ["<M-Tab>"] = "move_selection_next",
+                            ["<M-S-Tab>"] = "move_selection_previous",
+                        }
+                    }
+                },
+            },
             extensions = {
                 fzf = {
                     fuzzy = true,
@@ -274,6 +292,7 @@ return {
         cmd = { "FzfLua" },
         keys = {
             { "<Leader>,", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
+            { "<M-Tab>", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
