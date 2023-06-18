@@ -159,6 +159,17 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- Toggle verbose mode of neovim
+vim.api.nvim_create_user_command("ToggleVerbose", function()
+    if vim.o.verbose > 0 then
+        vim.o.verbosefile = "/tmp/vim_verbose.log"
+        vim.o.verbose = 15
+    else
+        vim.o.verbose = 0
+        vim.o.verbosefile = ""
+    end
+end, {})
+
 require("config.puml").setup({
     format = "svg",
     viewer = "nomacs",
