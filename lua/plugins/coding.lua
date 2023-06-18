@@ -33,7 +33,9 @@ return {
         "andymass/vim-matchup",
         event = { "BufReadPost", "BufNewFile" },
         config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
+            -- BUG: disable popup, as the dropbar triggers the E36 "No room" bug,
+            -- https://github.com/neovim/neovim/issues/19464
+            vim.g.matchup_matchparen_offscreen = {}  -- { method = "popup" }
             vim.g.matchup_surround_enabled = 1
         end
     },
