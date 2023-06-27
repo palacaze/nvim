@@ -392,10 +392,26 @@ return {
                 float_opts = {
                     border = "none",
                     winblend = 0,
-                    width = function() return vim.o.columns end,
-                    height = function() return vim.o.lines end,
+                    width = function(term)
+                        term.float_opts.col = 0
+                        return vim.o.columns
+                    end,
+                    height = function(term)
+                        term.float_opts.row = 0
+                        return vim.o.lines -1
+                    end,
                 },
                 term_name = "Lazygit",
+                on_open = function(term)
+                    -- Remove some keymaps
+                    vim.keymap.set({"n", "i", "t"}, "<S-Left>", "<Left>", { buffer = term.bufnr })
+                    vim.keymap.set({"n", "i", "t"}, "<S-Right>", "<Right>", { buffer = term.bufnr })
+                    vim.keymap.set({"n", "i", "t"}, "<S-Up>", "<Up>", { buffer = term.bufnr })
+                    vim.keymap.set({"n", "i", "t"}, "<S-Down>", "<Down>", { buffer = term.bufnr })
+
+                    vim.api.nvim_buf_set_var(term.bufnr, "pal_term_name", term.term_name)
+                    vim.cmd("startinsert!")
+                end,
                 on_close = function(_)
                     -- BUG: neotree git status watching is broken
                     -- update the tree git status manually after lazygit invocation
