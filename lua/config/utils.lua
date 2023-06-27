@@ -60,7 +60,7 @@ end
 -- A function to trim trailing spaces
 function M.strip_trailing_spaces()
     local save = vim.fn.winsaveview()
-    vim.api.nvim_exec("keepjumps keeppatterns silent! %s/\\s\\+$//e", false)
+    vim.api.nvim_exec2("keepjumps keeppatterns silent! %s/\\s\\+$//e", {})
     vim.fn.winrestview(save)
 end
 
