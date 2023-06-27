@@ -63,18 +63,25 @@ return {
         },
     },
 
+    -- Illuminate - Highlight usages of symbol under cursor
     {
         "RRethy/vim-illuminate",
-        event = { "CursorHold", "CursorHoldI" },
+        -- event = { "CursorHold", "CursorHoldI" },
+        cmds = {
+            "illuminateToggle", "IlluminatePause", "IlluminateResume"
+        },
         keys = {
+            { "<Leader>ti", "<Cmd>IlluminateToggle<CR", desc = "Toggle Illuminate (highlight symbols)" },
             {
                 "<a-n>",
                 function() require("illuminate").next_reference({ wrap = true }) end,
+                desc = "Next illuminated ref",
                 noremap = true
             },
             {
                 "<a-p>",
                 function() require("illuminate").next_reference({ reverse = true, wrap = true }) end,
+                desc = "Previous illuminated ref",
                 noremap = true
             },
         },
@@ -84,7 +91,7 @@ return {
                 "treesitter",
                 "regex",
             },
-            delay = 500,
+            delay = 200,
             filetypes_denylist = {
                 "alpha",
                 "dashboard",
@@ -109,8 +116,9 @@ return {
                 "toggleterm",
                 "Trouble",
             },
-            under_cursor = false,
+            under_cursor = true,
             min_count_to_highlight = 2,
+            large_file_cutoff = 3000,
         },
         config = function(_, opts)
             require("illuminate").configure(opts)
