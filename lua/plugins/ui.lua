@@ -262,7 +262,7 @@ return {
             sort_case_insensitive = true,
             use_popups_for_input = false,
             source_selector = {
-                winbar = true,
+                winbar = false,
                 content_layout = "center",
             },
             default_component_configs = {
@@ -306,14 +306,17 @@ return {
                     ["o"] = "open",
                     ["<C-Left>"] = "prev_source",
                     ["<C-Right>"] = "next_source",
+                    ["<C-s>"] = "open_split",
                     ["<C-v>"] = "open_vsplit",
-                    ['<tab>'] = function (state)
+                    ["<C-t>"] = "open_tabnew",
+                    ["Z"] = "expand_all_nodes",
+                    ["<tab>"] = function (state)
                         local node = state.tree:get_node()
                         if require("neo-tree.utils").is_expandable(node) then
                             state.commands["toggle_node"](state)
                         else
-                            state.commands['open'](state)
-                            vim.cmd('Neotree reveal')
+                            state.commands["open"](state)
+                            vim.cmd("Neotree reveal")
                         end
                     end,
                 },
