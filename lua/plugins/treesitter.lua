@@ -51,6 +51,7 @@ return {
                 "bash",
                 "c",
                 "cmake",
+                -- "comment",  -- Don't install this, very very slow
                 "cpp",
                 "css",
                 "cuda",
@@ -97,7 +98,7 @@ return {
                     local sok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                     return sok and stats and stats.size > max_filesize
                 end,
-                -- additional_vim_regex_highlighting = { "markdown" },
+                additional_vim_regex_highlighting = false,
             },
             incremental_selection = {
                 enable = true,
@@ -212,6 +213,8 @@ return {
 
                  (comment) @comment
             ]])
+            vim.treesitter.query.set("javascript", "injections", "")
+            vim.treesitter.query.set("lua", "injections", "")
         end,
     },
 }
