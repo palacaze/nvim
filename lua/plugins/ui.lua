@@ -28,10 +28,10 @@ return {
             tabpages = true,
             closable = true,
             icons = {
-                button = false, -- "󰅖",
-                separator = { left = "▎" },
-                modified = { button = "●", },
-                pinned = { button = "󰐃", },
+                button = false,
+                separator = { left = require("config.icons").ui.LeftSeparator },
+                modified = { button = require("config.icons").ui.Modified },
+                pinned = { button =require("config.icons").ui.Pinned },
                 filetype = { enabled = true },
                 diagnostics = {
                     { enabled = false }, -- ERROR
@@ -85,23 +85,14 @@ return {
                     },
                     {
                         -- spell
-                        function()
-                            if vim.wo.spell then
-                                local lang = vim.bo.spelllang
-                                if lang ~= "" then
-                                    return "󰓆 " .. lang
-                                end
-                                return "󰓆 "
-                            end
-                            return ""
-                        end,
-                        color = "Normal",
+                        function() return require("config.icons").ui.Spell .. vim.bo.spelllang end,
+                        cond = function() return vim.opt_local.spell:get() end,
                     },
                 },
                 lualine_b = {
                     {
                         "b:gitsigns_head",
-                        icon = "",
+                        icon = require("config.icons").git.Branch,
                     },
                     {
                         "diff",
@@ -117,7 +108,15 @@ return {
                             end
                         end,
                     },
-                    "diagnostics",
+                    {
+                        "diagnostics",
+                        symbols = {
+                            error = require("config.icons").diagnostics.Error,
+                            warn = require("config.icons").diagnostics.Warning,
+                            info = require("config.icons").diagnostics.Information,
+                        },
+                        sections = { "error", "warn", "info" },
+                    },
                 },
                 lualine_c = { "filetype", "filename" },
                 lualine_x = { "encoding", "fileformat" },
@@ -275,9 +274,9 @@ return {
                     with_markers = false,
                 },
                 icon = {
-                    folder_closed = "",
-                    folder_open   = "",
-                    folder_empty  = "󰜌",
+                    folder_closed = require("config.icons").doc.Folder,
+                    folder_open   = require("config.icons").doc.OpenFolder,
+                    folder_empty  = require("config.icons").doc.EmptyFolder,
                 },
                 name = {
                     trailing_slash = true,
@@ -287,13 +286,13 @@ return {
                     symbols = {
                         added     = "",
                         modified  = "",
-                        deleted   = "󰆴",
-                        renamed   = "󰁕",
-                        untracked = "󱇬",
-                        ignored   = "󰟢",
-                        unstaged  = "󱎘",
-                        staged    = "󰄬",
-                        conflict  = "󰘬",
+                        deleted   = require("config.icons").git.Deleted,
+                        renamed   = require("config.icons").git.Renamed,
+                        untracked = require("config.icons").git.Untracked,
+                        ignored   = require("config.icons").git.Ignored,
+                        unstaged  = require("config.icons").git.Unstaged,
+                        staged    = require("config.icons").git.Staged,
+                        conflict  = require("config.icons").git.Conflict,
                     },
                 },
             },
@@ -430,6 +429,7 @@ return {
         "goolord/alpha-nvim",
         event = "VimEnter",
         opts = function()
+            local icons = require("config.icons")
             local dashboard = require("alpha.themes.dashboard")
             dashboard.section.header.val = {
                 [[███    ██ ███████  ██████  ██    ██ ██ ███    ███]],
@@ -439,13 +439,13 @@ return {
                 [[██   ████ ███████  ██████    ████   ██ ██      ██]]
             }
             dashboard.section.buttons.val = {
-                dashboard.button("f", " " .. " Find file", "<Cmd>Telescope find_files<CR>"),
-                dashboard.button("n", " " .. " New file", ":silent enew <BAR> startinsert<CR>"),
-                dashboard.button("r", " " .. " Recent files", "<Cmd>Telescope oldfiles<CR>"),
-                dashboard.button("g", " " .. " Find text", "<Cmd>Telescope live_grep<CR>"),
-                dashboard.button("c", " " .. " Config", ":e $MYVIMRC<CR>"),
-                dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
-                dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+                dashboard.button("f", icons.ui.Search .. " Find file", "<Cmd>Telescope find_files<CR>"),
+                dashboard.button("n", icons.ui.File .. " New file", ":silent enew <BAR> startinsert<CR>"),
+                dashboard.button("r", icons.ui.History .. " Recent files", "<Cmd>Telescope oldfiles<CR>"),
+                dashboard.button("g", icons.ui.List .. " Find text", "<Cmd>Telescope live_grep<CR>"),
+                dashboard.button("c", icons.ui.Gear .. " Config", ":e $MYVIMRC<CR>"),
+                dashboard.button("l", icons.ui.Lazy .. " Lazy", ":Lazy<CR>"),
+                dashboard.button("q", icons.ui.Quit .. " Quit", ":qa<CR>"),
             }
             return dashboard
         end,

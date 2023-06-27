@@ -1,40 +1,3 @@
-local kind_icons = {
-    Array = " ",
-    Boolean = " ",
-    Class = " ",
-    Color = " ",
-    Constant = "󰏿",
-    Constructor = "",
-    Enum = "",
-    EnumMember = "",
-    Event = "",
-    Field = "󰇽",
-    File = " ",
-    Folder = " ",
-    Function = "󰡱",
-    Interface = "",
-    Key = " ",
-    Keyword = "󰌋",
-    Method = "󰆧",
-    Module = "",
-    Namespace = " ",
-    Null = " ",
-    Number = " ",
-    Object = " ",
-    Operator = " ",
-    Package = " ",
-    Property = " ",
-    Reference = " ",
-    Snippet = "",
-    String = " ",
-    Struct = "",
-    Text = "",
-    TypeParameter = " ",
-    Unit = "",
-    Value = "󰎠",
-    Variable = "󰂡",
-}
-
 return {
 
     -- Snippet engine, needed for nvim-cmp and snippet template
@@ -177,7 +140,7 @@ return {
                 formatting = {
                     format = function(entry, vim_item)
                         -- Kind icons
-                        vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+                        vim_item.kind = string.format("%s", require("config.icons").kind[vim_item.kind])
                         -- Source
                         vim_item.menu = ({
                             nvim_lsp = "[LSP]",

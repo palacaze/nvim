@@ -193,7 +193,7 @@ return {
                     "--trim",
                 },
                 file_ignore_patterns = { "^cmake/vcpkg/" },
-                prompt_prefix = "   ",
+                prompt_prefix = " " .. require("config.icons").ui.Search .. " ",
                 initial_mode = "insert",
                 sorting_strategy = "ascending",
                 layout_strategy = "flex",
