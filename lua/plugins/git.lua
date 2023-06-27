@@ -150,7 +150,7 @@ return {
                 u.map_n("<leader>hp", gs.preview_hunk, "Preview hunk", opts)
                 u.map_n("<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line", opts)
                 u.map_n("<leader>tb", gs.toggle_current_line_blame, "Toggle blame line", opts)
-                u.map_n("<leader>tw", gs.toggle_word_diff, "Toggle word diff", opts)
+                u.map_n("<leader>tW", gs.toggle_word_diff, "Toggle word diff", opts)
                 u.map_n("<leader>hd", gs.diffthis, "Git diff", opts)
                 u.map_n("<leader>hD", function() gs.diffthis("~") end, "Git diff", opts)
                 u.map_n("<leader>td", gs.toggle_deleted, "Toggle deleted (git)", opts)

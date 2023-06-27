@@ -50,6 +50,10 @@ u.map_n("à", "za", "Toggle fold", { remap = true, silent = true, nowait = true 
 u.map_nvi("<M-s>", "<Cmd>silent update<CR>", "Save")
 u.map_nvi("<M-q>", "<Cmd>quit<CR>", "Quit")
 
+u.map_n("<Leader>tw", "<Cmd>set wrap!<CR>", "Toggle wrap")
+u.map_n("<Leader>ts", "<Cmd>set spell!<CR>", "Toggle spell")
+u.map_n("<Leader>tl", "<Cmd>set list!<CR>", "Toggle display of special chars")
+
 -- Tab navigation
 u.map({"n", "i", "t"}, "<A-Up>", "<Cmd>tabp<CR>", "Go to previous tab")
 u.map({"n", "i", "t"}, "<A-Down>", "<Cmd>tabn<CR>", "Go to next tab")
@@ -94,6 +98,7 @@ u.map_ni("<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header and
 -- S-F5 = Telescope file_browser
 -- F6 = Telescope find_files
 -- F7 = Telescope live_grep
+u.map_ni("<M-h>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
 u.map_ni("<F8>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
 u.map_ni("<F9>", "<Cmd>set list!<CR>", "Toggle display of special chars")
 
