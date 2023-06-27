@@ -287,7 +287,11 @@ return {
             { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
             { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
         },
-        config = true,
+        opts = {
+            keywords = {
+                FIX = { alt = { "TOFIX", "FIXME", "BUG", "FIXIT", "ISSUE" } },
+            },
+        },
     },
 
     -- Split / join trees
