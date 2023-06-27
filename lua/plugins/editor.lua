@@ -184,10 +184,10 @@ return {
                 pattern = "*",
                 group = gid,
                 callback = function()
-                    if not vim.tbl_contains(self.opts.filetype_exclude, vim.bo.filetype) and not vim.wo.diff then
-                        if vim.fn.exists(":IndentBlanklineEnable") > 0 then
-                            vim.cmd("IndentBlanklineEnable")
-                        end
+                    local deny = vim.tbl_contains(self.opts.filetype_exclude, vim.bo.filetype) or
+                                 vim.wo.diff or vim.b.large_buf
+                    if not deny and vim.fn.exists(":IndentBlanklineEnable") > 0 then
+                        vim.cmd("IndentBlanklineEnable")
                     end
                 end,
             })
