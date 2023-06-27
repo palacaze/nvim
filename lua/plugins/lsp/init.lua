@@ -121,28 +121,6 @@ return {
         end,
     },
 
-    -- mason automatic lsp & other tools installation
-    {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate",
-        cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall" },
-        opts = {
-            ui = {
-                icons = {
-                    package_installed = "✓",
-                    package_pending = "➜",
-                    package_uninstalled = "✗"
-                }
-            },
-            ensure_installed = {
-                "selene",
-                "shellcheck",
-                "shfmt",
-            },
-            PATH = "append",
-        },
-    },
-
     -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
     {
         "jose-elias-alvarez/null-ls.nvim",

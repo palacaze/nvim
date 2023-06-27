@@ -1,5 +1,26 @@
 return {
 
+    -- mason automatic lsp, debuggers & other tools installation
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall" },
+        opts = {
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                }
+            },
+            ensure_installed = {
+                "shellcheck",
+                "shfmt",
+            },
+            PATH = "append",
+        },
+    },
+
     -- make tables
     {
         "dhruvasagar/vim-table-mode",
