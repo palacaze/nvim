@@ -58,6 +58,12 @@ local function telescope(builtin, opts)
         builtin = params.builtin
         opts = params.opts
         opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+
+        -- pass word under cursor if required
+        if opts.cword ~= nil and opts.cword then
+            opts.default_text = vim.fn.expand("<cword>")
+        end
+
         if builtin == "files" then
             if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
                 opts.show_untracked = true
@@ -79,6 +85,12 @@ local function fzflua(builtin, opts)
         builtin = params.builtin
         opts = params.opts
         opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+
+        -- pass word under cursor if required
+        if opts.cword ~= nil and opts.cword then
+            opts.default_text = vim.fn.expand("<cword>")
+        end
+
         if builtin == "files" then
             if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
                 opts.show_untracked = true
@@ -129,6 +141,7 @@ return {
             { "<Leader>,", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer" },
             { "<M-Tab>", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer", mode = { "n", "i" } },
             { "<Leader>/", telescope("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>*", telescope("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
@@ -148,7 +161,8 @@ return {
 
             { "<Leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Find help" },
             { "<Leader>fs", "<Cmd>Telescope symbols<CR>", desc = "Find symbols" },
-            { "<Leader>gc", "<Cmd>Telescope git_commits<CR>", desc = "Find git commits" },
+            { "<Leader>gc", "<Cmd>Telescope git_bcommits<CR>", desc = "Find buffer git commits" },
+            { "<Leader>gC", "<Cmd>Telescope git_commits<CR>", desc = "Find git commits" },
             { "<Leader>gb", "<Cmd>Telescope git_branches<CR>", desc = "Find git branches" },
             { "<Leader>gs", "<Cmd>Telescope git_status<CR>", desc = "Find git status" },
             {
@@ -294,6 +308,7 @@ return {
             { "<Leader>,", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
             { "<M-Tab>", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
+            { "<Leader>*", fzflua("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
             { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
@@ -308,7 +323,8 @@ return {
             { "<Leader>fR", fzflua("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent files (cwd)" },
 
             { "<Leader>fh", "<Cmd>FzfLua help_tags<CR>", desc = "Find help" },
-            { "<Leader>gc", "<Cmd>FzfLua git_commits<CR>", desc = "Find git commits" },
+            { "<Leader>gc", "<Cmd>FzfLua git_bcommits<CR>", desc = "Find buffer git commits" },
+            { "<Leader>gC", "<Cmd>FzfLua git_commits<CR>", desc = "Find git commits" },
             { "<Leader>gb", "<Cmd>FzfLua git_branches<CR>", desc = "Find git branches" },
             { "<Leader>gs", "<Cmd>FzfLua git_status<CR>", desc = "Find git status" },
             { "<Leader>fm", "<Cmd>FzfLua man_pages<CR>", desc = "Find man pages" },
