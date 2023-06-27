@@ -147,6 +147,7 @@ return {
                 "aerial",
                 "fugitive",
                 "lazy",
+                "nvim-dap-ui",
                 -- diffview extension
                 {
                     filetypes = { "DiffviewFiles" },
