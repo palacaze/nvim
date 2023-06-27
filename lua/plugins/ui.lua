@@ -544,6 +544,8 @@ return {
 
     {
         "stevearc/dressing.nvim",
-        config = true
+        opts = {
+            input = { enabled = false },
+        },
     },
 }
