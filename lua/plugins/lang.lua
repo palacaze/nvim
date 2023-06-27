@@ -68,6 +68,7 @@ return {
 
     {
         "Civitasv/cmake-tools.nvim",
+        ft = { "cpp", "c", "cmake" },
         cmd = {
             "CMakeGenerate",
             "CMakeBuild",
