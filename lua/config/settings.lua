@@ -51,7 +51,7 @@ opt.fillchars = {
 opt.foldenable = true
 opt.foldlevel = 99
 opt.foldlevelstart = 99
-opt.foldmethod = "marker"
+-- opt.foldmethod = "marker"
 opt.formatoptions = "lcqtrnj2"
 if vim.fn.executable("rg") then
     opt.grepformat:append("%f:%l:%c:%m")

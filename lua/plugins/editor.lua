@@ -402,6 +402,22 @@ return {
         end,
     },
 
+    -- UFO Better folding
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        event = { "BufReadPost", "BufNew" },
+        opts = {},
+        init = function()
+            vim.keymap.set("n", "zR", function()
+                require("ufo").openAllFolds()
+            end)
+            vim.keymap.set("n", "zM", function()
+                require("ufo").closeAllFolds()
+            end)
+        end,
+    },
+
     -- Repeat commands
     { "tpope/vim-repeat" },
 

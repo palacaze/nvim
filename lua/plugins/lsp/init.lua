@@ -90,12 +90,23 @@ return {
             -- Configure servers
             local servers = require("plugins.lsp.servers")
 
+            -- UFO needs those for improved folding
+            local ufo_caps = {
+                textDocument = {
+                    foldingRange = {
+                        dynamicRegistration = false,
+                        lineFoldingOnly = true,
+                    },
+                },
+            }
+
             -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
             local capabilities = vim.tbl_deep_extend(
                 "force",
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities()
+                require("cmp_nvim_lsp").default_capabilities(),
+                ufo_caps
             )
 
             -- server configuration functon
