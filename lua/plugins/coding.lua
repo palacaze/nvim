@@ -89,6 +89,9 @@ return {
     -- Smart and powerful comment plugin for neovim
     {
         "numToStr/Comment.nvim",
+        dependencies = {
+            { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+        },
         keys = {
             "gcc",
             "gbc",
@@ -121,7 +124,11 @@ return {
                 mode = "v",
             },
         },
-        config = true
+        config = function()
+            require("Comment").setup({
+                pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+            })
+        end,
     },
 
     -- A breadcrumb bar showing symbols

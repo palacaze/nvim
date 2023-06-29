@@ -44,6 +44,7 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
             "RRethy/nvim-treesitter-textsubjects",
+            "JoosepAlviste/nvim-ts-context-commentstring",
             "vim-matchup",
         },
         opts = {
