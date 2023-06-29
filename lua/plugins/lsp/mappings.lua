@@ -56,7 +56,7 @@ local function pick(method)
 
     local tel = require("telescope.builtin")
     return function()
-        local theme = require("telescope.theme").get_cursor()
+        local theme = require("telescope.themes").get_dropdown()
         tel[method](theme)
     end
 end
