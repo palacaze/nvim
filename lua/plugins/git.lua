@@ -153,7 +153,11 @@ return {
                 u.map_n("<leader>tW", gs.toggle_word_diff, "Toggle word diff", opts)
                 u.map_n("<leader>hd", gs.diffthis, "Git diff", opts)
                 u.map_n("<leader>hD", function() gs.diffthis("~") end, "Git diff", opts)
-                u.map_n("<leader>td", gs.toggle_deleted, "Toggle deleted (git)", opts)
+                u.map_n("<leader>td", function()
+                    gs.toggle_linehl()
+                    gs.toggle_deleted()
+                    gs.toggle_word_diff()
+                end, "Toggle diff (inline)", opts)
                 u.map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk", opts)
             end,
         },
