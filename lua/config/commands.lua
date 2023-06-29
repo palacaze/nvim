@@ -18,8 +18,6 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.wo.spell = true
         vim.bo.spelllang = "en"
-        vim.wo.foldmethod = "expr"
-        vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
     end,
 })
 
