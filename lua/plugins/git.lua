@@ -95,6 +95,9 @@ return {
                         if vim.fn.exists(":IndentBlanklineDisable") > 0 then
                             vim.cmd("IndentBlanklineDisable")
                         end
+
+                        -- disable winbars to prevent the dropbar menu from appearing on one side only
+                        vim.opt_local.winbar = nil
                     end,
                     view_closed = function(_)
                         -- BUG: neotree git status watching is broken

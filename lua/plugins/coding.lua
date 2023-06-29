@@ -170,6 +170,17 @@ return {
                     }
                 end
             },
+            general = {
+                update_interval = 100,
+                enable = function(buf, win)
+                    local name = vim.api.nvim_buf_get_name(buf)
+                    return not vim.api.nvim_win_get_config(win).zindex
+                        and vim.bo[buf].buftype == ""
+                        and name ~= ""
+                        and name:find("diffview://", 1, true) ~= 1
+                        and not vim.wo[win].diff
+                end,
+            },
             menu = {
                 keymaps = {
                     ["<Esc>"] = function()
