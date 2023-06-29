@@ -21,28 +21,35 @@ return {
             section_separators = "",
             globalstatus = false,
             icons_enabled = true,
-            theme = "auto",
+            theme = "pal",
             disabled_filetypes = { statusline = { "dashboard", "alpha" } },
         },
         sections = {
             lualine_a = {
                 {
                     "mode",
-                },
-                {
-                    -- spell
-                    function() return require("config.icons").ui.Spell .. vim.bo.spelllang end,
-                    cond = function() return vim.opt_local.spell:get() end,
+                    fmt = function(str) return str:sub(1, 1) end,
                 },
             },
             lualine_b = {
                 {
+                    -- spell
+                    function() return require("config.icons").ui.Spell .. vim.bo.spelllang end,
+                    cond = function() return vim.opt_local.spell:get() end,
+                    padding = { left = 1, right = 0 },
+                },
+            },
+            lualine_c = {
+                {
+                    -- Get git branch from gitsigns
                     "b:gitsigns_head",
                     icon = require("config.icons").git.Branch,
+                    color = { fg = "#A292B3" },
+                    padding = { left = 1, right = 0 },
                 },
                 {
+                    -- Get git diff from gitsigns
                     "diff",
-                    -- use gitsigns as diff source
                     source = function()
                         local gitsigns = vim.b.gitsigns_status_dict
                         if gitsigns then
@@ -55,6 +62,16 @@ return {
                     end,
                 },
                 {
+                    "filetype",
+                    icon_only = true,
+                },
+                {
+                    "filename",
+                    color = { gui = "bold" },
+                }
+            },
+            lualine_x = {
+                {
                     "diagnostics",
                     symbols = {
                         error = require("config.icons").diagnostics.Error,
@@ -64,22 +81,41 @@ return {
                     sections = { "error", "warn", "info" },
                 },
             },
-            lualine_c = { "filetype", "filename" },
-            lualine_x = { "encoding", "fileformat" },
-            lualine_y = { "progress", "location" },
+            lualine_y = {
+                {
+                    "encoding",
+                    padding = 0,
+
+                },
+                {
+                    "fileformat",
+                    icons_enabled = true,
+                },
+            },
             lualine_z = {
+                "progress",
+                "location",
                 {
                     "b:pal_trailing_spaces",
-                    color = "WarningMsg",
+                    color = { fg = "#111111", bg = "#FF9E3B", gui = "bold" },
                 },
                 {
                     "b:pal_mixed_indent",
-                    color = "WarningMsg",
+                    color = { fg = "#111111", bg = "#FF9E3B", gui = "bold" },
                 },
             },
         },
         inactive_sections = {
-            lualine_a = { "filetype", "filename" },
+            lualine_a = {
+                {
+                    "filetype",
+                    icon_only = true,
+                },
+                {
+                    "filename",
+                    color = { gui = "bold" },
+                }
+            },
             lualine_b = {},
             lualine_c = {},
             lualine_x = {},
