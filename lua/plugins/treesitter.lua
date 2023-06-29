@@ -126,7 +126,7 @@ return {
                 enable = true,
             },
             textsubjects = {
-                enable = true,
+                enable = false,
                 prev_selection = ",",
                 keymaps = {
                     ["."] = "textsubjects-smart",
