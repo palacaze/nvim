@@ -157,6 +157,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- Remember folds from one opening to the next
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    group = gid,
+    pattern = "*.*",
+    command = "mkview",
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = gid,
+    pattern = "*.*",
+    command = "silent! loadview",
+})
+
 -- Toggle verbose mode of neovim
 vim.api.nvim_create_user_command("ToggleVerbose", function()
     if vim.o.verbose > 0 then

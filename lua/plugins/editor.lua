@@ -409,13 +409,48 @@ return {
         "kevinhwang91/nvim-ufo",
         dependencies = { "kevinhwang91/promise-async" },
         event = { "BufReadPost", "BufNew" },
-        opts = {},
+        opts = {
+            open_fold_hl_timeout = 150,
+            preview = {
+                win_config = {
+                    border = "none",
+                    winhighlight = "Normal:Folded",
+                    winblend = 0
+                },
+                mappings = {
+                    scrollU = "<C-u>",
+                    scrollD = "<C-d>",
+                    jumpTop = "[",
+                    jumpBot = "]"
+                }
+            },
+        },
+        keys = {
+            { "z1", function() require("ufo").closeFoldsWith(0) end, desc = "Unfold 1 level" },
+            { "z2", function() require("ufo").closeFoldsWith(1) end, desc = "Unfold 2 levels" },
+            { "z3", function() require("ufo").closeFoldsWith(2) end, desc = "Unfold 3 levels" },
+            { "z4", function() require("ufo").closeFoldsWith(3) end, desc = "Unfold 4 levels" },
+            { "z5", function() require("ufo").closeFoldsWith(4) end, desc = "Unfold 5 levels" },
+            { "z6", function() require("ufo").closeFoldsWith(5) end, desc = "Unfold 6 levels" },
+            { "z0", function() require("ufo").closeFoldsWith(99) end, desc = "Unfold all" },
+            { "à", "za", desc = "Toggle fold", remap = true, silent = true, nowait = true },
+        },
         init = function()
             vim.keymap.set("n", "zR", function()
                 require("ufo").openAllFolds()
             end)
             vim.keymap.set("n", "zM", function()
                 require("ufo").closeAllFolds()
+            end)
+            vim.keymap.set("n", "Z", function()
+                local winid = require("ufo").peekFoldedLinesUnderCursor()
+                -- inside the preview window
+                if winid then
+                    -- local bufnr = vim.api.nvim_win_get_buf(winid)
+                    vim.wo[winid].list = false
+                else
+                    vim.lsp.buf.hover()
+                end
             end)
         end,
     },

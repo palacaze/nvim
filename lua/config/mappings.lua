@@ -37,14 +37,16 @@ u.map({"n", "v", "x"}, "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
 u.map("i", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "<Down>" : "<C-o>gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
 
 -- Folding
-u.map_n("z1", function() vim.opt_local.foldlevel = 0; end, "Unfold 1 level")
-u.map_n("z2", function() vim.opt_local.foldlevel = 1 end, "Unfold 2 levels")
-u.map_n("z3", function() vim.opt_local.foldlevel = 2 end, "Unfold 3 levels")
-u.map_n("z4", function() vim.opt_local.foldlevel = 3 end, "Unfold 4 levels")
-u.map_n("z5", function() vim.opt_local.foldlevel = 4 end, "Unfold 5 levels")
-u.map_n("z6", function() vim.opt_local.foldlevel = 6 end, "Unfold 6 levels")
-u.map_n("z0", function() vim.opt_local.foldlevel = 9999 end, "Unfold all")
-u.map_n("à", "za", "Toggle fold", { remap = true, silent = true, nowait = true })
+if not u.has_mapping("z1") then
+    u.map_n("z1", function() vim.opt_local.foldlevel = 0 end, "Unfold 1 level")
+    u.map_n("z2", function() vim.opt_local.foldlevel = 1 end, "Unfold 2 levels")
+    u.map_n("z3", function() vim.opt_local.foldlevel = 2 end, "Unfold 3 levels")
+    u.map_n("z4", function() vim.opt_local.foldlevel = 3 end, "Unfold 4 levels")
+    u.map_n("z5", function() vim.opt_local.foldlevel = 4 end, "Unfold 5 levels")
+    u.map_n("z6", function() vim.opt_local.foldlevel = 6 end, "Unfold 6 levels")
+    u.map_n("z0", function() vim.opt_local.foldlevel = 9999 end, "Unfold all")
+    u.map_n("à", "za", "Toggle fold", { remap = true, silent = true, nowait = true })
+end
 
 -- Use ALT-s for saving and ALT-q to close
 u.map_nvi("<M-s>", "<Cmd>silent update<CR>", "Save")
