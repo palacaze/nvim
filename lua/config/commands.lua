@@ -5,8 +5,8 @@ vim.api.nvim_create_autocmd("FileType", {
     group = gid,
     pattern = { "txt" },
     callback = function()
-        vim.wo.wrap = true
-        vim.wo.spell = true
+        vim.opt_local.wrap = true
+        vim.opt_local.spell = true
         vim.bo.spelllang = "en"
     end,
 })
@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
     group = gid,
     pattern = { "c", "cpp", "python", "cmake", "go", "markdown" },
     callback = function()
-        vim.wo.spell = true
+        vim.opt_local.spell = true
         vim.bo.spelllang = "en"
     end,
 })
@@ -26,8 +26,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     group = gid,
     pattern = { "json", "jsonc" },
     callback = function()
-        vim.wo.spell = false
-        vim.wo.conceallevel = 0
+        vim.opt_local.spell = false
+        vim.opt_local.conceallevel = 0
     end,
 })
 
