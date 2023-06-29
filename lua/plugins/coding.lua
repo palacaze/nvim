@@ -140,6 +140,36 @@ return {
             { "<M-.>", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
         },
         opts = {
+            bar = {
+                sources = function(_, _)
+                    local sources = require('dropbar.sources')
+                    return {
+                        sources.path,
+                        {
+                            get_symbols = function(buf, win, cursor)
+                                if vim.bo[buf].ft == 'markdown' then
+                                    return sources.markdown.get_symbols(buf, win, cursor)
+                                end
+                                local is_cpp = vim.bo[buf].ft == "cpp"
+                                for _, source in ipairs({ sources.lsp, sources.treesitter }) do
+                                    local symbols = source.get_symbols(buf, win, cursor)
+                                    if not vim.tbl_isempty(symbols) then
+                                        if vim.bo[buf].ft == "cpp" then
+                                            for _, sym in ipairs(symbols) do
+                                                if sym.name == "(anonymous namespace)" then
+                                                    sym.name = "󰊠 "
+                                                end
+                                            end
+                                        end
+                                        return symbols
+                                    end
+                                end
+                                return {}
+                            end,
+                        },
+                    }
+                end
+            },
             menu = {
                 keymaps = {
                     ["<Esc>"] = function()
@@ -151,7 +181,6 @@ return {
                 },
             },
         },
-        config = true,
     },
 
     -- Annotation generator
