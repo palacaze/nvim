@@ -87,6 +87,7 @@ return {
                     ["FSPrefix"] = { fg = colors.theme.fg },
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
                     ["DiffChange"] = { bg = colors.palette.waveBlue1 },
+                    ["WinSeparator"] = { fg = colors.palette.sumiInk6, bg = "NONE" },
                     ["UfoFoldedEllipsis"] = { fg = colors.palette.lotusPink },
                 }
             end,
