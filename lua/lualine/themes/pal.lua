@@ -26,29 +26,34 @@ end
 
 return {
     normal = {
-        a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
+        a = { bg = colors.bg, fg = colors.fg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.blue },
         c = { bg = colors.bg, fg = colors.fg },
+        z = { bg = colors.blue, fg = colors.bg, gui = "bold" },
     },
     insert = {
-        a = { bg = colors.green, fg = colors.bg, gui = "bold" },
+        a = { bg = colors.bg, fg = colors.fg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.green },
         c = { bg = colors.bg, fg = colors.fg },
+        z = { bg = colors.green, fg = colors.bg, gui = "bold" },
     },
     command = {
-        a = { bg = colors.yellow, fg = colors.bg, gui = "bold" },
+        a = { bg = colors.bg, fg = colors.fg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.yellow },
         c = { bg = colors.bg, fg = colors.fg },
+        z = { bg = colors.yellow, fg = colors.bg, gui = "bold" },
     },
     visual = {
-        a = { bg = colors.violet, fg = colors.bg, gui = "bold" },
+        a = { bg = colors.bg, fg = colors.fg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.violet },
         c = { bg = colors.bg, fg = colors.fg },
+        z = { bg = colors.violet, fg = colors.bg, gui = "bold" },
     },
     replace = {
-        a = { bg = colors.orange, fg = colors.bg, gui = "bold" },
+        a = { bg = colors.bg, fg = colors.fg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.orange },
         c = { bg = colors.bg, fg = colors.fg },
+        z = { bg = colors.orange, fg = colors.bg, gui = "bold" },
     },
     inactive = {
         a = { bg = colors.bg_dim, fg = colors.fg_dim, gui = "bold" },

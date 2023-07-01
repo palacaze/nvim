@@ -27,18 +27,15 @@ return {
         sections = {
             lualine_a = {
                 {
-                    "mode",
-                    fmt = function(str) return str:sub(1, 1) end,
-                },
-            },
-            lualine_b = {
-                {
-                    -- spell
-                    function() return require("config.icons").ui.Spell .. vim.bo.spelllang end,
-                    cond = function() return vim.opt_local.spell:get() end,
+                    "filetype",
+                    icon_only = true,
                     padding = { left = 1, right = 0 },
                 },
+                {
+                    "filename",
+                }
             },
+            lualine_b = {},
             lualine_c = {
                 {
                     -- Get git branch from gitsigns
@@ -61,14 +58,6 @@ return {
                         end
                     end,
                 },
-                {
-                    "filetype",
-                    icon_only = true,
-                },
-                {
-                    "filename",
-                    color = { gui = "bold" },
-                }
             },
             lualine_x = {
                 {
@@ -83,18 +72,33 @@ return {
             },
             lualine_y = {
                 {
+                    -- spell
+                    function() return require("config.icons").ui.Spell .. vim.bo.spelllang end,
+                    cond = function() return vim.opt_local.spell:get() end,
+                },
+                {
                     "encoding",
                     padding = 0,
-
                 },
                 {
                     "fileformat",
                     icons_enabled = true,
+                    padding = { left = 1, right = 2 },
                 },
             },
             lualine_z = {
-                "progress",
-                "location",
+                {
+                    "progress",
+                },
+                {
+                    "location",
+                    padding = { left = 0, right = 1 },
+                },
+                {
+                    "mode",
+                    fmt = function(str) return str:sub(1, 1) end,
+                    padding = { left = 0, right = 1 },
+                },
                 {
                     "b:pal_trailing_spaces",
                     color = { fg = "#111111", bg = "#FF9E3B", gui = "bold" },
@@ -110,17 +114,25 @@ return {
                 {
                     "filetype",
                     icon_only = true,
+                    padding = { left = 1, right = 0 },
                 },
                 {
                     "filename",
-                    color = { gui = "bold" },
-                }
+                },
             },
             lualine_b = {},
             lualine_c = {},
             lualine_x = {},
             lualine_y = {},
-            lualine_z = { "location" },
+            lualine_z = {
+                {
+                    "progress",
+                },
+                {
+                    "location",
+                    padding = { left = 0, right = 1 },
+                },
+            },
         },
         extensions = {
             "quickfix",
