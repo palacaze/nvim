@@ -71,8 +71,8 @@ return {
     {
         "RRethy/vim-illuminate",
         -- event = { "CursorHold", "CursorHoldI" },
-        cmds = {
-            "illuminateToggle", "IlluminatePause", "IlluminateResume"
+        cmd = {
+            "IlluminateToggle", "IlluminatePause", "IlluminateResume"
         },
         keys = {
             { "<Leader>ti", "<Cmd>IlluminateToggle<CR", desc = "Toggle Illuminate (highlight symbols)" },
