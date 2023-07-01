@@ -53,10 +53,6 @@ return {
         }
     },
 
-    ltex = {
-        executable = "ltex-ls",
-    },
-
     gopls = {
         executable = "gopls",
     },

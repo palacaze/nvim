@@ -62,6 +62,27 @@ local function on_attach(attached_func)
     })
 end
 
+local function make_client_capabilities()
+    -- UFO needs those for improved folding
+    local ufo_caps = {
+        textDocument = {
+            foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+            },
+        },
+    }
+
+    -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
+    return vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        ufo_caps
+    )
+end
+
 
 return {
 
@@ -90,25 +111,6 @@ return {
             -- Configure servers
             local servers = require("plugins.lsp.servers")
 
-            -- UFO needs those for improved folding
-            local ufo_caps = {
-                textDocument = {
-                    foldingRange = {
-                        dynamicRegistration = false,
-                        lineFoldingOnly = true,
-                    },
-                },
-            }
-
-            -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
-            local capabilities = vim.tbl_deep_extend(
-                "force",
-                {},
-                vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities(),
-                ufo_caps
-            )
-
             -- server configuration functon
             local function setup_server(name, server)
                 if vim.fn.executable(server.executable) > 0 then
@@ -118,7 +120,7 @@ return {
 
                     local server_opts = vim.tbl_deep_extend("force", {
                         single_file_support = true,
-                        capabilities = vim.deepcopy(capabilities),
+                        capabilities = make_client_capabilities()
                     }, server.config or {})
 
                     require("lspconfig")[name].setup(server_opts)
@@ -160,6 +162,59 @@ return {
                 },
             }
         end,
+    },
+
+    -- ltex-ls enhanced integration for neovim
+    {
+        "vigoux/ltex-ls.nvim",
+        ft = { "markdown", "gitcommit", "text", "python", "c", "cpp" },
+        dependencies = { "nvim-lspconfig" },
+        opts = {
+            use_spellfile = false,
+            filetypes = { "markdown", "gitcommit", "text", "python", "c", "cpp" },
+            on_attach = function(client, bufnr)
+                require("plugins.lsp.mappings").on_attach(client, bufnr)
+            end,
+            capabilities = make_client_capabilities(),
+            settings = {
+                ltex = {
+                    enabled = { "markdown", },
+                    language = "auto",
+                    diagnosticSeverity = "information",
+                    sentenceCachesize = 2000,
+                    additionalRules = {
+                        enablePickyRules = true,
+                        -- motherTongue = "fr",
+                    },
+                    disabledRules = {
+                        fr = { "APOS_TYP", "FRENCH_WHITESPACE" },
+                    },
+                    dictionary = (function()
+                        -- For dictionary, search for files in the runtime to have
+                        -- and include them as externals the format for them is
+                        -- dict/{LANG}.txt
+                        --
+                        -- Also add dict/default.txt to all of them
+                        local files = {}
+                        for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
+                            local lang = vim.fn.fnamemodify(file, ":t:r")
+                            local fullpath = vim.fs.normalize(file, ":p")
+                            files[lang] = { ":" .. fullpath }
+                        end
+
+                        if files.default then
+                            for lang, _ in pairs(files) do
+                                if lang ~= "default" then
+                                    vim.list_extend(files[lang], files.default)
+                                end
+                            end
+                            files.default = nil
+                        end
+                        return files
+                    end)(),
+                },
+            },
+        },
     },
 
     -- LSP helper plugins
