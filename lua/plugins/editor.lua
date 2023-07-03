@@ -135,7 +135,7 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         cmd = { "IndentBlanklineEnable", "IndentBlanklineDisable" },
         opts = {
-            char = "▏",
+            char = "┆",
             show_end_of_line = false,
             show_first_indent_level = false,
             show_trailing_blankline_indent = false,
