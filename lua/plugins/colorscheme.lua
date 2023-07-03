@@ -83,11 +83,12 @@ return {
                     ["@text.title.4"] = { fg = colors.palette.lotusOrange, bold = true },
                     ["@text.title.5"] = { fg = colors.palette.lotusPink, bold = true },
                     ["@text.title.6"] = { fg = colors.palette.oniViolet, bold = true },
-                    ["@comment.documentation.cpp"] = { fg = colors.palette.springViolet2 },
-                    ["FSPrefix"] = { fg = colors.theme.fg },
-                    ["FSSuffix"] = { fg = colors.theme.fg_dim },
+                    ["@comment.documentation.cpp"] = { fg = "#C99484", bold = true },
+                    ["Comment"] = { fg = "#C99484" },  -- #D39583  #C99484  #6874A9
                     ["DiffChange"] = { bg = colors.palette.waveBlue1 },
                     ["WinSeparator"] = { fg = colors.palette.sumiInk6, bg = "NONE" },
+                    ["FSPrefix"] = { fg = colors.theme.fg },
+                    ["FSSuffix"] = { fg = colors.theme.fg_dim },
                     ["UfoFoldedEllipsis"] = { fg = colors.palette.lotusPink },
                 }
             end,
