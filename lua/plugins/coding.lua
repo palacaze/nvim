@@ -93,8 +93,8 @@ return {
             { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
         },
         keys = {
-            "gcc",
-            "gbc",
+            { "gcc", desc = "Toggle comment (linewise)" },
+            { "gbc", desc = "Toggle comment (blockwise)" },
             {
                 "<M-x>",
                 function()
@@ -106,7 +106,7 @@ return {
             {
                 "<M-x>",
                 function()
-                    local u = require("config.utils")
+                    local u = require("utils")
                     vim.api.nvim_feedkeys(u.esc, "nx", false)
                     require("Comment.api").toggle.linewise(vim.fn.visualmode())
                 end,
@@ -116,7 +116,7 @@ return {
             {
                 "<M-y>",
                 function()
-                    local u = require("config.utils")
+                    local u = require("utils")
                     vim.api.nvim_feedkeys(u.esc, "nx", false)
                     require("Comment.api").toggle.blockwise(vim.fn.visualmode())
                 end,

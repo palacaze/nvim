@@ -92,9 +92,9 @@ return {
             python:toggle()
         end
 
-        local u = require("config.utils")
-        u.map_n("<Leader>Tg", toggle_lazygit, "Run lazygit in a floating terminal")
-        u.map({"n", "t"}, "<F12>", toggle_lazygit, "Run lazygit in a floating terminal")
-        u.map_n("<Leader>Tp", toggle_python, "Run python3 in a terminal")
+        local u = require("utils")
+        u.map("n", "<Leader>Tg", toggle_lazygit, "Run lazygit in a floating terminal")
+        u.map("nt", "<F12>", toggle_lazygit, "Run lazygit in a floating terminal")
+        u.map("n", "<Leader>Tp", toggle_python, "Run python3 in a terminal")
     end,
 }

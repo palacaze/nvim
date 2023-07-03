@@ -123,7 +123,7 @@ return {
             numhl = false,
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
-                local u = require("config.utils")
+                local u = require("utils")
                 local opts = { silent = true, nowait = true, noremap = true, buffer = bufnr }
                 local expr_opts = vim.tbl_extend("keep", opts, { expr = true })
 
@@ -145,23 +145,23 @@ return {
                 end, "Move to the previous hunk", expr_opts)
 
                 -- Actions
-                u.map_nv("<leader>hs", "<Cmd>Gitsigns stage_hunk<CR>", "Stage hunk", opts)
-                u.map_nv("<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>", "Reset hunk", opts)
-                u.map_n("<leader>hu", gs.undo_stage_hunk, "Unstage hunk", opts)
-                u.map_n("<leader>hS", gs.stage_buffer, "Stage buffer", opts)
-                u.map_n("<leader>hR", gs.reset_buffer, "Reset buffer", opts)
-                u.map_n("<leader>hp", gs.preview_hunk, "Preview hunk", opts)
-                u.map_n("<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line", opts)
-                u.map_n("<leader>tb", gs.toggle_current_line_blame, "Toggle blame line", opts)
-                u.map_n("<leader>tW", gs.toggle_word_diff, "Toggle word diff", opts)
-                u.map_n("<leader>hd", gs.diffthis, "Git diff", opts)
-                u.map_n("<leader>hD", function() gs.diffthis("~") end, "Git diff", opts)
-                u.map_n("<leader>td", function()
+                u.map("nv", "<leader>hs", "<Cmd>Gitsigns stage_hunk<CR>", "Stage hunk", opts)
+                u.map("nv", "<leader>hr", "<Cmd>Gitsigns reset_hunk<CR>", "Reset hunk", opts)
+                u.map("n", "<leader>hu", gs.undo_stage_hunk, "Unstage hunk", opts)
+                u.map("n", "<leader>hS", gs.stage_buffer, "Stage buffer", opts)
+                u.map("n", "<leader>hR", gs.reset_buffer, "Reset buffer", opts)
+                u.map("n", "<leader>hp", gs.preview_hunk, "Preview hunk", opts)
+                u.map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame line", opts)
+                u.map("n", "<leader>tb", gs.toggle_current_line_blame, "Toggle blame line", opts)
+                u.map("n", "<leader>tW", gs.toggle_word_diff, "Toggle word diff", opts)
+                u.map("n", "<leader>hd", gs.diffthis, "Git diff", opts)
+                u.map("n", "<leader>hD", function() gs.diffthis("~") end, "Git diff", opts)
+                u.map("n", "<leader>td", function()
                     gs.toggle_linehl()
                     gs.toggle_deleted()
                     gs.toggle_word_diff()
                 end, "Toggle diff (inline)", opts)
-                u.map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk", opts)
+                u.map("ox", "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk", opts)
             end,
         },
     },
