@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     group = gid,
     pattern = "*",
     callback = function()
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(0))
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
         if ok and stats and (stats.size > 200000) then
             vim.b.large_buf = true
             vim.opt_local.bufhidden = "unload"
@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         if event.match:match("^%w%w+://") then
             return
         end
-        local file = vim.loop.fs_realpath(event.match) or event.match
+        local file = vim.uv.fs_realpath(event.match) or event.match
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })

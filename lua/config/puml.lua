@@ -182,7 +182,7 @@ local function generate_preview(opts, continuation)
             end
 
             -- Empty file and posting, try again
-            local stat = vim.loop.fs_stat(opts.out_file)
+            local stat = vim.uv.fs_stat(opts.out_file)
             local image_ok = stat and stat.size > 0
             if not image_ok then
                 if was_posting then
@@ -220,7 +220,7 @@ end
 -- Start previewing a plantuml file in an image viewer
 function M.start_preview(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
-    local file = vim.loop.fs_realpath(vim.fn.expand(vim.api.nvim_buf_get_name(bufnr), true))
+    local file = vim.uv.fs_realpath(vim.fn.expand(vim.api.nvim_buf_get_name(bufnr), true))
 
     if not file then
         vim.print("Cannot preview unnamed buffer")

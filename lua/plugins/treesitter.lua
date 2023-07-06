@@ -96,7 +96,7 @@ return {
                 -- language_tree = true,
                 disable = function(_, buf)
                     local max_filesize = 1024 * 1024
-                    local sok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    local sok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                     return sok and stats and stats.size > max_filesize
                 end,
                 additional_vim_regex_highlighting = false,
