@@ -165,26 +165,68 @@ return {
                 }),
                 sources = cmp.config.sources({
                     {
-                        name = "nvim_lsp",
+                        name = "nvim_lsp", keyword_length = 3,
                         entry_filter = function(entry, _)
-                            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Keyword"
+                            local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
+                            return kind ~= "Keyword" and kind ~= "Text"
                         end,
                     },
-                    { name = "luasnip" },
-                    {
-                        name = "buffer",
-                        keyword_length = 2
-                    },
+                    { name = "luasnip", keyword_length = 2 },
+                }, {
                     { name = "path" },
+                    { name = "buffer", keyword_length = 5 },
                 }),
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        cmp.config.compare.offset,
+                        cmp.config.compare.exact,
+                        cmp.config.compare.recently_used,
+                        -- cmp.config.compare.scopes,
+                        -- clangd completion scores, replaces compare.scores
+                        -- falls back to compare.score if unavailable
+                        function(entry1, entry2)
+                            local diff
+                            if entry1.completion_item.score and entry2.completion_item.score then
+                                diff = (entry2.completion_item.score * entry2.score)
+                                        - (entry1.completion_item.score * entry1.score)
+                            else
+                                diff = entry2.score - entry1.score
+                            end
+                            return (diff < 0)
+                        end,
+                        -- cmp.config.compare.score
+                        -- copied from cmp-under: puts symbols starting with one or more _ at the bottom
+                        function(entry1, entry2)
+                            local _, entry1_under = entry1.completion_item.label:find "^_+"
+                            local _, entry2_under = entry2.completion_item.label:find "^_+"
+                            entry1_under = entry1_under or 0
+                            entry2_under = entry2_under or 0
+                            if entry1_under > entry2_under then
+                                return false
+                            elseif entry1_under < entry2_under then
+                                return true
+                            end
+                        end,
+                        -- cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        -- cmp.config.compare.sort_text,
+                        -- cmp.config.compare.length,
+                        -- cmp.config.compare.order,
+                    },
+                },
                 view = {
                     entries = { name = "custom", selection_order = "near_cursor" },
                 },
-                experimental = { ghost_text = false },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
+                experimental = { ghost_text = false, native_menu = false },
+                matching = {
+                    disallow_fuzzy_matching = true,
+                    disallow_fullfuzzy_matching = true,
+                    disallow_partial_fuzzy_matching = true,
+                    disallow_partial_matching = false,
+                    disallow_prefix_unmatching = true,
                 },
+                compare = { locality = { lines_count = 300} },
                 formatting = {
                     format = function(entry, vim_item)
                         -- Kind icons
