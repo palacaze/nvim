@@ -27,11 +27,25 @@ return {
 
     clangd = {
         executable = "clangd",
-        capabilities = { offsetEncoding = { "utf-16" } },
         config = {
+            capabilities = { offsetEncoding = { "utf-16" } },
             root_dir = require("lspconfig.util").root_pattern(".clangd", ".clang-tidy", ".clang-format", "compile_commands.json", ".git"),
             flags = {
                 debounce_text_changes = 500,
+            },
+            cmd = {
+                "clangd",
+                "--background-index",
+                "--clang-tidy",
+                "--header-insertion=never",
+                "--completion-style=detailed",
+                "--function-arg-placeholders",
+                "--fallback-style=llvm",
+            },
+            init_options = {
+                usePlaceholders = true,
+                completeUnimported = true,
+                clangdFileStatus = true,
             },
         },
     },
