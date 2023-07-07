@@ -118,8 +118,13 @@ return {
             { "g#", [[g#<Cmd>lua require("hlslens").start()<CR>]], desc = "Like #, but also incomplete match" },
         },
         main = "hlslens",
-        config = function()
-            require("scrollbar.handlers.search").setup({})
+        opts = {
+            nearest_only = true,
+            nearest_float_when = "never",
+        },
+        config = function(_, opts)
+            require("hlslens").setup(opts)
+            require("scrollbar.handlers.search").setup()
         end,
     },
 
