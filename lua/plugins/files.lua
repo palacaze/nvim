@@ -6,10 +6,11 @@ return {
         version = false,
         opts = {
             windows = {
-                preview = true,
+                preview = false,
             },
             options = {
                 use_as_default_explorer = false,
+                permanent_delete = false,
             },
             mappings = {
                 go_in = "<Right>",
@@ -35,7 +36,8 @@ return {
             },
         },
         config = function(_, opts)
-            require("mini.files").setup(opts)
+            local minifiles = require("mini.files")
+            minifiles.setup(opts)
 
             local show_dotfiles = true
             local filter_show = function(_) return true end
@@ -44,27 +46,57 @@ return {
             local toggle_dotfiles = function()
                 show_dotfiles = not show_dotfiles
                 local new_filter = show_dotfiles and filter_show or filter_hide
-                require("mini.files").refresh({ content = { filter = new_filter } })
+                minifiles.refresh({ content = { filter = new_filter } })
             end
 
+            -- Make new window and set it as target
+            local open_split = function(direction)
+                return function()
+                    local new_target_window
+                    vim.api.nvim_win_call(minifiles.get_target_window(), function()
+                        vim.cmd(direction .. " split")
+                        new_target_window = vim.api.nvim_get_current_win()
+                    end)
+                    minifiles.set_target_window(new_target_window)
+                end
+            end
+
+            -- Change the cwd
+            local files_set_cwd = function()
+                -- Works only if cursor is on the valid file system entry
+                local cur_entry_path = minifiles.get_fs_entry().path
+                local cur_directory = vim.fs.dirname(cur_entry_path)
+                vim.fn.chdir(cur_directory)
+            end
+
+            -- Add some mappings to MiniFiles buffers
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniFilesBufferCreate",
                 callback = function(args)
-                    local buf_id = args.data.buf_id
+                    local buf = args.data.buf_id
+                    local u = require("utils")
+
                     -- Tweak left-hand side of mapping to your liking
-                    vim.keymap.set("n", "h", toggle_dotfiles, { buffer = buf_id })
+                    u.bufmap(buf, "n", "h", toggle_dotfiles, "Toggle show hidden files")
+
+                    -- Open in split
+                    u.bufmap(buf, "n", "gs", open_split("belowright horizontal"), "Horizontal Split")
+                    u.bufmap(buf, "n", "gv", open_split("belowright vertical"), "Vertical Split")
+
+                    -- Change CWD
+                    u.bufmap(buf, "n", "g~", files_set_cwd, "Set CWD")
 
                     -- Remove some keymaps
-                    vim.keymap.set({"n", "i"}, "<S-Left>", "<Left>", { buffer = buf_id })
-                    vim.keymap.set({"n", "i"}, "<S-Right>", "<Right>", { buffer = buf_id })
-                    vim.keymap.set({"n", "i"}, "<S-Up>", "<Up>", { buffer = buf_id })
-                    vim.keymap.set({"n", "i"}, "<S-Down>", "<Down>", { buffer = buf_id })
+                    vim.keymap.set({"n", "i"}, "<S-Left>", "<Left>", { buffer = buf })
+                    vim.keymap.set({"n", "i"}, "<S-Right>", "<Right>", { buffer = buf })
+                    vim.keymap.set({"n", "i"}, "<S-Up>", "<Up>", { buffer = buf })
+                    vim.keymap.set({"n", "i"}, "<S-Down>", "<Down>", { buffer = buf })
                 end,
             })
         end,
     },
 
-    -- Neo-tree file explorer   
+    -- Neo-tree file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
         cmd = "Neotree",
