@@ -117,6 +117,7 @@ local function strip_trailing_spaces()
     local save = vim.fn.winsaveview()
     vim.api.nvim_exec2("keepjumps keeppatterns silent! %s/\\s\\+$//e", {})
     vim.fn.winrestview(save)
+    vim.cmd("silent update")
 end
 
 u.map("ni", "<F10>", strip_trailing_spaces, "Strip Trailing spaces")
