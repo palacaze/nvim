@@ -86,9 +86,13 @@ return {
                     ["@comment.documentation.cpp"] = { fg = "#C99484", bold = true },
                     ["Comment"] = { fg = "#C99484" },  -- #D39583  #C99484  #6874A9
                     ["DiffChange"] = { bg = colors.palette.waveBlue1 },
+                    ["IncSearch"] = { bg = "#55CB14", fg = "#000000", bold = true },
+                    ["Search"] = { bg = "#31A0CF", fg = "#000000", bold = true },
+                    ["Visual"] = { bg = "#7c1b60", bold = true },
                     ["WinSeparator"] = { fg = colors.palette.sumiInk6, bg = "NONE" },
                     ["FSPrefix"] = { fg = colors.theme.fg },
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
+                    ["HlSearchLens"] = { bg = "#55CB14", fg = "#000000" },
                     ["UfoFoldedEllipsis"] = { fg = colors.palette.lotusPink },
                 }
             end,
