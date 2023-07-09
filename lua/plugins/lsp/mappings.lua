@@ -108,8 +108,6 @@ local picker_proto = {
 local saga_proto = {
     prev_diagnostic = "<Cmd>Lspsaga diagnostic_jump_prev<CR>",
     next_diagnostic = "<Cmd>Lspsaga diagnostic_jump_next<CR>",
-    prev_error = function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-    next_error = function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
     hover_diagnostic = "<Cmd>Lspsaga show_line_diagnostics ++unfocus<CR>",
     definition = "<Cmd>Lspsaga peek_definition<CR>",
     references = "<Cmd>Lspsaga lsp_finder<CR>",
