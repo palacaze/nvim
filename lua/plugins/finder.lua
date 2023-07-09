@@ -13,7 +13,7 @@
 local function get_project_root()
     ---@type string?
     local path = vim.api.nvim_buf_get_name(0)
-    path = path ~= "" and vim.uv.fs_realpath(path) or nil
+    path = path ~= "" and vim.loop.fs_realpath(path) or nil
     ---@type string[]
     local roots = {}
     if path then
@@ -26,7 +26,7 @@ local function get_project_root()
                 or client.config.root_dir and { client.config.root_dir }
                 or {}
             for _, p in ipairs(paths) do
-                local r = vim.uv.fs_realpath(p)
+                local r = vim.loop.fs_realpath(p)
                 if path:find(r, 1, true) then
                     roots[#roots + 1] = r
                 end
@@ -39,10 +39,10 @@ local function get_project_root()
     ---@type string?
     local root = roots[1]
     if not root then
-        path = path and vim.fs.dirname(path) or vim.uv.cwd()
+        path = path and vim.fs.dirname(path) or vim.loop.cwd()
         ---@type string?
         root = vim.fs.find({ ".git", ".clang-format" }, { path = path, upward = true })[1]
-        root = root and vim.fs.dirname(root) or vim.uv.cwd()
+        root = root and vim.fs.dirname(root) or vim.loop.cwd()
     end
     ---@cast root string
     return root
@@ -65,7 +65,7 @@ local function telescope(builtin, opts)
         end
 
         if builtin == "files" then
-            if vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git") then
+            if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
                 opts.show_untracked = true
                 builtin = "git_files"
             else
@@ -92,7 +92,7 @@ local function fzflua(builtin, opts)
         end
 
         if builtin == "files" then
-            if vim.uv.fs_stat((opts.cwd or vim.uv.cwd()) .. "/.git") then
+            if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
                 opts.show_untracked = true
                 builtin = "git_files"
             else
@@ -160,9 +160,9 @@ return {
             { "<Leader>fF", telescope("files", { hidden = true, cwd = false }), desc = "Find files (cmd)" },
             { "<F7>", telescope("live_grep"), desc = "Grep (root dir)", mode = {"n", "i"} },
             { "<Leader>fg", telescope("live_grep"), desc = "Grep (root dir)" },
-            { "<Leader>fG", telescope("live_grep", { cwd = vim.uv.cwd() }), desc = "Grep (cwd)" },
+            { "<Leader>fG", telescope("live_grep", { cwd = vim.loop.cwd() }), desc = "Grep (cwd)" },
             { "<Leader>fr", telescope("oldfiles"), desc = "Recent files (root dir)" },
-            { "<Leader>fR", telescope("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent files (cwd)" },
+            { "<Leader>fR", telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent files (cwd)" },
 
             { "<Leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "Find help" },
             { "<Leader>fs", "<Cmd>Telescope symbols<CR>", desc = "Find symbols" },
@@ -323,9 +323,9 @@ return {
             { "<Leader>fF", fzflua("files", { cwd = false }), desc = "Find files (cmd)" },
             { "<F7>", fzflua("live_grep"), desc = "Grep (root dir)", mode = {"n", "i"} },
             { "<Leader>fg", fzflua("live_grep"), desc = "Grep (root dir)" },
-            { "<Leader>fG", fzflua("live_grep", { cwd = vim.uv.cwd() }), desc = "Grep (cwd)" },
+            { "<Leader>fG", fzflua("live_grep", { cwd = vim.loop.cwd() }), desc = "Grep (cwd)" },
             { "<Leader>fr", fzflua("oldfiles"), desc = "Recent files (root dir)" },
-            { "<Leader>fR", fzflua("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent files (cwd)" },
+            { "<Leader>fR", fzflua("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent files (cwd)" },
 
             { "<Leader>fh", "<Cmd>FzfLua help_tags<CR>", desc = "Find help" },
             { "<Leader>gc", "<Cmd>FzfLua git_bcommits<CR>", desc = "Find buffer git commits" },

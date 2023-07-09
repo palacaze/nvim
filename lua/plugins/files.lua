@@ -30,7 +30,7 @@ return {
             {
                 "<leader>M",
                 function()
-                    require("mini.files").open(vim.uv.cwd(), true)
+                    require("mini.files").open(vim.loop.cwd(), true)
                 end,
                 desc = "Open mini.files (cwd)",
             },
@@ -99,6 +99,7 @@ return {
     -- Neo-tree file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
+        version = "v2.x",
         cmd = "Neotree",
         keys = {
             { "<M-e>", "<Cmd>Neotree focus<CR>", desc = "Focus File Explorer", mode = { "n", "i" } },
@@ -111,7 +112,7 @@ return {
             vim.g.neo_tree_remove_legacy_commands = 1
             -- open neo-tree if vim was set to open a directory
             if vim.fn.argc() == 1 then
-                local stat = vim.uv.fs_stat(vim.fn.argv(0))
+                local stat = vim.loop.fs_stat(vim.fn.argv(0))
                 if stat and stat.type == "directory" then
                     require("neo-tree")
                 end

@@ -18,7 +18,7 @@ u.map("n", "<Leader>~", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of th
 -- Open or create file under cursor
 local function open_or_create_file_under_cursor()
     local link = vim.fn.expand("<cfile>")
-    local file = vim.uv.fs_realpath(link) or link
+    local file = vim.loop.fs_realpath(link) or link
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     vim.cmd(":e " .. file)
 end
