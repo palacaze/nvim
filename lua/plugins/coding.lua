@@ -155,7 +155,7 @@ return {
                                 for _, source in ipairs({ sources.lsp, sources.treesitter }) do
                                     local symbols = source.get_symbols(buf, win, cursor)
                                     if not vim.tbl_isempty(symbols) then
-                                        if vim.bo[buf].ft == "cpp" then
+                                        if is_cpp then
                                             for _, sym in ipairs(symbols) do
                                                 if sym.name == "(anonymous namespace)" then
                                                     sym.name = "󰊠 "
