@@ -134,6 +134,7 @@ return {
     -- A breadcrumb bar showing symbols
     {
         "Bekaboo/dropbar.nvim",
+        cond = vim.fn.has("nvim-0.10") > 0,
         event = { "VeryLazy" },
         keys = {
             { "<Leader>.", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
