@@ -7,6 +7,7 @@ return {
             -- Snippets ready for use
             "rafamadriz/friendly-snippets",
         },
+        lazy = true,
         keys = {
             {
                 "<tab>",
@@ -33,8 +34,8 @@ return {
             })
 
             -- load snippets provided by friendly-snippets and my snippets
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets"  } })
+            require("luasnip.loaders.from_vscode").lazy_load({ exclude = { "cpp" } })
+            require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
 
             local ls = require("luasnip")
             local s = ls.snippet
@@ -92,6 +93,7 @@ return {
         version = false,
         event = "InsertEnter",
         dependencies = {
+            "LuaSnip",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",

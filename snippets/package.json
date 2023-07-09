@@ -3,6 +3,10 @@
     "contributes": {
         "snippets": [
             {
+                "language": "cpp",
+                "path": "./cpp.json"
+            },
+            {
                 "language": "plantuml",
                 "path": "./plantuml.json"
             }
