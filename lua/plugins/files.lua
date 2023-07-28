@@ -86,11 +86,14 @@ return {
                     -- Change CWD
                     u.bufmap(buf, "n", "g~", files_set_cwd, "Set CWD")
 
+                    -- Quit with escape
+                    u.bufmap(buf, "n", "<Esc>", minifiles.close, "Close Window")
+
                     -- Remove some keymaps
-                    vim.keymap.set({"n", "i"}, "<S-Left>", "<Left>", { buffer = buf })
-                    vim.keymap.set({"n", "i"}, "<S-Right>", "<Right>", { buffer = buf })
-                    vim.keymap.set({"n", "i"}, "<S-Up>", "<Up>", { buffer = buf })
-                    vim.keymap.set({"n", "i"}, "<S-Down>", "<Down>", { buffer = buf })
+                    u.bufmap(buf, "ni", "<S-Left>", "<Ignore>", "")
+                    u.bufmap(buf, "ni", "<S-Right>", "<Ignore>", "")
+                    u.bufmap(buf, "ni", "<S-Up>", "<Ignore>", "")
+                    u.bufmap(buf, "ni", "<S-Down>", "<Ignore>", "")
                 end,
             })
         end,
