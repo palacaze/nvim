@@ -91,10 +91,13 @@ if not u.has_mapping("<A-Left", "n") then
 end
 
 -- Terminal navigation
-u.map("t", "<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
+u.map("t", "<M-Esc>", [[<C-\><C-n>]], "Return to Normal mode")
 
 -- Search word under cursor in Devdocs
 u.map("nv", "<Leader>#", function() vim.cmd.Devdocs(u.get_selection()) end, "Search word or selection in Devdocs")
+
+-- Disable hlsearch by hijacking C-l
+u.map("ni", "<C-l>", "<Cmd>nohlsearch<CR><C-l>", "Hide search highlighting")
 
 -- F keys
 
@@ -109,8 +112,7 @@ u.map("ni", "<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header 
 -- S-F4 = Undotree toggle
 -- F5 = Neo Tree toggle
 -- S-F5 = Telescope file_browser
-u.map("ni", "<M-h>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
-u.map("ni", "<F8>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
+
 u.map("ni", "<F9>", "<Cmd>set list!<CR>", "Toggle display of special chars")
 
 -- Strip trailing spaces
