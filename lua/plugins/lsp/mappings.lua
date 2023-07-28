@@ -56,7 +56,7 @@ local config = {
     references = { desc = "Display references", keys = { "gr", "<Leader>lR" }, cap = "referencesProvider" },
     type_definition = { desc = "Display type definition", keys = {"gT"}, cap = "typeDefinitionProvider" },
     implementations = { desc = "List implementations", keys = {"<Leader>li"}, cap = "implementationProvider" },
-    code_action = { desc = "Execute code action", keys = { "<Leader>la", "<M-a>" }, cap = "codeActionProvider" },
+    code_action = { desc = "Execute code action", keys = {"<Leader>la", "<M-a>"} }, -- Test fails for some reason: cap = "codeActionProvider"
     incoming_calls = { desc = "Incoming calls", keys = {"<Leader>lI"}, cap = "callHierarchyProvider" },
     outgoing_calls = { desc = "Outgoing calls", keys = {"<Leader>lO"}, cap = "callHierarchyProvider" },
     document_symbols = { desc = "Document symbols", keys = {"<Leader>ls"}, cap = "documentSymbolProvider" },
