@@ -318,9 +318,9 @@ return {
         "godlygeek/tabular",
         cmd = "Tabularize",
         keys = {
-            { "<A-a>=", "<Cmd>Tabularize /=<CR>", desc = "Align on =", mode = {"n", "v"} },
-            { "<A-a>,", "<Cmd>Tabularize /,<CR>", desc = "Align on ,", mode = {"n", "v"} },
-            { "<A-a><Bar>", "<Cmd>Tabularize /<Bar><CR>", desc = "Align on |", mode = {"n", "v"} },
+            { "<M-A>=", "<Cmd>Tabularize /=<CR>", desc = "Align on =", mode = {"n", "v"} },
+            { "<M-A>,", "<Cmd>Tabularize /,<CR>", desc = "Align on ,", mode = {"n", "v"} },
+            { "<M-A><Bar>", "<Cmd>Tabularize /<Bar><CR>", desc = "Align on |", mode = {"n", "v"} },
         },
     },
 
