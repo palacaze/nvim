@@ -89,7 +89,6 @@ opt.modeline = true
 opt.modelineexpr = false
 opt.modelines = 5
 opt.mouse = "a"
-opt.mousehide = true
 opt.mousemoveevent = true
 opt.number = true
 opt.numberwidth = 2
