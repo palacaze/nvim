@@ -262,7 +262,7 @@ return {
                 buffers = {
                     previewer = false,
                     show_all_buffers = true,
-                    sort_last_used = true,
+                    sort_lastused = true,
                     theme = "dropdown",
                     mappings = {
                         n = {
