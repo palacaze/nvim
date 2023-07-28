@@ -99,7 +99,7 @@ return {
     -- Neo-tree file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
-        version = "v2.x",
+        version = "v3.x",
         cmd = "Neotree",
         keys = {
             { "<M-e>", "<Cmd>Neotree focus<CR>", desc = "Focus File Explorer", mode = { "n", "i" } },
@@ -128,6 +128,7 @@ return {
             enable_diagnostics = false,
             enble_git_status = true,
             sort_case_insensitive = true,
+            open_files_do_not_replace_types = { "terminal", "trouble", "qf", "DiffViewFiles" },
             use_popups_for_input = false,
             source_selector = {
                 winbar = false,
@@ -204,7 +205,10 @@ return {
                         "--exclude", "cmake/vcpkg",
                     }
                 },
-                follow_current_file = true,
+                follow_current_file = {
+                    enabled = true,
+                    leave_dirs_open = true,
+                },
                 hijack_netrw_behavior = "open_current",
                 use_libuv_file_watcher = true,
                 window = {
