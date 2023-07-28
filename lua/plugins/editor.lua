@@ -353,9 +353,22 @@ return {
         },
     },
 
+    -- Highlight words and expressions
+    {
+        "azabiong/vim-highlighter",
+        init = function()
+            vim.g.HiSet   = 'é<CR>'
+            vim.g.HiErase = 'é<BS>'
+            vim.g.HiClear = 'é<C-L>'
+            vim.g.HiFind  = 'é<Tab>'
+            vim.g.HiSetSL = 'è<CR>'
+        end,
+    },
+
     -- Highlight words with different colors
     {
         "Mr-LLLLL/interestingwords.nvim",
+        enabled = false,
         keys = {
             { "<Leader>k", desc = "Color word" },
             { "<Leader>K", desc = "Cancel color word" },
