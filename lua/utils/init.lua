@@ -43,4 +43,19 @@ end
 
 M.esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
 
+
+-- Get selected text or word under cursor
+M.get_selection = function()
+    local visual = vim.fn.mode() == "v"
+
+    if visual == true then
+        local saved_reg = vim.fn.getreg("v")
+        vim.cmd([[noautocmd sil norm "vy]])
+        local selection = vim.fn.getreg("v")
+        vim.fn.setreg("v", saved_reg)
+        return selection
+    else
+        return vim.fn.expand("<cword>")
+    end
+end
 return M

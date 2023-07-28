@@ -47,6 +47,7 @@ return {
     },
     {
         "tyru/open-browser.vim",
+        cmd = { "OpenBrowser", "OpenBrowserSearch" },
         lazy = true,
     },
     {

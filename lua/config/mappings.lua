@@ -93,6 +93,9 @@ end
 -- Terminal navigation
 u.map("t", "<M-Esc>",   [[<C-\><C-n>]], "Return to Normal mode")
 
+-- Search word under cursor in Devdocs
+u.map("nv", "<Leader>#", function() vim.cmd.Devdocs(u.get_selection()) end, "Search word or selection in Devdocs")
+
 -- F keys
 
 -- F1 = ToggleTerm all terms

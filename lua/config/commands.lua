@@ -180,6 +180,28 @@ vim.api.nvim_create_user_command("ToggleVerbose", function()
     end
 end, {})
 
+-- Search word under cursor in devdocs.io
+vim.api.nvim_create_user_command("Devdocs", function(opts)
+    local escape_query = function(target)
+        local escapes = {
+            [" "] = "%20", ["<"]  = "%3C", [">"] = "%3E", ["#"] = "%23",
+            ["%"] = "%25", ["+"]  = "%2B", ["{"] = "%7B", ["}"] = "%7D",
+            ["|"] = "%7C", ["\\"] = "%5C", ["^"] = "%5E", ["~"] = "%7E",
+            ["["] = "%5B", ["]"]  = "%5D", ["‘"] = "%60", [";"] = "%3B",
+            ["/"] = "%2F", ["?"]  = "%3F", [":"] = "%3A", ["@"] = "%40",
+            ["="] = "%3D", ["&"] = "%26",  ["$"] = "%24",
+        }
+       return target:gsub(".", escapes)
+    end
+
+    local query = table.concat(opts.fargs, " ")
+    query = vim.fn.trim(query)
+    query = escape_query(query)
+    query = vim.bo.filetype .. "%20" .. query
+    local url = string.format("https://devdocs.io/#q=%s", query)
+    vim.cmd.OpenBrowser(url)
+end, { desc = "Search in devdocs", nargs = "*" })
+
 require("config.puml").setup({
     format = "svg",
     viewer = "nomacs",
