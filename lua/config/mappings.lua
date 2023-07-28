@@ -109,8 +109,6 @@ u.map("ni", "<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header 
 -- S-F4 = Undotree toggle
 -- F5 = Neo Tree toggle
 -- S-F5 = Telescope file_browser
--- F6 = Telescope find_files
--- F7 = Telescope live_grep
 u.map("ni", "<M-h>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
 u.map("ni", "<F8>", "<Cmd>nohlsearch<CR>", "Hide search highlighting")
 u.map("ni", "<F9>", "<Cmd>set list!<CR>", "Toggle display of special chars")
