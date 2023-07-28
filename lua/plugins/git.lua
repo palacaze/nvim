@@ -4,9 +4,13 @@ return {
     {
         "sindrets/diffview.nvim",
         keys = {
-            { "<F11>", "<Cmd>DiffviewOpen<CR>", desc = "Open projet diffview", mode = {"n", "i"} },
-            { "<S-F11>", "<Cmd>DiffviewClose<CR>", desc = "Close diffview", mode = {"n", "i"} },
-            { "<F23>", "<Cmd>DiffviewClose<CR>", desc = "Close diffview", mode = {"n", "i"} },
+            { "<F11>", function()
+                  if next(require('diffview.lib').views) == nil then
+                      vim.cmd('DiffviewOpen')
+                  else
+                      vim.cmd('DiffviewClose')
+                  end
+              end, desc = "Open projet diffview", mode = {"n", "i"} },
             { "<Leader>gD", "<Cmd>DiffviewOpen<CR>", desc = "Open projet diffview" },
             { "<Leader>gd", "<Cmd>DiffviewOpen HEAD -- %<CR>", desc = "Open buffer diffview", mode = {"n", "v"} },
             { "<Leader>gH", "<Cmd>DiffviewFileHistory<CR>", desc = "Open projet git history" },
