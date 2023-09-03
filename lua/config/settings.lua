@@ -157,6 +157,7 @@ g.editorconfig = true
 
 g.gruvbox_plugin_hi_groups = 1
 
-g.markdown_recommended_style = 0
+vim.g.markdown_folding = 1
+vim.g.markdown_recommended_style = 0
 
 g.puml_server = "http://localhost:8080"
