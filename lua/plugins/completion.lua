@@ -38,6 +38,15 @@ return {
             require("luasnip.loaders.from_vscode").lazy_load({ exclude = { "cpp" } })
             require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
 
+            -- extend snippets to support doc comments
+            require("luasnip").filetype_extend("cpp", {"cppdoc"})
+            require("luasnip").filetype_extend("javascript", { "jsdoc" })
+            require("luasnip").filetype_extend("lua", { "luadoc" })
+            require("luasnip").filetype_extend("python", { "python-docstring" })
+            require("luasnip").filetype_extend("rust", { "rustdoc" })
+            require("luasnip").filetype_extend("sh", { "shelldoc" })
+            require("luasnip").filetype_extend("c", { "cdoc" })
+
             local ls = require("luasnip")
             local s = ls.snippet
             local t = ls.text_node
