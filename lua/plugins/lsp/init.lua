@@ -190,7 +190,6 @@ return {
                     sentenceCachesize = 2000,
                     additionalRules = {
                         enablePickyRules = true,
-                        -- motherTongue = "fr",
                     },
                     disabledRules = {
                         fr = { "APOS_TYP", "FRENCH_WHITESPACE" },
@@ -324,7 +323,6 @@ return {
                 enable = false,
             },
             ui = {
-                kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
                 border = "single",
                 winblend = 10,
             },
