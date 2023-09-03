@@ -35,6 +35,7 @@ return {
             },
             cmd = {
                 "clangd",
+                "--log=error",
                 "--enable-config",
                 "--background-index",
                 "--clang-tidy",
