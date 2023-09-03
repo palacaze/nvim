@@ -100,6 +100,7 @@ return {
             "hrsh7th/cmp-cmdline",
             "saadparwaiz1/cmp_luasnip",
             "davidsierradz/cmp-conventionalcommits",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
         },
         config = function()
             local cmp = require("cmp")
@@ -173,6 +174,7 @@ return {
                             return kind ~= "Keyword" and kind ~= "Text"
                         end,
                     },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "luasnip", keyword_length = 2 },
                 }, {
                     { name = "path" },
