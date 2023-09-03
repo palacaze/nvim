@@ -23,6 +23,7 @@ return {
             require("luasnip").setup({
                 history = true,
                 delete_check_events = "TextChanged",
+                region_check_events = "CursorMoved",
                 ext_opts = {
                     [require("luasnip.util.types").choiceNode] = {
                         active = { virt_text = { { "●", "DiagnosticInfo" } } },
@@ -168,7 +169,7 @@ return {
                 }),
                 sources = cmp.config.sources({
                     {
-                        name = "nvim_lsp", keyword_length = 3,
+                        name = "nvim_lsp",
                         entry_filter = function(entry, _)
                             local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
                             return kind ~= "Keyword" and kind ~= "Text"
@@ -178,7 +179,7 @@ return {
                     { name = "luasnip", keyword_length = 2 },
                 }, {
                     { name = "path" },
-                    { name = "buffer", keyword_length = 5 },
+                    { name = "buffer", keyword_length = 3 },
                 }),
                 sorting = {
                     priority_weight = 2,
@@ -220,9 +221,9 @@ return {
                     },
                 },
                 view = {
-                    entries = { name = "custom", selection_order = "near_cursor" },
+                    entries = "native",
                 },
-                experimental = { ghost_text = false, native_menu = false },
+                experimental = { ghost_text = false },
                 matching = {
                     disallow_fuzzy_matching = true,
                     disallow_fullfuzzy_matching = true,
@@ -241,6 +242,7 @@ return {
                             luasnip = "[Snip]",
                             buffer = "[Buf]",
                             path = "[Path]",
+                            conventional_commits = "[commits]",
                         })[entry.source.name]
                         -- Truncate text
                         local label = vim_item.abbr
