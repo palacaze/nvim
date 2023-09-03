@@ -175,10 +175,8 @@ function M.on_attach(client, bufnr)
         M.setup()
     end
 
-    local caps = client.server_capabilities
-
     for _, cfg in pairs(config) do
-        if not cfg.cap or (caps[cfg.cap] and caps[cfg.cap] == true) then
+        if not cfg.cap or client.supports_method(cfg.caps) then
             M.map(bufnr, cfg)
         end
     end
