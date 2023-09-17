@@ -59,7 +59,7 @@ return {
                 "diff",
                 "dockerfile",
                 "dot",
-                "doxygen",
+                -- "doxygen",  -- Don't install this, very very slow
                 "git_config",
                 "git_rebase",
                 "gitattributes",
@@ -94,7 +94,7 @@ return {
             },
             highlight = {
                 enable = true,
-                -- language_tree = true,
+                language_tree = false,
                 disable = function(_, buf)
                     local max_filesize = 1024 * 1024
                     local sok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
