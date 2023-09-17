@@ -2,3 +2,4 @@
 /spell
 .luarc.json
 lazy-lock.json
+snippets/cpp/user.json
