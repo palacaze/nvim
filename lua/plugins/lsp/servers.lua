@@ -29,6 +29,7 @@ return {
         executable = "clangd",
         config = {
             capabilities = { offsetEncoding = { "utf-16" } },
+            filetypes = { "c", "cpp" },
             root_dir = require("lspconfig.util").root_pattern(".clangd", ".clang-tidy", ".clang-format", "compile_commands.json", ".git"),
             flags = {
                 debounce_text_changes = 500,
