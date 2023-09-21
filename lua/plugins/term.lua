@@ -30,6 +30,7 @@ return {
             if term.term_name == nil then
                 term.term_name = "Shell"
             end
+            vim.keymap.set("n", "q", "<cmd>startinsert!<CR>", { buffer = term.bufnr, nowait = true, silent = true })
             vim.api.nvim_buf_set_var(term.bufnr, "pal_term_name", term.term_name)
             vim.cmd("startinsert!")
         end,
@@ -64,7 +65,6 @@ return {
                 vim.keymap.set({"n", "i", "t"}, "<S-Right>", "<Right>", { buffer = term.bufnr })
                 vim.keymap.set({"n", "i", "t"}, "<S-Up>", "<Up>", { buffer = term.bufnr })
                 vim.keymap.set({"n", "i", "t"}, "<S-Down>", "<Down>", { buffer = term.bufnr })
-
                 vim.api.nvim_buf_set_var(term.bufnr, "pal_term_name", term.term_name)
                 vim.cmd("startinsert!")
             end,
