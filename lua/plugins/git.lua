@@ -96,8 +96,8 @@ return {
                 },
                 hooks = {
                     diff_buf_read = function(_)
-                        if vim.fn.exists(":IndentBlanklineDisable") > 0 then
-                            vim.cmd("IndentBlanklineDisable")
+                        if vim.fn.exists(":IBLDisable") > 0 then
+                            vim.cmd("IBLDisable")
                         end
 
                         -- disable winbars to prevent the dropbar menu from appearing on one side only

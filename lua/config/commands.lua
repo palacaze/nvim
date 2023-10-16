@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     pattern = "*",
     callback = function()
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(0))
-        if ok and stats and (stats.size > 200000) then
+        if ok and stats and (stats.size > 2000000) then
             vim.b.large_buf = true
             vim.opt_local.bufhidden = "unload"
             vim.opt_local.backup = false
@@ -101,8 +101,8 @@ vim.api.nvim_create_autocmd("BufReadPre", {
                 vim.cmd('TSBufDisable textobjects.lsp_interop')
                 vim.cmd('TSBufDisable textobjects.select')
             end
-            if vim.fn.exists(":IndentBlanklineDisable") > 0 then
-                vim.cmd("IndentBlanklineDisable")
+            if vim.fn.exists(":IBLDisable") > 0 then
+                vim.cmd("IBLDisable")
             end
         else
             vim.b.large_buf = false

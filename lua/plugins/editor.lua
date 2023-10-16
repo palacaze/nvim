@@ -132,45 +132,56 @@ return {
     -- Indent guides for Neovim
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         event = { "BufReadPost", "BufNewFile" },
-        cmd = { "IndentBlanklineEnable", "IndentBlanklineDisable" },
+        cmd = { "IBLEnable", "IBLDisable" },
         opts = {
-            char = "┆",
-            show_end_of_line = false,
-            show_first_indent_level = false,
-            show_trailing_blankline_indent = false,
-            show_current_context = false,
-            buftype_exclude = {
-                "DiffviewFilePanel",
-                "loclist",
-                "nofile",
-                "prompt",
-                "quickfix",
-                "terminal",
+            indent = {
+                char = "┆",
+                tab_char = "┆",
+                smart_indent_cap = true,
             },
-            filetype_exclude = {
-                "alpha",
-                "checkhealth",
-                "dashboard",
-                "dropbar_menu",
-                "git",
-                "gitconfig",
-                "help",
-                "lazy",
-                "lspinfo",
-                "man",
-                "markdown",
-                "mason",
-                "neo-tree",
-                "packer",
-                "snippets",
-                "terminal",
-                "text",
-                "TelescopePrompt",
-                "TelescopeResults",
-                "Trouble",
+            scope = { enabled = false },
+            exclude = {
+                buftypes = {
+                    "DiffviewFilePanel",
+                    "loclist",
+                    "nofile",
+                    "prompt",
+                    "quickfix",
+                    "terminal",
+                },
+                filetypes = {
+                    "alpha",
+                    "checkhealth",
+                    "dashboard",
+                    "dropbar_menu",
+                    "git",
+                    "gitconfig",
+                    "help",
+                    "lazy",
+                    "lspinfo",
+                    "man",
+                    "markdown",
+                    "mason",
+                    "neo-tree",
+                    "packer",
+                    "snippets",
+                    "terminal",
+                    "text",
+                    "TelescopePrompt",
+                    "TelescopeResults",
+                    "Trouble",
+                },
             },
         },
+        config = function(_, opts)
+            require("ibl").setup(opts)
+            local hooks = require("ibl.hooks")
+            hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+            hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
+            -- show_end_of_line = false,
+        end,
         init = function(self)
             -- Disable indent lines in insert mode and in diff view
             local gid = vim.api.nvim_create_augroup("indent_blankline", { clear = true })
@@ -178,8 +189,8 @@ return {
                 pattern = "*",
                 group = gid,
                 callback = function()
-                    if vim.fn.exists(":IndentBlanklineDisable") > 0 then
-                        vim.cmd("IndentBlanklineDisable")
+                    if vim.fn.exists(":IBLDisable") > 0 then
+                        vim.cmd("IBLDisable")
                     end
                 end,
             })
@@ -188,10 +199,10 @@ return {
                 pattern = "*",
                 group = gid,
                 callback = function()
-                    local deny = vim.tbl_contains(self.opts.filetype_exclude, vim.bo.filetype) or
+                    local deny = vim.tbl_contains(self.opts.exclude.filetypes, vim.bo.filetype) or
                                  vim.wo.diff or vim.b.large_buf
-                    if not deny and vim.fn.exists(":IndentBlanklineEnable") > 0 then
-                        vim.cmd("IndentBlanklineEnable")
+                    if not deny and vim.fn.exists(":IBLEnable") > 0 then
+                        vim.cmd("IBLEnable")
                     end
                 end,
             })
@@ -200,8 +211,8 @@ return {
                 pattern = "*",
                 group = gid,
                 callback = function()
-                    if vim.fn.exists(":IndentBlanklineEnable") > 0 and vim.wo.diff then
-                        vim.cmd([[IndentBlanklineDisable]])
+                    if vim.fn.exists(":IBLEnable") > 0 and vim.wo.diff then
+                        vim.cmd([[IBLDisable]])
                     end
                 end,
             })
