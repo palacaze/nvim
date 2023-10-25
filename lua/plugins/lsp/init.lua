@@ -173,11 +173,11 @@ return {
     -- ltex-ls enhanced integration for neovim
     {
         "vigoux/ltex-ls.nvim",
-        ft = { "markdown", "gitcommit", "text", "python", "c", "cpp" },
+        ft = { "markdown", "gitcommit", "text" },
         dependencies = { "nvim-lspconfig" },
         opts = {
             use_spellfile = false,
-            filetypes = { "markdown", "gitcommit", "text", "python", "c", "cpp" },
+            filetypes = { "markdown", "gitcommit", "text" },
             on_attach = function(client, bufnr)
                 require("plugins.lsp.mappings").on_attach(client, bufnr)
             end,
