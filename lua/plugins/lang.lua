@@ -69,6 +69,7 @@ return {
 
     {
         "Civitasv/cmake-tools.nvim",
+        enabled = false,
         ft = { "cpp", "c", "cmake" },
         cmd = {
             "CMakeGenerate",
