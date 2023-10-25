@@ -415,6 +415,7 @@ return {
     {
         "echasnovski/mini.surround",
         version = false,
+        enabled = false,
         event = "VeryLazy",
         config = true,
     },
