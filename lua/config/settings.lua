@@ -73,7 +73,7 @@ opt.inccommand = "nosplit"
 opt.incsearch = true
 opt.iskeyword:append({ "_", "$", "@", "%", "#", "-" })
 opt.laststatus = 1
-opt.lazyredraw = false
+opt.lazyredraw = true
 opt.linebreak = true
 opt.list = false
 opt.listchars = {
