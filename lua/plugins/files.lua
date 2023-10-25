@@ -58,6 +58,12 @@ return {
                         new_target_window = vim.api.nvim_get_current_win()
                     end)
                     minifiles.set_target_window(new_target_window)
+                    local fs_entry = minifiles.get_fs_entry()
+                    local is_at_file = fs_entry ~= nil and fs_entry.fs_type == 'file'
+                    if is_at_file then
+                        minifiles.go_in()
+                        minifiles.close()
+                    end
                 end
             end
 
@@ -82,6 +88,16 @@ return {
                     -- Open in split
                     u.bufmap(buf, "n", "gs", open_split("belowright horizontal"), "Horizontal Split")
                     u.bufmap(buf, "n", "gv", open_split("belowright vertical"), "Vertical Split")
+
+                    -- Open with <Enter>
+                    u.bufmap(buf, "n", "<CR>", function()
+                        local fs_entry = minifiles.get_fs_entry()
+                        local is_at_file = fs_entry ~= nil and fs_entry.fs_type == 'file'
+                        if is_at_file then
+                            minifiles.go_in()
+                            minifiles.close()
+                        end
+                    end, "Open file")
 
                     -- Change CWD
                     u.bufmap(buf, "n", "g~", files_set_cwd, "Set CWD")
