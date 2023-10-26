@@ -39,10 +39,10 @@ u.map("nv", "Q", "gwip", "Reformat paragraph")
 u.map("n", "<Leader>Q", "ggVGgq", "Reformat the full file")
 
 -- Allow moving up and down in wrapped lines.
-u.map("nvx", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
-u.map("i", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "<Up>" : "<C-o>gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
-u.map("nvx", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
-u.map("i", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "<Down>" : "<C-o>gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
+-- u.map("nvx", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
+-- u.map("i", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "<Up>" : "<C-o>gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
+-- u.map("nvx", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
+-- u.map("i", "<Down>", 'v:count || mode(1)[0:1] == "no" ? "<Down>" : "<C-o>gj"', "Move down", { silent = true, noremap = true, nowait = true, expr = true })
 
 -- Folding
 if not u.has_mapping("z1") then
