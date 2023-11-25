@@ -84,6 +84,7 @@ return {
         dependencies = { "nvim-hlslens" },
         event = { "BufReadPost", "BufNewFile" },
         opts = {
+            set_highlights = true,
             excluded_filetypes = {
                 "alpha",
                 "prompt",
@@ -100,11 +101,18 @@ return {
                 "nofile",
             },
             handlers = {
-                cursor = true,
+                cursor = false,
                 diagnostic = true,
-                gitsigns = false,
+                gitsigns = true,
                 handle = true,
                 search = true,
+            },
+            marks = {
+                Search = {
+                    text = { "-", "=" },
+                    priority = 1,
+                    color = "#55CB14",
+                },
             },
         },
     },

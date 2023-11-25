@@ -121,10 +121,21 @@ return {
         opts = {
             nearest_only = true,
             nearest_float_when = "never",
+            build_position_cb = function(plist, _, _, _)
+                require("scrollbar.handlers.search").handler.show(plist.start_pos)
+            end,
         },
         config = function(_, opts)
             require("hlslens").setup(opts)
-            require("scrollbar.handlers.search").setup()
+            require("scrollbar.handlers.search").setup({
+                handlers = { search = true },
+            })
+            vim.cmd([[
+                augroup scrollbar_search_hide
+                    autocmd!
+                    autocmd CmdlineLeave : lua require('scrollbar.handlers.search').handler.hide()
+                augroup END
+            ]])
         end,
     },
 
