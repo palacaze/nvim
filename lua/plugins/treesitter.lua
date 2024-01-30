@@ -30,6 +30,18 @@ end
 
 return {
     {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        init = function()
+            vim.g.skip_ts_context_commentstring_module = true
+        end,
+        opts = {
+            enable_autocmd = false,
+            disable = { "json" },
+        },
+        main = "ts_context_commentstring",
+    },
+
+    {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
@@ -44,7 +56,6 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
             "RRethy/nvim-treesitter-textsubjects",
-            "JoosepAlviste/nvim-ts-context-commentstring",
             "vim-matchup",
         },
         opts = {
@@ -117,11 +128,6 @@ return {
             conceal = {
                 enable = true,
                 disable = { "json", "markdown" },
-            },
-            context_commentstring = {
-                enable = true,
-                enable_autocmd = false,
-                disable = { "json" },
             },
             matchup = {
                 enable = true,
