@@ -108,6 +108,7 @@ return {
     -- Nicer search
     {
         "kevinhwang91/nvim-hlslens",
+        enabled = false,
         lazy = true,
         keys = {
             { "n", [[<Cmd>execute("normal! " . v:count1 . "n")<CR><Cmd>lua require("hlslens").start()<CR>]], desc = "Next match" },

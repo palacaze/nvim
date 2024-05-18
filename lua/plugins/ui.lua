@@ -78,9 +78,43 @@ return {
         },
     },
 
+    -- scrollbars
+    {
+        "lewis6991/satellite.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        opts = {
+            winblend = 70,
+            width = 2,
+            excluded_filetypes = {
+                "alpha",
+                "prompt",
+                "TelescopePrompt",
+                "noice",
+                "guihua",
+                "neo-tree",
+                "neo-tree-popup",
+                "toggleterm",
+                "Trouble",
+            },
+            handlers = {
+                cursor = { enable = false },
+                marks = { enable = false },
+                gitsigns = {
+                    enable = true,
+                    signs = {
+                        add = "┆",
+                        change = "┆",
+                    }
+                }
+            },
+            signs_on_startup = { "diagnostics", "search", "conflicts" },
+        },
+    },
+
     -- Scrollbars
     {
         "petertriho/nvim-scrollbar",
+        enabled = false,
         dependencies = { "nvim-hlslens" },
         event = { "BufReadPost", "BufNewFile" },
         opts = {
