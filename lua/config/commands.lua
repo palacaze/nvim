@@ -152,8 +152,15 @@ vim.api.nvim_create_autocmd("FileType", {
         "tsplayground",
     },
     callback = function(event)
-        vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+        if vim.fn.maparg("q", "n") == "" then
+            vim.bo[event.buf].buflisted = false
+            vim.keymap.set("n", "q", "<cmd>close<cr>", {
+                desc = "Close window",
+                buffer = event.buf,
+                silent = true,
+                nowait = true,
+            })
+        end
     end,
 })
 
