@@ -30,6 +30,21 @@ return {
         end,
     },
 
+    {
+        "mrjones2014/legendary.nvim",
+        priority = 10000,  -- must happen first to capture the keymaps and commands
+        lazy = false,
+        -- sqlite is only needed if you want to use frecency sorting
+        dependencies = { "kkharji/sqlite.lua" },
+        opts = {
+            extensions = {
+                lazy_nvim = true,
+                which_key = false,
+            },
+            select_prompt = ' Commands '
+        },
+    },
+
     -- Search/replace in multiple files
     {
         "nvim-pack/nvim-spectre",

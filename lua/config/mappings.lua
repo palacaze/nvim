@@ -15,6 +15,9 @@ u.map("v", "»", ">gv", "Increase indentation")
 -- Change directory to that of current file
 u.map("n", "<Leader>~", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of the current file")
 
+-- Legendary
+u.map("nvi", "<M-r>", "<Cmd>Legendary<CR>", "Open command palette")
+
 -- Open or create file under cursor
 local function open_or_create_file_under_cursor()
     local link = vim.fn.expand("<cfile>")
