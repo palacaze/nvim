@@ -161,6 +161,7 @@ return {
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
+            { "<Leader>p", "<Cmd>Telescope yank_history<CR>", desc = "Paste from yank history" },
 
             { "<S-F5>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
             { "<F17>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
@@ -310,6 +311,7 @@ return {
             require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
             require("telescope").load_extension("file_browser")
+            require("telescope").load_extension("yank_history")
         end,
     },
 

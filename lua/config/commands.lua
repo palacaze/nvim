@@ -53,13 +53,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     command = [[let @/ = '']],
 })
 
--- Highlights yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-    group = gid,
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
+-- Highlights yanked text, no need anymore because yanky does it
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--     group = gid,
+--     callback = function()
+--         vim.highlight.on_yank()
+--     end,
+-- })
 
 -- Resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {

@@ -30,9 +30,9 @@ u.map("nv", "<Leader>y", '"+y', "Copy to clipboard")
 u.map("n", "<Leader>yy", '"+yy', "Copy line to clipboard")
 u.map("v", "<Leader>Y", '"+y$', "Copy to the end of the line to clipboard")
 
--- Paste from clipboard
-u.map("nv", "<Leader>p", '"+p', "Paste from to clipboard")
-u.map("nv", "<Leader>P", '"+P', "Paste before from to clipboard")
+-- Paste from clipboard, note needed with Yanky
+-- u.map("nv", "<Leader>p", '"+p', "Paste from to clipboard")
+-- u.map("nv", "<Leader>P", '"+P', "Paste before from to clipboard")
 
 -- Text formating
 u.map("nv", "Q", "gwip", "Reformat paragraph")

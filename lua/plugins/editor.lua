@@ -227,6 +227,25 @@ return {
         },
     },
 
+    -- Improved Yand and Put
+    {
+        "gbprod/yanky.nvim",
+        keys = {
+            { "p", "<Plug>(YankyPutAfter)", desc = "Put After", mode = {"n", "x"} },
+            { "P", "<Plug>(YankyPutBefore)", desc = "Put Before", mode = {"n", "x"} },
+            { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Previous Yank" },
+            { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Next Yank" },
+            { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put Next line" },
+            { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Previous line" },
+        },
+        opts = {
+            highlight = {
+                timer = 200,
+            },
+        },
+    },
+
+
     -- Undo tree
     {
         "mbbill/undotree",
