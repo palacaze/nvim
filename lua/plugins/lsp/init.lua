@@ -280,32 +280,27 @@ return {
                 scroll_up = "<C-Up>",
             },
             finder = {
+                default = "def+ref+impl",
                 keys = {
-                    expand_or_jump = { "o", "<CR>" },
+                    toggle_or_open = { "o", "<CR>" },
                     vsplit = "s",
                     split = "S",
                     tabe = "t",
                     quit = { "q", "<ESC>" },
                 },
             },
-            definition = {
-                edit = "<CR>",
-                vsplit = "<C-v>",
-                split = "<C-x>",
-                tabe = "<C-t>",
-                quit = { "q", "<Esc>" },
-            },
             code_action = {
                 show_server_name = true,
+                extend_gitsigns = true,
                 keys = {
                     quit = { "q", "<Esc>" },
                     exec = "<CR>",
                 },
             },
             lightbulb = {
-                enable = true,
+                enable = false,
                 enable_in_insert = false,
-                sign = true,
+                sign = false,
                 virtual_text = false,
             },
             diagnostic = {
@@ -315,7 +310,8 @@ return {
             },
             outline = {
                 keys = {
-                    expand_or_jump = { "o", "<CR>" },
+                    toggle_or_jump = "o",
+                    jump = "<CR>",
                 },
             },
             callhierarchy = {
