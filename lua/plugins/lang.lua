@@ -56,12 +56,32 @@ return {
     },
 
     {
+        "MeanderingProgrammer/markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {
+            conceal = {
+                default = 0,
+                rendered = 3,
+            },
+            highlights = {
+                heading = {
+                    backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
+                },
+            },
+        },
+        -- config = function()
+        --     require('render-markdown').setup({})
+        -- end,
+    },
+
+    {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown", "plantuml" },
         build = "cd app && npm install",
         init = function()
             vim.g.mkdp_filetypes = { "markdown", "plantuml" }
             vim.g.mkdp_preview_options = vim.empty_dict()
+            vim.g.mkdp_preview_options.disable_sync_scroll = 1
             vim.g.mkdp_preview_options.uml = { imageFormat = "svg", server = vim.g.puml_server }
             -- vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/mkdp.css"
         end,
