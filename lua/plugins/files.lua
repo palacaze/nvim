@@ -61,8 +61,7 @@ return {
                     local fs_entry = minifiles.get_fs_entry()
                     local is_at_file = fs_entry ~= nil and fs_entry.fs_type == 'file'
                     if is_at_file then
-                        minifiles.go_in()
-                        minifiles.close()
+                        minifiles.go_in({close_on_file = true})
                     end
                 end
             end
@@ -94,8 +93,7 @@ return {
                         local fs_entry = minifiles.get_fs_entry()
                         local is_at_file = fs_entry ~= nil and fs_entry.fs_type == 'file'
                         if is_at_file then
-                            minifiles.go_in()
-                            minifiles.close()
+                            minifiles.go_in({close_on_file = true})
                         end
                     end, "Open file")
 
