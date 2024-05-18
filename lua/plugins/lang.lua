@@ -157,6 +157,19 @@ return {
             cmake_always_use_terminal = false,
             cmake_quickfix_opts = {
                 show = "only_on_error",
+    },
+
+    {
+        "p00f/godbolt.nvim",
+        ft = { "cpp", "c" },
+        cmd = { "Godbolt", "GodboltCompiler" },
+        opts = {
+            languages = {
+                cpp = { compiler = "g131", options = { userArguments = "-W -Wall -O3 -std=c++20" } },
+            },
+            quickfix = {
+                enable = true,
+                auto_open = true,
             },
         },
     },
