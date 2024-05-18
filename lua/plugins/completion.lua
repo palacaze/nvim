@@ -21,9 +21,9 @@ return {
         },
         config = function()
             require("luasnip").setup({
-                history = true,
-                delete_check_events = "TextChanged",
-                region_check_events = "CursorMoved",
+                history = false,
+                delete_check_events = "TextChanged,InsertLeave",
+                region_check_events = "InsertEnter",
                 ext_opts = {
                     [require("luasnip.util.types").choiceNode] = {
                         active = { virt_text = { { "●", "DiagnosticInfo" } } },
@@ -140,20 +140,6 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    ["<Up>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                        else
-                            fallback()
-                        end
-                    end, {"i", "s"}),
-                    ["<Down>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                        else
-                            fallback()
-                        end
-                    end, {"i", "s"}),
                     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-d>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
@@ -165,7 +151,7 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<CR>"] = cmp.mapping.confirm({ insert = true }),
                 }),
                 sources = cmp.config.sources({
                     {
@@ -184,10 +170,22 @@ return {
                 sorting = {
                     priority_weight = 2,
                     comparators = {
-                        cmp.config.compare.offset,
                         cmp.config.compare.exact,
+                        cmp.config.compare.offset,
                         cmp.config.compare.recently_used,
-                        -- cmp.config.compare.scopes,
+                        -- copied from cmp-under: puts symbols starting with one or more _ at the bottom
+                        function(entry1, entry2)
+                            local _, entry1_under = entry1.completion_item.label:find "^_+"
+                            local _, entry2_under = entry2.completion_item.label:find "^_+"
+                            entry1_under = entry1_under or 0
+                            entry2_under = entry2_under or 0
+                            if entry1_under > entry2_under then
+                                return false
+                            elseif entry1_under < entry2_under then
+                                return true
+                            end
+                        end,
+                        cmp.config.compare.scopes,
                         -- clangd completion scores, replaces compare.scores
                         -- falls back to compare.score if unavailable
                         function(entry1, entry2)
@@ -201,37 +199,29 @@ return {
                             return (diff < 0)
                         end,
                         -- cmp.config.compare.score
-                        -- copied from cmp-under: puts symbols starting with one or more _ at the bottom
-                        function(entry1, entry2)
-                            local _, entry1_under = entry1.completion_item.label:find "^_+"
-                            local _, entry2_under = entry2.completion_item.label:find "^_+"
-                            entry1_under = entry1_under or 0
-                            entry2_under = entry2_under or 0
-                            if entry1_under > entry2_under then
-                                return false
-                            elseif entry1_under < entry2_under then
-                                return true
-                            end
-                        end,
-                        -- cmp.config.compare.locality,
+                        cmp.config.compare.locality,
                         cmp.config.compare.kind,
-                        -- cmp.config.compare.sort_text,
-                        -- cmp.config.compare.length,
-                        -- cmp.config.compare.order,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
                     },
                 },
                 view = {
                     entries = "native",
                 },
+                completion = {
+                    autocomplete = { "TextChanged" },
+                },
                 experimental = { ghost_text = false },
                 matching = {
-                    disallow_fuzzy_matching = true,
                     disallow_fullfuzzy_matching = true,
-                    disallow_partial_fuzzy_matching = true,
+                    disallow_fuzzy_matching = true,
+                    disallow_partial_fuzzy_matching = false,
                     disallow_partial_matching = false,
                     disallow_prefix_unmatching = true,
+                    disallow_symbol_nonprefix_matching = true,
                 },
-                compare = { locality = { lines_count = 300} },
+                -- compare = { locality = { lines_count = 300} },
                 formatting = {
                     format = function(entry, vim_item)
                         -- Kind icons
