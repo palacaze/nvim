@@ -90,7 +90,7 @@ return {
             "IlluminateToggle", "IlluminatePause", "IlluminateResume"
         },
         keys = {
-            { "<Leader>ti", "<Cmd>IlluminateToggle<CR", desc = "Toggle Illuminate (highlight symbols)" },
+            { "<Leader>ti", "<Cmd>IlluminateToggle<CR>", desc = "Toggle Illuminate (highlight symbols)" },
             {
                 "<a-n>",
                 function() require("illuminate").next_reference({ wrap = true }) end,
