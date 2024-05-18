@@ -113,6 +113,39 @@ return {
         end,
     },
 
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        keys = {
+            { "<Leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon append" },
+            { "<A-h>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon toggle" },
+            { "<Leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon select 1" },
+            { "<Leader>2", function() require("harpoon"):list():select(2) end, desc = "Harpoon select 2" },
+            { "<Leader>3", function() require("harpoon"):list():select(3) end, desc = "Harpoon select 3" },
+            { "<Leader>4", function() require("harpoon"):list():select(4) end, desc = "Harpoon select 4" },
+
+        },
+        config = function(_, opts)
+            local harpoon = require("harpoon")
+            harpoon:setup(opts)
+            harpoon:extend({
+                UI_CREATE = function(cx)
+                    vim.keymap.set("n", "<C-v>", function()
+                        harpoon.ui:select_menu_item({ vsplit = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set("n", "<C-x>", function()
+                        harpoon.ui:select_menu_item({ split = true })
+                    end, { buffer = cx.bufnr })
+
+                    vim.keymap.set("n", "<C-t>", function()
+                        harpoon.ui:select_menu_item({ tabedit = true })
+                    end, { buffer = cx.bufnr })
+                end,
+            })
+        end,
+    },
+
     -- Neo-tree file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
