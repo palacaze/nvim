@@ -308,15 +308,18 @@ return {
     {
         "folke/trouble.nvim",
         cmd = { "TroubleToggle", "Trouble" },
-        opts = { use_diagnostics_signs = true },
+        opts = {
+            padding = false,
+            use_diagnostics_signs = true
+        },
         keys = {
-            { "<leader>xx", "<Cmd>TroubleToggle<CR>", desc = "Toggle the list of diagnostics" },
-            { "<leader>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Toggle the list of diagnostics for this workspace" },
-            { "<leader>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Toggle the list of diagnostics for this document" },
+            { "<leader>xx", "<Cmd>TroubleToggle<CR>", desc = "Toggle diagnostics" },
+            { "<leader>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Toggle Workspace diagnostics" },
+            { "<leader>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Toggle Document diagnostics" },
             { "<leader>xl", "<Cmd>TroubleToggle loclist<CR>", desc = "Toggle the location list" },
             { "<leader>xq", "<Cmd>TroubleToggle quickfix<CR>", desc = "Toggle the quickfix list" },
-            { "<leader>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle the list of LSP References" },
-            { "gR", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle the list of LSP References" },
+            { "<leader>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle LSP References" },
+            { "gR", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle LSP References" },
             {
                 "[q",
                 function()
