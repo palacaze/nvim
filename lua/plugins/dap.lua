@@ -6,23 +6,68 @@ return {
         -- UI for the debugger
         {
             "rcarriga/nvim-dap-ui",
+            dependencies =  { "nvim-neotest/nvim-nio" },
             keys = {
                 { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
                 { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
             },
-            opts = {},
+            opts = {
+                icons = { expanded = "▾", collapsed = "▸" },
+                mappings = {
+                    open = "o",
+                    remove = "d",
+                    edit = "e",
+                    repl = "r",
+                    toggle = "t",
+                },
+                expand_lines = true,
+                layouts = {
+                    {
+                        elements = {
+                            "scopes",
+                        },
+                        size = 0.3,
+                        position = "right"
+                    },
+                    {
+                        elements = {
+                            "repl",
+                            "breakpoints"
+                        },
+                        size = 0.3,
+                        position = "bottom",
+                    },
+                },
+                floating = {
+                    max_height = nil,
+                    max_width = nil,
+                    border = "single",
+                    mappings = {
+                        close = { "q", "<Esc>" },
+                    },
+                },
+                windows = { indent = 1 },
+                render = {
+                    max_type_length = nil,
+                },
+            },
             config = function(_, opts)
                 local dap = require("dap")
                 local dapui = require("dapui")
                 dapui.setup(opts)
-                dap.listeners.after.event_initialized["dapui_config"] = function()
-                    dapui.open({})
+                dap.listeners.before.attach.dapui_config = function()
+                   dapui.open()
                 end
-                dap.listeners.before.event_terminated["dapui_config"] = function()
-                    dapui.close({})
+                dap.listeners.before.launch.dapui_config = function()
+                    dapui.open()
                 end
-                dap.listeners.before.event_exited["dapui_config"] = function()
-                    dapui.close({})
+                dap.listeners.before.event_terminated.dapui_config = function()
+                    dapui.close()
+                    dap.repl.close()
+                end
+                dap.listeners.before.event_exited.dapui_config = function()
+                    dapui.close()
+                    dap.repl.close()
                 end
             end,
         },
@@ -31,7 +76,7 @@ return {
         {
             "theHamsta/nvim-dap-virtual-text",
             lazy = true,
-            opts = {},
+            opts = { commented = true },
         },
 
         -- Mason integration
@@ -43,18 +88,23 @@ return {
                 automatic_installation = true,
                 handlers = {
                     cppdbg = function(config)
-                        for _, conf in ipairs(config.configurations) do
-                            conf.setupCommands = {
-                                text = "-enable-pretty-printing",
-                                description = "enable pretty printing",
-                                ignoreFailures = false
-                            }
-                        end
+                        -- This does not work, gdb does not understand -enable-pretty-printing
+                        -- for _, conf in ipairs(config.configurations) do
+                        --     conf.setupCommands = {
+                        --         text = "-enable-pretty-printing",
+                        --         description = "enable pretty printing",
+                        --         ignoreFailures = false
+                        --     }
+                        -- end
                         require("mason-nvim-dap").default_setup(config)
                     end
+                    -- codelldb = function(config)
+                        -- require("mason-nvim-dap").default_setup(config)
+                    -- end,
                 },
                 ensure_installed = {
                     "cppdbg",
+                    -- "codelldb",
                 },
             },
         },
@@ -64,12 +114,11 @@ return {
         { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
         { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
         { "<M-b>", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+        { "<leader>dK", function() require("dap").clear_breakpoints() end, desc = "Clear Breakpoints" },
         { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
         { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
         { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)" },
         { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-        { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-        { "<leader>dk", function() require("dap").up() end, desc = "Up" },
         { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
         { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
         { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
@@ -77,7 +126,7 @@ return {
         { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
         { "<leader>ds", function() require("dap").session() end, desc = "Session" },
         { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-        { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+        { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
     },
 
     config = function()
