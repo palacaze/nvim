@@ -88,10 +88,6 @@ local function make_client_capabilities()
         },
     }
 
-    -- Neovim is very slow with dynamic file watching
-    -- https://github.com/neovim/neovim/pull/23190
-    -- https://github.com/neovim/neovim/issues/23291
-    local nvim_slow = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false }}}
 
     -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
     return vim.tbl_deep_extend(
@@ -100,7 +96,6 @@ local function make_client_capabilities()
         vim.lsp.protocol.make_client_capabilities(),
         require("cmp_nvim_lsp").default_capabilities(),
         ufo_caps,
-        nvim_slow
     )
 end
 
