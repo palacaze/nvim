@@ -462,10 +462,15 @@ return {
 
     -- Surround stuff
     {
-        "echasnovski/mini.surround",
-        version = false,
-        enabled = false,
+        "kylechui/nvim-surround",
+        version = "*",
         event = "VeryLazy",
+        init = function()
+            local v_chars = {"(", ")", "[", "]", "{", "}", "'", "\""}
+            for _, char in pairs(v_chars) do
+                vim.keymap.set("v", char, "<Plug>(nvim-surround-visual)"..char)
+            end
+        end,
         config = true,
     },
 
