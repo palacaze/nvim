@@ -38,7 +38,7 @@ opt.backupskip = { "/tmp/*", "$TMPDIR/*", "$TMP/*", "$TEMP/*" }
 opt.cindent = true
 opt.cinoptions = "g0N-s"
 opt.clipboard = "unnamedplus"
-opt.completeopt = "menu,menuone,noinsert,noselect"
+opt.completeopt = "menu,menuone,noinsert,noselect,popup"
 opt.conceallevel = 3
 opt.cursorline = false
 opt.diffopt:append("linematch:60")
@@ -123,6 +123,7 @@ opt.smartcase = true
 opt.smartindent = true
 opt.smarttab = true
 opt.spelllang = { "en" }
+opt.spelloptions = "camel"
 opt.softtabstop = 4
 opt.splitkeep = "topline"
 opt.splitbelow = true
