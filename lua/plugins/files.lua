@@ -152,7 +152,6 @@ return {
         version = "v3.x",
         cmd = "Neotree",
         keys = {
-            { "<M-e>", "<Cmd>Neotree focus<CR>", desc = "Focus File Explorer", mode = { "n", "i" } },
             { "<F5>", "<Cmd>Neotree toggle<CR>", desc = "Toggle File Explorer", mode = { "n", "i" } },
         },
         deactivate = function()
