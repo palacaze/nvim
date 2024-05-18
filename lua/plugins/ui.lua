@@ -238,6 +238,13 @@ return {
         },
     },
 
+    -- Neovim plugin for locking a buffer to a window
+    {
+        "stevearc/stickybuf.nvim",
+        enabled = false,
+        config = true,
+    },
+
     -- Icons, for neo-tree and others
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
