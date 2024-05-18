@@ -473,8 +473,7 @@ return {
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 -- inside the preview window
                 if winid then
-                    -- local bufnr = vim.api.nvim_win_get_buf(winid)
-                    vim.wo[winid].list = false
+                    vim.api.nvim_set_option_value("list", false, { scope = "local", win = winid })
                 else
                     vim.lsp.buf.hover()
                 end

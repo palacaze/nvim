@@ -2,11 +2,8 @@ local M = {}
 
 -- Toggle diagnostics
 local function toggle_diagnostics()
-    if vim.diagnostic.is_disabled(0) then
-        vim.diagnostic.enable(0)
-    else
-        vim.diagnostic.disable(0)
-    end
+    local enabled = vim.diagnostic.is_enabled({bufnr = 0})
+    vim.diagnostic.enable(not enabled, { bufnr = 0 })
 end
 
 -- Toggle virtual diagnostics
@@ -21,9 +18,8 @@ end
 
 -- Toggle inlay hints
 local function toggle_inlay_hints()
-    if vim.lsp.inlay_hint then
-        vim.lsp.inlay_hint(0, nil)
-    end
+    local enabled = vim.lsp.inlay_hint.is_enabled(0)
+    vim.lsp.inlay_hint.enable(not enabled, {bufnr = 0})
 end
 
 -- Use a picker to display results

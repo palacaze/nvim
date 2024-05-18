@@ -178,6 +178,7 @@ return {
                 update_interval = 100,
                 enable = function(buf, win)
                     local name = vim.api.nvim_buf_get_name(buf)
+                    local filetype = vim.bo[buf].filetype
                     return not vim.api.nvim_win_get_config(win).zindex
                         and vim.bo[buf].buftype == ""
                         and name ~= ""

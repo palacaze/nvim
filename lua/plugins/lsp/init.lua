@@ -1,10 +1,6 @@
 -- Configure Vim diagnostics
 local function configure_diagnostics()
-    for type, icon in pairs(require("config.icons").diagnostics) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
-
+    local icons = require("config.icons").diagnostics
     vim.diagnostic.config({
         underline = true,
         virtual_text = false,
@@ -15,8 +11,27 @@ local function configure_diagnostics()
             focusable = false,
             close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
         },
-        signs = true,
-        update_in_insert = false,
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = icons["Error"],
+                [vim.diagnostic.severity.WARN] = icons["Warn"],
+                [vim.diagnostic.severity.INFO] = icons["Info"],
+                [vim.diagnostic.severity.HINT] = icons["Hint"],
+            },
+            linehl = {
+                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+            },
+        },
+        update_in_insert = true,
         severity_sort = true,
     })
 end
@@ -203,7 +218,7 @@ return {
                         local files = {}
                         for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
                             local lang = vim.fn.fnamemodify(file, ":t:r")
-                            local fullpath = vim.fs.normalize(file, ":p")
+                            local fullpath = vim.uv.fs_realpath(file)
                             files[lang] = { ":" .. fullpath }
                         end
 
