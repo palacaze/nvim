@@ -218,6 +218,7 @@ return {
     -- Smooth scrolling
     {
         "karb94/neoscroll.nvim",
+        enabled =false,
         opts = {
             easing_function = "quadratic",
             stop_eof = false,
