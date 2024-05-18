@@ -15,6 +15,7 @@ return {
                 T = { name = "Terminal" },
                 x = { name = "Diagnostics" },
                 c = { name = "CMake" },
+                v = { name = "Venv" },
                 cs = { name = "Select" },
                 csp = { name = "Preset" },
                 d = { name = "Debug" },
