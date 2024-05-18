@@ -161,6 +161,8 @@ return {
             { "<Leader>*", telescope("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
+            -- { "<Leader><Space>", "<Cmd>Telescope smart_open<CR>", desc = "Find files (smart)" },
+            { "<Leader>_", telescope("find_files", { hidden = true, cwd = false, no_ignore = true, no_ignore_parents = true }), desc = "Find files (cwd)" },
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
             { "<Leader>p", "<Cmd>Telescope yank_history<CR>", desc = "Paste from yank history" },
 
@@ -222,6 +224,7 @@ return {
                     "--smart-case",
                     "--trim",
                 },
+                path_display = { "filename_first" },
                 file_ignore_patterns = { "^cmake/vcpkg/" },
                 prompt_prefix = " " .. require("config.icons").ui.Search .. " ",
                 initial_mode = "insert",
@@ -308,6 +311,17 @@ return {
                 },
             },
         },
+        init = function()
+            -- Fix for files being opened in insert mode
+            -- https://github.com/nvim-telescope/telescope.nvim/issues/2501
+            vim.api.nvim_create_autocmd("WinLeave", {
+                callback = function()
+                    if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+                    end
+                end,
+            })
+        end,
         config = function(_, opts)
             require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
@@ -328,6 +342,7 @@ return {
             { "<Leader>*", fzflua("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
+            { "<Leader>_", fzflua("files", { hidden = true, cwd = false }), desc = "Find files (cwd)" },
             { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
 
             { "<Leader>ff", fzflua("files"), desc = "Find files (root dir)" },
