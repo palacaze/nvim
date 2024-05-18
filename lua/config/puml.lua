@@ -48,7 +48,7 @@ local function make_puml_b64_set()
         [0]='0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G',
         'H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y',
         'Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q',
-        'r','s','t','u','v','w','x','y','z','\\','-','_','='
+        'r','s','t','u','v','w','x','y','z','-','_','='
     }
     for code, char in pairs(puml_table) do
         encoder[code] = char:byte()
@@ -134,6 +134,7 @@ local function make_preview_command(opts)
         return string.format("curl -X POST -s -o '%s' -w '%%{http_code}' --data-binary @'%s' %s/%s",
                              opts.out_file, opts.file, opts.server, opts.format)
     end
+
     -- GET method
     local encoded = puml_b64encode(z_deflate_buf(opts.bufnr))
     return string.format("curl -s -o '%s' -w '%%{http_code}' '%s/%s/%s'",
@@ -228,7 +229,8 @@ function M.start_preview(bufnr)
     end
 
     local out_dir = vim.fs.normalize(M.options.tempdir .. "/puml_preview")
-    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, vim.fs.basename(file), M.options.format))
+    local out_filename = vim.fn.fnamemodify(vim.fs.basename(file), ":t:r")
+    local out_file = vim.fs.normalize(string.format("%s/%s.%s", out_dir, out_filename, M.options.format))
     local grp = vim.api.nvim_create_augroup("puml_preview_" .. bufnr, { clear = true })
 
     local opts = vim.tbl_deep_extend("force", M.options, {
