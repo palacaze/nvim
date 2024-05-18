@@ -14,8 +14,15 @@ return {
                 }
             },
             ensure_installed = {
-                "shellcheck",
-                "shfmt",
+                "bash-langage-server",
+                "codelldb",
+                "commitlint",
+                "json-lsp",
+                "ltex-ls",
+                "markdownlint",
+                "marksman",
+                "ruff",
+                "ruff-lsp",
             },
             PATH = "append",
         },

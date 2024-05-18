@@ -168,9 +168,9 @@ return {
                 save_after_format = false,
                 root_dir = require("null-ls.utils").root_pattern(".git"),
                 sources = {
-                    b.formatting.black.with({ extra_args = { "--fast" } }),
-                    b.formatting.isort,
-                    b.formatting.shfmt,
+                    -- b.formatting.black.with({ extra_args = { "--fast" } }),
+                    -- b.formatting.isort,
+                    -- b.formatting.shfmt,
                     b.formatting.stylua.with({
                         condition = function(utils)
                             return utils.root_has_file({"stylua.toml"})
@@ -178,8 +178,6 @@ return {
                     }),
 
                     b.diagnostics.markdownlint,
-                    b.diagnostics.shellcheck,
-                    b.diagnostics.flake8,
                 },
             }
         end,

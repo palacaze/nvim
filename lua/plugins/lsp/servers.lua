@@ -7,9 +7,9 @@ return {
             settings = {
                 pylsp = {
                     plugins = {
-                        pylint = { enabled = true, executable = "pylint" },
-                        pyflakes = { enabled = true },
-                        pycodestyle = { enabled = true },
+                        pylint = { enabled = false, executable = "pylint" },
+                        pyflakes = { enabled = false },
+                        pycodestyle = { enabled = false },
                         jedi_completion = { enabled = true, fuzzy = false },
                         jedi_hover = { enabled = true },
                         jedi_references = { enabled = true },
@@ -43,6 +43,8 @@ return {
                 "--header-insertion=never",
                 "--completion-style=detailed",
                 "--function-arg-placeholders",
+                "--all-scopes-completion",
+                "--pch-storage=memory",
             },
             init_options = {
                 usePlaceholders = true,
@@ -69,12 +71,32 @@ return {
         }
     },
 
+    bashls = {
+        executable = "bash-language-server",
+    },
+
+    jsonls = {
+        executable = "vscode-json-language-server",
+    },
+
     gopls = {
         executable = "gopls",
     },
 
     marksman = {
         executable = "marksman",
+    },
+
+    ruff_lsp = {
+        executable = "ruff-lsp",
+        config = {
+            init_options = {
+                settings = {
+                    -- Any extra CLI arguments for `ruff` go here.
+                    args = {},
+                },
+            },
+        },
     },
 
     rust_analyzer = {
