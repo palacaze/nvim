@@ -100,7 +100,7 @@ return {
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
                     ["HlSearchLens"] = { bg = "#55CB14", fg = "#000000" },
                     ["SatelliteBar"] = { fg = colors.palette.winterYellow, bg = "NONE" },
-                    ["UfoFoldedEllipsis"] = { fg = colors.palette.lotusPink },
+                    ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true },
                 }
             end,
             theme = "wave",
