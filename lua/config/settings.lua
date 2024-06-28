@@ -17,21 +17,6 @@ g.loaded_perl_provider = 0
 g.mapleader = " "
 g.maplocalleader = " "
 
-if vim.fn.has("linux") and vim.fn.executable("xsel") then
-    g.clipboard = {
-        name = "xsel_override",
-        copy = {
-            ["+"] = "xsel --input --clipboard",
-            ["*"] = "xsel --input --primary",
-        },
-        paste = {
-            ["+"] = "xsel --output --clipboard",
-            ["*"] = "xsel --output --primary",
-        },
-        cache_enabled = 1,
-    }
-end
-
 -- opt.shellslash = true
 opt.background = "dark"
 opt.backup = true
