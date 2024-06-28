@@ -107,6 +107,7 @@ return {
     {
         "Civitasv/cmake-tools.nvim",
         enabled = false,
+        enabled = true,
         ft = { "cpp", "c", "cmake" },
         cmd = {
             "CMakeGenerate",
@@ -149,14 +150,11 @@ return {
             { "<Leader>cK", "<Cmd>CMakeStop<CR>", desc = "Stop Cmake process" },
         },
         opts = {
+            cmake_generate_options = {},
             cmake_regenerate_on_save = false,
             cmake_soft_link_compile_commands = false,
             cmake_compile_commands_from_lsp = false,
-            start_insert_in_launch_task = true,
-            start_insert_in_other_tasks = true,
-            cmake_always_use_terminal = false,
-            cmake_quickfix_opts = {
-                show = "only_on_error",
+            cmake_build_directory = "build/out/${variant:buildType}",
         },
     },
 
