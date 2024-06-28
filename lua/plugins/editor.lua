@@ -307,24 +307,20 @@ return {
     -- A pretty diagnostics, references, telescope results, quickfix and location list
     {
         "folke/trouble.nvim",
-        cmd = { "TroubleToggle", "Trouble" },
-        opts = {
-            padding = false,
-            use_diagnostics_signs = true
-        },
+        cmd = { "Trouble" },
+        config = true,
         keys = {
-            { "<leader>xx", "<Cmd>TroubleToggle<CR>", desc = "Toggle diagnostics" },
-            { "<leader>xw", "<Cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Toggle Workspace diagnostics" },
-            { "<leader>xd", "<Cmd>TroubleToggle document_diagnostics<CR>", desc = "Toggle Document diagnostics" },
-            { "<leader>xl", "<Cmd>TroubleToggle loclist<CR>", desc = "Toggle the location list" },
-            { "<leader>xq", "<Cmd>TroubleToggle quickfix<CR>", desc = "Toggle the quickfix list" },
-            { "<leader>xr", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle LSP References" },
-            { "gR", "<Cmd>TroubleToggle lsp_references<CR>", desc = "Toggle LSP References" },
+            { "<leader>xx", "<Cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics" },
+            { "<leader>xd", "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Document diagnostics" },
+            { "<leader>xl", "<Cmd>Trouble loclist toggle<CR>", desc = "Location list (Trouble)" },
+            { "<leader>xq", "<Cmd>Trouble qflist toggle<CR>", desc = "Quickfix list (Trouble)" },
+            { "<Leader>xs", "<Cmd>Trouble symbols toggle focus=false<CR>", desc = "Symbols (Trouble)" },
+            { "gR", "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>", desc = "LSP References (Trouble)" },
             {
                 "[q",
                 function()
                     if require("trouble").is_open() then
-                        require("trouble").previous({ skip_groups = true, jump = true })
+                        require("trouble").previous()
                     else
                         vim.cmd.cprev()
                     end
@@ -335,7 +331,7 @@ return {
                 "]q",
                 function()
                     if require("trouble").is_open() then
-                        require("trouble").next({ skip_groups = true, jump = true })
+                        require("trouble").next()
                     else
                         vim.cmd.cnext()
                     end

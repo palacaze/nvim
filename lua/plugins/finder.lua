@@ -265,10 +265,10 @@ return {
                             return require("telescope.actions.layout").cycle_layout_prev(...)
                         end,
                         ["<C-t>"] = function(...)
-                            return require("trouble.providers.telescope").open_with_trouble(...)
+                            return require("trouble.sources.telescope").open(...)
                         end,
                         ["<M-t>"] = function(...)
-                            return require("trouble.providers.telescope").open_selected_with_trouble(...)
+                            return require("trouble.sources.telescope").open(...)
                         end,
                         ["<M-a>"]  = "toggle_all",
                     },
