@@ -57,7 +57,7 @@ return {
     lua_ls = {
         executable = "lua-language-server",
         setup = function()
-            require("neodev")
+            require("lazydev")
         end,
         config = {
             settings = {

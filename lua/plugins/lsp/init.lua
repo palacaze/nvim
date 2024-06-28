@@ -108,7 +108,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             -- LSP lua symbols for nvim config development
-            { "folke/neodev.nvim", config = true },
+            { "folke/lazydev.nvim", config = true },
             "mason.nvim",
             "nvim-treesitter",
             "williamboman/mason-lspconfig.nvim",
