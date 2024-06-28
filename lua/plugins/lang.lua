@@ -157,6 +157,7 @@ return {
             cmake_always_use_terminal = false,
             cmake_quickfix_opts = {
                 show = "only_on_error",
+        },
     },
 
     {
