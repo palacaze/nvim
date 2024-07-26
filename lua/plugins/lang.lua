@@ -74,22 +74,28 @@ return {
     },
 
     {
+        "OXY2DEV/markview.nvim",
+        config = true,
+    },
+
+    {
         "MeanderingProgrammer/markdown.nvim",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        enabled = false,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "echasnovski/mini.icons",
+        },
         opts = {
-            conceal = {
-                default = 0,
-                rendered = 3,
+            heading = {
+                backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
             },
-            highlights = {
-                heading = {
-                    backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
+            win_options = {
+                conceallevel = {
+                    default = 0,
+                    rendered = 3,
                 },
             },
         },
-        -- config = function()
-        --     require('render-markdown').setup({})
-        -- end,
     },
 
     {
