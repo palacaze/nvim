@@ -65,7 +65,7 @@ return {
                 palette = {},
                 theme = {
                     wave = {
-                        ui = { bg = "#1d1f21" },
+                        ui = { bg = "#171921" },
                     },
                     lotus = {},
                     dragon = {},
