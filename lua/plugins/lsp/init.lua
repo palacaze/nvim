@@ -275,6 +275,16 @@ return {
         branch = "main",
         event = "LspAttach",
         opts = {
+            definition = {
+                keys = {
+                    edit = '<C-c>o',
+                    vsplit = '<C-c>v',
+                    split = '<C-c>i',
+                    tabe = '<C-c>t',
+                    quit = 'q',
+                    close = '<C-c>k',
+                },
+            },
             scroll_preview = {
                 scroll_down = "<C-Down>",
                 scroll_up = "<C-Up>",
