@@ -247,6 +247,7 @@ return {
 
     -- Icons, for neo-tree and others
     { "nvim-tree/nvim-web-devicons", lazy = true },
+    { "echasnovski/mini.icons", lazy = true, version = false },
 
     -- UI components, for neo-tree
     { "MunifTanjim/nui.nvim", lazy = true },
