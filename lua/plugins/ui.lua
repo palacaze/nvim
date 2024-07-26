@@ -84,7 +84,7 @@ return {
         event = { "BufReadPost", "BufNewFile" },
         opts = {
             winblend = 70,
-            width = 2,
+            width = 1,
             excluded_filetypes = {
                 "alpha",
                 "prompt",
@@ -102,8 +102,8 @@ return {
                 gitsigns = {
                     enable = true,
                     signs = {
-                        add = "┆",
-                        change = "┆",
+                        add = "▕",
+                        change = "▕",
                     }
                 }
             },
