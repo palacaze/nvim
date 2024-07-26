@@ -5,29 +5,32 @@ return {
         "folke/which-key.nvim",
         opts = {
             plugins = { spelling = false },
+            preset = "helix",
+            icons = { rules = false, },
             defaults = {
-                b = { name = "Buffer" },
-                f = { name = "Find (Telescope)" },
-                g = { name = "Git (Telescope)" },
-                h = { name = "Git hunks" },
-                l = { name = "LSP" },
-                t = { name = "Toggle" },
-                T = { name = "Terminal" },
-                x = { name = "Diagnostics" },
-                c = { name = "CMake" },
-                v = { name = "Venv" },
-                cs = { name = "Select" },
-                csp = { name = "Preset" },
-                d = { name = "Debug" },
-                da = { name = "Adapters" },
-                ["|"] = { name = "Table" },
+                { "<Leader>T", group = "Terminal" },
+                { "<Leader>b", group = "Buffer" },
+                { "<Leader>c", group = "CMake" },
+                { "<Leader>cs", group = "Select" },
+                { "<Leader>csp", group = "Preset" },
+                { "<Leader>d", group = "Debug" },
+                { "<Leader>da", group = "Adapters" },
+                { "<Leader>f", group = "Find (Telescope)" },
+                { "<Leader>g", group = "Git (Telescope)" },
+                { "<Leader>h", group = "Git hunks" },
+                { "<Leader>l", group = "LSP" },
+                { "<Leader>o", group = "Task" },
+                { "<Leader>t", group = "Toggle" },
+                { "<Leader>v", group = "Venv" },
+                { "<Leader>x", group = "Diagnostics" },
+                { "<Leader>|", group = "Table" },
             },
         },
         event = "VeryLazy",
         config = function(_, opts)
             local wk = require("which-key")
             wk.setup(opts)
-            wk.register(opts.defaults, { prefix = "<Leader>" })
+            wk.add(opts.defaults, { prefix = "<Leader>" })
         end,
     },
 
