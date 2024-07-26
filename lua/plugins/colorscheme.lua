@@ -101,6 +101,7 @@ return {
                     ["HlSearchLens"] = { bg = "#55CB14", fg = "#000000" },
                     ["SatelliteBar"] = { bg = colors.palette.winterYellow, fg = "NONE" },
                     ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true },
+                    ["Folded"] = { bg = "NONE" },
                 }
             end,
             theme = "wave",
