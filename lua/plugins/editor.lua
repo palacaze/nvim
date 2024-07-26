@@ -522,6 +522,10 @@ return {
                 return newVirtText
             end,
             open_fold_hl_timeout = 150,
+            close_fold_kinds_for_ft = {
+                c = { "region" },
+                cpp = { "comment" },
+            },
             preview = {
                 win_config = {
                     border = "none",
