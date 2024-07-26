@@ -99,7 +99,7 @@ return {
                     ["FSPrefix"] = { fg = colors.theme.fg },
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
                     ["HlSearchLens"] = { bg = "#55CB14", fg = "#000000" },
-                    ["SatelliteBar"] = { fg = colors.palette.winterYellow, bg = "NONE" },
+                    ["SatelliteBar"] = { bg = colors.palette.winterYellow, fg = "NONE" },
                     ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true },
                 }
             end,
