@@ -3,6 +3,7 @@ return {
     -- mini file manager
     {
         "echasnovski/mini.files",
+        enabled = false,
         version = false,
         opts = {
             windows = {
@@ -114,6 +115,43 @@ return {
     },
 
     {
+        "stevearc/oil.nvim",
+        cmds = { "Oil" },
+        lazy = false,
+        keys = {
+            { "-", function() require("oil").toggle_float() end, mode = "n", desc = "Open parent directory" },
+            { "<Leader>m", function() require("oil").toggle_float() end, mode = "n", desc = "Open parent directory" },
+        },
+        opts = {
+            float = { padding = 0, win_options = { winblend = 20 }, },
+            default_file_explorer = true,
+            delete_to_trash = true,
+            keymaps = {
+                ["q"] = "actions.close",
+                ["<BS>"] = "actions.parent",
+                ["gh"] = "actions.toggle_hidden",
+                ["gd"] = {
+                    desc = "Toggle file detail view",
+                    callback = function()
+                        OilDetail = not OilDetail
+                        if OilDetail then
+                            require("oil").set_columns({
+                                "icon",
+                                { "permissions", highlight = "Number" },
+                                { "mtime", highlight = "String", format = "%Y-%m-%d %H:%M:%S" },
+                                { "size", highlight = "Keyword" },
+                            })
+                        else
+                            require("oil").set_columns({ "icon" })
+                        end
+                    end,
+                },
+            },
+        },
+        dependencies = { { "echasnovski/mini.icons" } },
+    },
+
+    {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         keys = {
@@ -159,13 +197,6 @@ return {
         end,
         init = function()
             vim.g.neo_tree_remove_legacy_commands = 1
-            -- open neo-tree if vim was set to open a directory
-            if vim.fn.argc() == 1 then
-                local stat = vim.uv.fs_stat(vim.fn.argv(0))
-                if stat and stat.type == "directory" then
-                    require("neo-tree")
-                end
-            end
         end,
         opts = {
             sources = {
