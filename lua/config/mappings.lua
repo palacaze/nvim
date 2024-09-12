@@ -2,7 +2,6 @@ local u = require("utils")
 
 -- Change annoying behaviours
 u.map("n", "q:", ":q", "Quit")
-u.map("n", "Y", "y$", "copy to the end of the line")
 
 -- For bépo keyboard
 u.map("n", "<C-«>", "<C-]>", "Jump to tag")
@@ -29,9 +28,9 @@ end
 u.map("n", "<M-CR>", open_or_create_file_under_cursor, "Create file under cursor")
 
 -- Copy to clipboard
-u.map("nv", "<Leader>y", '"+y', "Copy to clipboard")
+u.map("v", "<Leader>y", '"+y', "Copy to clipboard")
 u.map("n", "<Leader>yy", '"+yy', "Copy line to clipboard")
-u.map("v", "<Leader>Y", '"+y$', "Copy to the end of the line to clipboard")
+u.map("n", "<Leader>Y", '"+y$', "Copy to the end of the line to clipboard")
 
 -- Paste from clipboard, note needed with Yanky
 -- u.map("nv", "<Leader>p", '"+p', "Paste from to clipboard")
