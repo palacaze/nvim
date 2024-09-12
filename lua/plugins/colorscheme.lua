@@ -20,10 +20,10 @@ return {
         opts = {
             style = "night", -- night, storm, moon or day
             light_style = "day",
-            transparent = false,
+            transparent = true,
             terminal_colors = true,
             styles = {
-                comments = { italic = false },
+                comments = { italic = true },
                 keywords = { italic = false },
                 functions = {},
                 variables = {},
@@ -48,8 +48,8 @@ return {
     -- kanagawa
     {
         "rebelot/kanagawa.nvim",
-        lazy = false,
-        priority = 1000,
+        lazy = true,
+        -- priority = 1000,
         opts = {
             compile = true,
             undercurl = true,
@@ -65,7 +65,7 @@ return {
                 palette = {},
                 theme = {
                     wave = {
-                        ui = { bg = "#171921" },
+                        ui = { bg = "#1d1f21" },
                     },
                     lotus = {},
                     dragon = {},
@@ -99,7 +99,7 @@ return {
                     ["FSPrefix"] = { fg = colors.theme.fg },
                     ["FSSuffix"] = { fg = colors.theme.fg_dim },
                     ["HlSearchLens"] = { bg = "#55CB14", fg = "#000000" },
-                    ["SatelliteBar"] = { bg = colors.palette.winterYellow, fg = "NONE" },
+                    ["SatelliteBar"] = { bg = colors.palette.oniViolet, fg = "NONE" },
                     ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true },
                     ["Folded"] = { bg = "NONE" },
                 }
@@ -111,8 +111,8 @@ return {
             },
         },
         config = function(_, opts)
-            require("kanagawa").setup(opts)
-            require("kanagawa").load("wave")
+            -- require("kanagawa").setup(opts)
+            -- require("kanagawa").load("wave")
         end,
     },
 
@@ -161,6 +161,20 @@ return {
         end,
     },
 
+    -- One Dark
+    {
+        "navarasu/onedark.nvim",
+        lazy = true,
+        -- priority = 1000,
+        opts = {
+            style = "darker",
+        },
+        config = function(_, opts)
+            require("onedark").setup(opts)
+            -- vim.cmd.colorscheme("onedark")
+        end
+    },
+
     -- gruvbox8
     {
         "lifepillar/vim-gruvbox8",
@@ -171,8 +185,8 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = true,
-        -- priority = 1000,
+        lazy = false,
+        priority = 1000,
         config = function()
             require("catppuccin").setup({
                 flavor = "mocha",
@@ -197,13 +211,16 @@ return {
                 },
                 integrations = {
                     alpha = true,
+                    aerial = true,
                     barbar = true,
                     cmp = true,
                     dap = true,
                     dap_ui = true,
+                    diffview = true,
                     fidget = true,
                     flash = true,
                     gitsigns = true,
+                    grug_far = true,
                     illuminate = true,
                     indent_blankline = { enabled = true },
                     lsp_saga = true,
@@ -218,7 +235,7 @@ return {
                     which_key = true,
                 },
             })
-            -- vim.cmd.colorscheme("catppuccin")
+            vim.cmd.colorscheme("catppuccin")
         end,
     }
 
