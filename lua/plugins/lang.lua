@@ -73,9 +73,41 @@ return {
         ft = { "plantuml", "markdown" },
     },
 
+    -- Format markdown tables
+    {
+        "Kicamon/markdown-table-mode.nvim",
+        enabled = false,
+        config = true,
+    },
+
+    -- Pretty formatting of markdown documents
     {
         "OXY2DEV/markview.nvim",
-        config = true,
+        lazy = false,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+        opts = {
+            modes = { "n", "no", "c" },
+            hybrid_modes = { },
+            -- callbacks = {
+            --     on_enable = function(_, win)
+            --         vim.wo[win].conceallevel = 2
+            --         vim.wo[win].concealcursor = "nc"
+            --     end,
+            --     on_disable = function(_, win)
+            --         vim.wo[win].conceallevel = 0
+            --         vim.wo[win].concealcursor = ""
+            --     end,
+            -- },
+        },
+        config = function(_, opts)
+            local markview = require("markview")
+            local presets = require("markview.presets")
+            opts.headings = presets.headings.glow_labels
+            markview.setup(opts)
+        end,
     },
 
     {
