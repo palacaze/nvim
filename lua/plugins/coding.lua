@@ -22,7 +22,6 @@ return {
                 "markdownlint",
                 "marksman",
                 "ruff",
-                "ruff-lsp",
             },
             PATH = "append",
         },

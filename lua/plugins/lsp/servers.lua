@@ -87,11 +87,13 @@ return {
         executable = "marksman",
     },
 
-    ruff_lsp = {
-        executable = "ruff-lsp",
+    ruff = {
+        executable = "ruff",
         config = {
             init_options = {
                 settings = {
+                    configurationPreference = "filesystemFirst",
+                    lineLength = 120,
                     -- Any extra CLI arguments for `ruff` go here.
                     args = {},
                 },
