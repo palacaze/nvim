@@ -7,6 +7,9 @@ return {
             plugins = { spelling = false },
             preset = "helix",
             icons = { rules = false, },
+            delay = function(ctx)
+                return ctx.plugin and 0 or 500
+            end,
             defaults = {
                 { "<Leader>T", group = "Terminal" },
                 { "<Leader>b", group = "Buffer" },
