@@ -150,7 +150,6 @@ return {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
             },
-            "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-symbols.nvim",
         },
         cmd = "Telescope",
@@ -166,10 +165,6 @@ return {
             { "<F3>", "<Cmd>Telescope resume<CR>", desc = "Resume last search" },
             { "<Leader>p", "<Cmd>Telescope yank_history<CR>", desc = "Paste from yank history" },
 
-            { "<S-F5>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
-            { "<F17>", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
-            { "<Leader>fb", "<Cmd>Telescope file_browser<CR>", desc = "Browse Files (cwd)" },
-            { "<Leader>fB", "<Cmd>Telescope file_browser path=%:p:h<CR>", desc = "Browse Files (file dir)" },
             { "<Leader>ff", telescope("files", { hidden = true }), desc = "Find files (root dir)" },
             { "<Leader>fF", telescope("files", { hidden = true, cwd = false }), desc = "Find files (cwd)" },
             { "<Leader>fg", telescope("live_grep"), desc = "Grep (root dir)" },
@@ -325,7 +320,6 @@ return {
         config = function(_, opts)
             require("telescope").setup(opts)
             require("telescope").load_extension("fzf")
-            require("telescope").load_extension("file_browser")
             require("telescope").load_extension("yank_history")
         end,
     },
