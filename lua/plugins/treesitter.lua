@@ -78,6 +78,7 @@ return {
                 "gitignore",
                 "go",
                 "html",
+                "hyprlang",
                 "ini",
                 "javascript",
                 "json",
@@ -89,6 +90,7 @@ return {
                 "query",
                 "proto",
                 "python",
+                "rasi",
                 "regex",
                 "rst",
                 "rust",
@@ -223,6 +225,8 @@ return {
             ]])
             vim.treesitter.query.set("javascript", "injections", "")
             vim.treesitter.query.set("lua", "injections", "")
+
+            vim.filetype.add({ pattern = { [".*/hypr/.*%.conf"] = "hyprlang" } })
         end,
     },
 }
