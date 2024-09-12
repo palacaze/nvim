@@ -55,11 +55,23 @@ return {
     -- Search/replace in multiple files
     {
         "nvim-pack/nvim-spectre",
+        enabled = false,
         cmd = "Spectre",
         keys = {
             { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
         },
         opts = { open_cmd = "noswapfile vnew" },
+    },
+
+    -- Find And Replace plugin for neovim
+    {
+        'MagicDuck/grug-far.nvim',
+        cmd = "GrugFar",
+        keys = {
+            { "<leader>sr", function() require("grug-far").grug_far() end, desc = "Search and Replace", mode = "n" },
+            { "<leader>sr", function() require("grug-far").with_visual_selection() end, desc = "Search and Replace", mode = "v" },
+        },
+        config = true,
     },
 
     -- Smarter Splits
