@@ -140,6 +140,35 @@ return {
         end,
     },
 
+    -- Code outline window
+    {
+        "stevearc/aerial.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+        cmds = { "AerialToggle" },
+        keys = {
+            { "<Leader>a", "<Cmd>AerialToggle!<CR>", desc = "Toggle Aerial outline window" },
+            { "<Leader>n", "<Cmd>AerialNavToggle<CR>", desc = "Toggle Aerial navigation window" },
+        },
+        opts = {
+            backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+            nav = {
+                preview = true,
+                keymaps = {
+                    ["<CR>"] = "actions.jump",
+                    ["<2-LeftMouse>"] = "actions.jump",
+                    ["<C-v>"] = "actions.jump_vsplit",
+                    ["<C-s>"] = "actions.jump_split",
+                    ["<left>"] = "actions.left",
+                    ["<right>"] = "actions.right",
+                    ["<esc>"] = "actions.close",
+                },
+            },
+        },
+    },
+
     -- A breadcrumb bar showing symbols
     {
         "Bekaboo/dropbar.nvim",

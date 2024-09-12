@@ -155,7 +155,7 @@ return {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         keys = {
-            { "<Leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon append" },
+            -- { "<Leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon append" },
             { "<A-h>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon toggle" },
             { "<Leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon select 1" },
             { "<Leader>2", function() require("harpoon"):list():select(2) end, desc = "Harpoon select 2" },
