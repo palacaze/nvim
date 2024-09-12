@@ -182,6 +182,7 @@ return {
     {
         "vigoux/ltex-ls.nvim",
         ft = { "markdown", "gitcommit", "text" },
+        enabled = false,
         dependencies = { "nvim-lspconfig" },
         opts = {
             use_spellfile = false,
