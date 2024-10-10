@@ -77,6 +77,7 @@ return {
     -- Smarter Splits
     {
         "mrjones2014/smart-splits.nvim",
+        lazy = false,
         keys = {
             -- Move between splits
             { "<S-Left>",  function() require("smart-splits").move_cursor_left() end, desc = "Move to left split", mode = {"n", "i", "t"} },
