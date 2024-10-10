@@ -6,7 +6,8 @@ return {
         -- UI for the debugger
         {
             "rcarriga/nvim-dap-ui",
-            dependencies =  { "nvim-neotest/nvim-nio" },
+            lazy = true,
+            dependencies =  { "nvim-neotest/nvim-nio", lazy = true },
             keys = {
                 { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
                 { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },

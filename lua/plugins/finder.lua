@@ -143,6 +143,7 @@ return {
     -- Find, Filter, Preview, Pick. All lua, all the time
     {
         "nvim-telescope/telescope.nvim",
+        lazy = true,
         enabled = true,
         version = false,
         dependencies = {
@@ -150,7 +151,7 @@ return {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
             },
-            "nvim-telescope/telescope-symbols.nvim",
+            { "nvim-telescope/telescope-symbols.nvim", lazy = true },
         },
         cmd = "Telescope",
         keys = {
@@ -327,6 +328,7 @@ return {
     {
         "ibhagwan/fzf-lua",
         enabled = false,
+        lazy = true,
         requires = { 'nvim-tree/nvim-web-devicons' },
         cmd = { "FzfLua" },
         keys = {
