@@ -544,9 +544,12 @@ return {
                 return newVirtText
             end,
             open_fold_hl_timeout = 150,
+            provider_selector = function(bufnr, filetype, buftype)
+                return { "treesitter", "indent" }
+            end,
             close_fold_kinds_for_ft = {
                 c = { "region" },
-                cpp = { "comment" },
+                cpp = { "comment", "function_definition" },
             },
             preview = {
                 win_config = {
