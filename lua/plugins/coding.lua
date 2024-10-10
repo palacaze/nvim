@@ -30,6 +30,7 @@ return {
     -- make tables
     {
         "dhruvasagar/vim-table-mode",
+        enabled = false,
         keys = {
             { "<Leader>||", desc = "Toggle table mode" },
             { "<Leader><Bar>T", desc = "Convert selection into table (ask)" },
