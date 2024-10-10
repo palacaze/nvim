@@ -101,6 +101,11 @@ return {
         },
     },
 
+    -- reopens files at your last edit position
+    {
+        "farmergreg/vim-lastplace"
+    },
+
     -- Illuminate - Highlight usages of symbol under cursor
     {
         "RRethy/vim-illuminate",
