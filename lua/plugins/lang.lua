@@ -83,6 +83,7 @@ return {
     -- Pretty formatting of markdown documents
     {
         "OXY2DEV/markview.nvim",
+        enabled = false,
         lazy = false,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -111,20 +112,34 @@ return {
     },
 
     {
-        "MeanderingProgrammer/markdown.nvim",
-        enabled = false,
+        "MeanderingProgrammer/render-markdown.nvim",
+        enabled = true,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "echasnovski/mini.icons",
         },
+        lazy = true,
+        ft = { "markdown" },
         opts = {
+            -- heading = {
+                -- backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
+            -- },
+            code = {
+                width = "block",
+                right_pad = 4,
+                min_width = 50,
+                position = "right",
+                sign = false,
+            },
             heading = {
-                backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
+                width = "block",
+                right_pad = 4,
+                -- min_width = 30,
             },
             win_options = {
                 conceallevel = {
                     default = 0,
-                    rendered = 3,
+                    rendered = 2,
                 },
             },
         },
