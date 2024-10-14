@@ -513,7 +513,24 @@ return {
     -- UFO Better folding
     {
         "kevinhwang91/nvim-ufo",
-        dependencies = { "kevinhwang91/promise-async" },
+        dependencies = {
+            "kevinhwang91/promise-async",
+            {
+                -- nice fold indicators using statuscol
+                "luukvbaal/statuscol.nvim",
+                config = function()
+                    local builtin = require("statuscol.builtin")
+                    require("statuscol").setup({
+                        relculright = true,
+                        segments = {
+                            {text = {"%s"}, click = "v:lua.ScSa"},
+                            {text = {builtin.foldfunc, " "}, click = "v:lua.ScFa"},
+                            {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
+                        }
+                    })
+                end
+            }
+        },
         event = { "BufReadPost", "BufNew" },
         opts = {
             fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
