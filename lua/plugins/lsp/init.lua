@@ -5,12 +5,6 @@ local function configure_diagnostics()
         underline = true,
         virtual_text = false,
         float = false,
-        {
-            source = "always",
-            border = "single",
-            focusable = false,
-            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        },
         signs = {
             text = {
                 [vim.diagnostic.severity.ERROR] = icons["Error"],
@@ -88,7 +82,6 @@ local function make_client_capabilities()
         },
     }
 
-
     -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
     return vim.tbl_deep_extend(
         "force",
@@ -101,6 +94,28 @@ end
 
 
 return {
+
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        lazy = true,
+        event = "BufEnter",  -- VeryLazy and LspAttach do not work
+        init = function()
+            configure_diagnostics()
+        end,
+        opts = {
+            options = {
+                show_source = false,
+                multiple_diag_under_cursor = true,
+                format = function(diag)
+                    if diag.code then
+                        return  diag.message .. " [" .. diag.code .. "]"
+                    else
+                        return diag.message
+                    end
+                end,
+            },
+        },
+    },
 
     -- nvim-lsp configuration
     {
@@ -117,7 +132,7 @@ return {
         },
         config = function()
             -- Configure lsp diagnostics
-            configure_diagnostics()
+            -- configure_diagnostics()
 
             -- Configure functions to be executed on lsp client attaching to a buffer
             on_attach(function(client, buffer)
