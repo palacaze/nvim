@@ -213,14 +213,14 @@ return {
                     autocomplete = { "TextChanged" },
                 },
                 experimental = { ghost_text = false },
-                matching = {
-                    disallow_fullfuzzy_matching = true,
-                    disallow_fuzzy_matching = true,
-                    disallow_partial_fuzzy_matching = false,
-                    disallow_partial_matching = false,
-                    disallow_prefix_unmatching = true,
-                    disallow_symbol_nonprefix_matching = true,
-                },
+                -- matching = {
+                --     disallow_fullfuzzy_matching = true,
+                --     disallow_fuzzy_matching = true,
+                --     disallow_partial_fuzzy_matching = false,
+                --     disallow_partial_matching = false,
+                --     disallow_prefix_unmatching = true,
+                --     disallow_symbol_nonprefix_matching = true,
+                -- },
                 -- compare = { locality = { lines_count = 300} },
                 formatting = {
                     format = function(entry, vim_item)
