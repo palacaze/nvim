@@ -76,6 +76,7 @@ return {
                 "gitattributes",
                 "gitcommit",
                 "gitignore",
+                "glsl",
                 "go",
                 "html",
                 "hyprlang",
