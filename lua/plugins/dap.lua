@@ -22,23 +22,6 @@ return {
                     toggle = "t",
                 },
                 expand_lines = true,
-                layouts = {
-                    {
-                        elements = {
-                            "scopes",
-                        },
-                        size = 0.3,
-                        position = "right"
-                    },
-                    {
-                        elements = {
-                            "repl",
-                            "breakpoints"
-                        },
-                        size = 0.3,
-                        position = "bottom",
-                    },
-                },
                 floating = {
                     max_height = nil,
                     max_width = nil,
