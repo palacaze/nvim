@@ -206,6 +206,8 @@ return {
                         return {
                             ["@comment.documentation.cpp"] = { fg = "#C99484", bold = true },
                             ["Comment"] = { fg = "#C99484" },  -- #D39583  #C99484  #6874A9
+                            ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true, bg = "NONE" },
+                            ["Folded"] = { bg = "NONE" },
                         }
                    end,
                 },
@@ -224,13 +226,14 @@ return {
                     illuminate = true,
                     indent_blankline = { enabled = true },
                     lsp_saga = true,
+                    lsp_trouble = true,
                     mason = true,
                     native_lsp = { enabled = true },
                     neotree = true,
+                    render_markdown = true,
                     symbols_outline = true,
                     telescope = true,
                     treesitter = true,
-                    lsp_trouble = true,
                     ufo = true,
                     which_key = true,
                 },
