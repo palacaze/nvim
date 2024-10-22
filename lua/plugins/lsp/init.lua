@@ -181,6 +181,7 @@ return {
                     -- b.formatting.black.with({ extra_args = { "--fast" } }),
                     -- b.formatting.isort,
                     -- b.formatting.shfmt,
+                    b.diagnostics.mypy,
                     b.formatting.stylua.with({
                         condition = function(utils)
                             return utils.root_has_file({"stylua.toml"})
