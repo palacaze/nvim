@@ -182,6 +182,7 @@ return {
     },
 
     -- catppuccin
+
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -199,10 +200,55 @@ return {
                 color_overrides = {
                     mocha = {
                         base = "#1d1f21",
+                        peach = "#e0af68",
                     },
                 },
+                custom_highlights = function(C)
+                    return {
+                        BlinkCmpMenu = { fg = C.overlay0, bg = C.base },
+                        BlinkCmpMenuBorder = { fg = C.lavender, bg = C.base },
+                        BlinkCmpMenuSelection = { bg = C.surface0 },
+                        BlinkCmpSignatureHelpBorder = { fg = C.lavender },
+                        BlinkCmpLabel = { fg = C.overlay0 },
+                        BlinkCmpLabelDeprecated = { fg = C.overlay0, style = { "strikethrough" } },
+                        BlinkCmpDocBorder = { fg = C.lavender, bg = C.base },
+                        BlinkCmpDoc = { bg = C.base },
+                        BlinkCmpKindText = { fg = C.teal },
+                        BlinkCmpKindMethod = { fg = C.blue },
+                        BlinkCmpKindFunction = { fg = C.blue },
+                        BlinkCmpKindConstructor = { fg = C.blue },
+                        BlinkCmpKindField = { fg = C.green },
+                        BlinkCmpKindVariable = { fg = C.flamingo },
+                        BlinkCmpKindClass = { fg = C.yellow },
+                        BlinkCmpKindInterface = { fg = C.yellow },
+                        BlinkCmpKindModule = { fg = C.blue },
+                        BlinkCmpKindProperty = { fg = C.green },
+                        BlinkCmpKindUnit = { fg = C.green },
+                        BlinkCmpKindValue = { fg = C.peach },
+                        BlinkCmpKindEnum = { fg = C.green },
+                        BlinkCmpKindKeyword = { fg = C.red },
+                        BlinkCmpKindSnippet = { fg = C.mauve },
+                        BlinkCmpKindColor = { fg = C.red },
+                        BlinkCmpKindFile = { fg = C.blue },
+                        BlinkCmpKindReference = { fg = C.red },
+                        BlinkCmpKindFolder = { fg = C.blue },
+                        BlinkCmpKindEnumMember = { fg = C.red },
+                        BlinkCmpKindConstant = { fg = C.peach },
+                        BlinkCmpKindStruct = { fg = C.blue },
+                        BlinkCmpKindEvent = { fg = C.blue },
+                        BlinkCmpKindOperator = { fg = C.blue },
+                        BlinkCmpKindTypeParameter = { fg = C.blue },
+                        ["markup.heading.1.markdown"] = { fg = C.blue , bold = true, },
+                        ["markup.heading.2.markdown"] = { fg = C.peach , bold = true, },
+                        ["markup.heading.3.markdown"] = { fg = C.green , bold = true, },
+                        ["markup.heading.4.markdown"] = { fg = C.teal , bold = true, },
+                        ["markup.heading.5.markdown"] = { fg = C.mauve , bold = true, },
+                        ["markup.heading.6.markdown"] = { fg = C.lavender , bold = true, },
+
+                    }
+                end,
                 highlight_overrides = {
-                    mocha = function (mocha)
+                    mocha = function(mocha)
                         return {
                             ["@comment.documentation.cpp"] = { fg = "#C99484", bold = true },
                             ["Comment"] = { fg = "#C99484" },  -- #D39583  #C99484  #6874A9
@@ -211,6 +257,7 @@ return {
                         }
                    end,
                 },
+
                 integrations = {
                     alpha = true,
                     aerial = true,

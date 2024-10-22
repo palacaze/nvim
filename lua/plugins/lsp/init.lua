@@ -25,7 +25,7 @@ local function configure_diagnostics()
                 [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
             },
         },
-        update_in_insert = true,
+        update_in_insert = false,
         severity_sort = true,
     })
 end
@@ -87,7 +87,7 @@ local function make_client_capabilities()
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities(),
+        -- require("cmp_nvim_lsp").default_capabilities(),
         ufo_caps
     )
 end
@@ -127,7 +127,7 @@ return {
             "mason.nvim",
             "nvim-treesitter",
             "williamboman/mason-lspconfig.nvim",
-            "hrsh7th/cmp-nvim-lsp",
+            -- "hrsh7th/cmp-nvim-lsp",
             "lspsaga.nvim",
         },
         config = function()

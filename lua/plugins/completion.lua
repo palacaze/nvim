@@ -1,8 +1,96 @@
 return {
 
+    {
+        "saghen/blink.cmp",
+        event = "BufReadPre",
+        version = "v0.*", -- REQUIRED release tag to download pre-built binaries
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+        },
+        lazy = false,
+
+        ---@module "blink.cmp"
+        ---@type blink.cmp.Config
+        opts = {
+            sources = {
+                providers = {
+                    {
+                        "blink.cmp.sources.lsp",
+                        name = "LSP"
+                    },
+                    {
+                        "blink.cmp.sources.snippets",
+                        name = "Snippets",
+                        score_offset = -1,
+                        opts = {
+                            friendly_snippets = true,
+                        }
+                    },
+                    {
+                        "blink.cmp.sources.path",
+                        name = "Path",
+                        score_offset = 3,
+                        opts = { get_cwd = vim.uv.cwd },
+                    },
+                    {
+                        "blink.cmp.sources.buffer",
+                        name = "Buffer",
+                        keyword_length = 3,
+                        fallback_for = { "LSP" },
+                    },
+                },
+            },
+            accept = { auto_brackets = { enabled = true } },
+            trigger = {
+                completion = {
+                    keyword_range = "full",
+                },
+                signature_help = {
+                    enabled = true,
+                },
+            },
+            keymap = {
+                show = "<C-space>",
+                hide = "<S-CR>",
+                accept = "<CR>",
+                select_next = { "<Tab>", "<Down>" },
+                select_prev = { "<S-Tab>", "<Up>" },
+                scroll_documentation_down = "<PageDown>",
+                scroll_documentation_up = "<PageUp>",
+            },
+            highlight = {
+                use_nvim_cmp_as_default = true,
+            },
+            kind_icons = require("config.icons").kind,
+            nerd_font_variant = "mono",
+            windows = {
+                documentation = {
+                    min_width = 15,
+                    max_width = 60,
+                    max_height = 40,
+                    border = "single",
+                    auto_show = true,
+                    auto_show_delay_ms = 200,
+                },
+                autocomplete = {
+                    min_width = 10,
+                    max_height = 20,
+                    border = "single",
+                    selection = "manual",
+                    cycle = { from_top = true },
+                    draw = "reversed",
+                },
+                signature_help = {
+                    max_height = 20,
+                },
+            },
+        },
+    },
+
     -- Snippet engine, needed for nvim-cmp and snippet template
     {
         "L3MON4D3/LuaSnip",
+        enabled = false,
         dependencies = {
             -- Snippets ready for use
             "rafamadriz/friendly-snippets",
@@ -94,12 +182,23 @@ return {
                 s({ trig = "box" }, box({ box_width = 24 })),
                 s({ trig = "bbox" }, box({})),
             })
+
+            vim.api.nvim_create_autocmd("InsertLeave", {
+                callback = function()
+                    if require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                       and not require("luasnip").session.jump_active
+                    then
+                        require("luasnip").unlink_current()
+                    end
+                end,
+            })
         end,
     },
 
     -- Auto-completion engine
     {
-        "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        enabled = false,
         version = false,
         event = "InsertEnter",
         dependencies = {
