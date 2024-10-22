@@ -1,28 +1,46 @@
 
 -- Configuration table for the supported LSP servers
 return {
-    pylsp = {
-        executable = "pylsp",
+    -- pylsp = {
+    --     executable = "pylsp",
+    --     config = {
+    --         settings = {
+    --             pylsp = {
+    --                 plugins = {
+    --                     -- flake8 = { enabled = false },
+    --                     -- pylint = { enabled = false, executable = "pylint" },
+    --                     pyflakes = { enabled = false },
+    --                     pycodestyle = { enabled = false },
+    --                     mccabe = { enabled = false },
+    --                     -- rope_completion = { enabled = true }, -- ultra slow
+    --                     -- jedi_completion = { enabled = true, fuzzy = false },
+    --                     -- jedi_hover = { enabled = true },
+    --                     -- jedi_references = { enabled = true },
+    --                     -- jedi_signature_help = { enabled = true },
+    --                     -- jedi_symbols = { enabled = true, all_scopes = true },
+    --                 },
+    --             },
+    --         },
+    --         root_dir = require("lspconfig.util").find_git_ancestor,
+    --         flags = {
+    --             debounce_text_changes = 200,
+    --         },
+    --     },
+    -- },
+
+    basedpyright = {
+        executable = "basedpyright-langserver",
         config = {
             settings = {
-                pylsp = {
-                    plugins = {
-                        pylint = { enabled = false, executable = "pylint" },
-                        pyflakes = { enabled = false },
-                        pycodestyle = { enabled = false },
-                        jedi_completion = { enabled = true, fuzzy = false },
-                        jedi_hover = { enabled = true },
-                        jedi_references = { enabled = true },
-                        jedi_signature_help = { enabled = true },
-                        jedi_symbols = { enabled = true, all_scopes = true },
-                    },
-                },
+                basedpyright = {
+                    analysis = {
+                        autoSearchPaths = true,
+                        diagnosticMode = "openFilesOnly",
+                        useLibraryCodeForTypes = true,
+                    }
+                }
             },
-            root_dir = require("lspconfig.util").find_git_ancestor,
-            flags = {
-                debounce_text_changes = 200,
-            },
-        },
+        }
     },
 
     clangd = {
