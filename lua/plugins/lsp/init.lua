@@ -12,12 +12,7 @@ local function configure_diagnostics()
                 [vim.diagnostic.severity.INFO] = icons["Info"],
                 [vim.diagnostic.severity.HINT] = icons["Hint"],
             },
-            linehl = {
-                [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-                [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-                [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-                [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-            },
+            -- no linehl, it is too intrusive
             numhl = {
                 [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
                 [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
