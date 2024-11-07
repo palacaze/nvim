@@ -12,34 +12,6 @@ return {
         ---@module "blink.cmp"
         ---@type blink.cmp.Config
         opts = {
-            sources = {
-                providers = {
-                    {
-                        "blink.cmp.sources.lsp",
-                        name = "LSP"
-                    },
-                    {
-                        "blink.cmp.sources.snippets",
-                        name = "Snippets",
-                        score_offset = -1,
-                        opts = {
-                            friendly_snippets = true,
-                        }
-                    },
-                    {
-                        "blink.cmp.sources.path",
-                        name = "Path",
-                        score_offset = 3,
-                        opts = { get_cwd = vim.uv.cwd },
-                    },
-                    {
-                        "blink.cmp.sources.buffer",
-                        name = "Buffer",
-                        keyword_length = 3,
-                        fallback_for = { "LSP" },
-                    },
-                },
-            },
             accept = { auto_brackets = { enabled = true } },
             trigger = {
                 completion = {
@@ -50,23 +22,32 @@ return {
                 },
             },
             keymap = {
-                show = "<C-space>",
-                hide = "<S-CR>",
-                accept = "<CR>",
-                select_next = { "<Tab>", "<Down>" },
-                select_prev = { "<S-Tab>", "<Up>" },
-                scroll_documentation_down = "<PageDown>",
-                scroll_documentation_up = "<PageUp>",
+                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<C-e>"] = { "hide" },
+                ["<CR>"] = { "accept", "fallback" },
+                ["<Tab>"] = {
+                    function(cmp)
+                        if cmp.is_in_snippet() then return cmp.accept()
+                        else return cmp.select_and_accept() end
+                    end,
+                    "snippet_forward",
+                    "fallback"
+                },
+                ["<S-Tab>"] = { "snippet_backward", "fallback" },
+                ["<PageUp>"] = { "scroll_documentation_up", "fallback" },
+                ["<PageDown>"] = { "scroll_documentation_down", "fallback" },
+                ["<Up>"] = { "select_prev", "fallback" },
+                ["<Down>"] = { "select_next", "fallback" },
             },
             highlight = {
                 use_nvim_cmp_as_default = true,
             },
             kind_icons = require("config.icons").kind,
-            nerd_font_variant = "mono",
+            nerd_font_variant = "normal",
             windows = {
                 documentation = {
                     min_width = 15,
-                    max_width = 60,
+                    max_width = 80,
                     max_height = 40,
                     border = "single",
                     auto_show = true,
