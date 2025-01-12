@@ -1,7 +1,7 @@
 local u = require("utils")
 
 -- Change annoying behaviours
-u.map("n", "q:", ":q", "Quit")
+-- u.map("n", "q:", ":q", "Quit")
 
 -- For bépo keyboard
 u.map("n", "<C-«>", "<C-]>", "Jump to tag")
