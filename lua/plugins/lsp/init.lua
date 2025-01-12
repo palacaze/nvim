@@ -185,11 +185,11 @@ return {
         "nvimtools/none-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = { "mason.nvim", "plenary.nvim" },
-        opts = function()
+        config = function()
             local nls = require("null-ls")
             local b = nls.builtins
 
-            return {
+            nls.setup({
                 save_after_format = false,
                 root_dir = require("null-ls.utils").root_pattern(".git"),
                 sources = {
@@ -205,7 +205,7 @@ return {
 
                     b.diagnostics.markdownlint,
                 },
-            }
+            })
         end,
     },
 
