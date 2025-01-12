@@ -176,13 +176,16 @@ return {
             },
         },
         extensions = {
-            "quickfix",
-            "neo-tree",
-            "nvim-tree",
             "aerial",
             "fugitive",
             "lazy",
+            "mason",
+            "neo-tree",
             "nvim-dap-ui",
+            "nvim-tree",
+            "oil",
+            "quickfix",
+            "trouble",
             -- diffview extension
             {
                 filetypes = { "DiffviewFiles" },
