@@ -13,6 +13,24 @@ return {
         },
     },
 
+    -- gruvbox8
+    {
+        "lifepillar/vim-gruvbox8",
+        lazy = true,
+    },
+
+    -- Gruvbox-material
+    {
+        "sainnhe/gruvbox-material",
+        lazy = true,
+        config = function()
+            vim.g.gruvbox_material_background = "hard"
+            vim.g.gruvbox_material_transparent_background = 1
+            vim.g.gruvbox_material_better_performance = 1
+            vim.g.gruvbox_enable_bold = 1
+        end
+    },
+
     -- tokyonight
     {
         "folke/tokyonight.nvim",
@@ -137,6 +155,12 @@ return {
         lazy = true,
     },
 
+    -- flexoki
+    {
+        "nuvic/flexoki-nvim",
+        name = "flexoki",
+    },
+
     -- dracula
     {
         "Mofiqul/dracula.nvim",
@@ -175,10 +199,65 @@ return {
         end
     },
 
-    -- gruvbox8
+    -- One Nord
     {
-        "lifepillar/vim-gruvbox8",
+        "rmehri01/onenord.nvim",
         lazy = true,
+        opts = {
+            disable = {
+                background = true,
+                float_background = true,
+                cursorline = true,
+                eob_lines = true,
+            },
+            custom_highlights = {
+                ["@comment.documentation.cpp"] = { fg = "#C99484", bold = true },
+                ["Comment"] = { fg = "#C99484" },  -- #D39583  #C99484  #6874A9
+                ["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true, bg = "NONE" },
+                ["Folded"] = { bg = "NONE" },
+                ["SatelliteBar"] = { fg = "#957FB8", bg = "NONE" },
+                ["SatelliteBackground"] = { fg = "#957FB8", bg = "NONE" },
+                BlinkCmpMenu = { fg = "#6c7086", bg = "#1e1e2e" },
+                BlinkCmpMenuBorder = { fg = "#b4befe", bg = "#1e1e2e" },
+                BlinkCmpMenuSelection = { bg = "#b313244" },
+                BlinkCmpSignatureHelpBorder = { fg = "#b4befe" },
+                BlinkCmpLabel = { fg = "#6c7086" },
+                BlinkCmpLabelDeprecated = { fg = "#6c7086" },
+                BlinkCmpDocBorder = { fg = "#b4befe", bg = "#1e1e2e" },
+                BlinkCmpDoc = { bg = "#1e1e2e" },
+                BlinkCmpKindText = { fg = "#b94e2d5" },
+                BlinkCmpKindMethod = { fg = "#89b4fa" },
+                BlinkCmpKindFunction = { fg = "#89b4fa" },
+                BlinkCmpKindConstructor = { fg = "#89b4fa" },
+                BlinkCmpKindField = { fg = "#a6e3a1" },
+                BlinkCmpKindVariable = { fg = "#f2cdcd" },
+                BlinkCmpKindClass = { fg = "#f9e2af" },
+                BlinkCmpKindInterface = { fg = "#f9e2af" },
+                BlinkCmpKindModule = { fg = "#89b4fa" },
+                BlinkCmpKindProperty = { fg = "#a6e3a1" },
+                BlinkCmpKindUnit = { fg = "#a6e3a1" },
+                BlinkCmpKindValue = { fg = "#fab387" },
+                BlinkCmpKindEnum = { fg = "#a6e3a1" },
+                BlinkCmpKindKeyword = { fg = "#f38ba8" },
+                BlinkCmpKindSnippet = { fg = "#cba6f7" },
+                BlinkCmpKindColor = { fg = "#f38ba8" },
+                BlinkCmpKindFile = { fg = "#89b4fa" },
+                BlinkCmpKindReference = { fg = "#f38ba8" },
+                BlinkCmpKindFolder = { fg = "#89b4fa" },
+                BlinkCmpKindEnumMember = { fg = "#f38ba8" },
+                BlinkCmpKindConstant = { fg = "#fab387" },
+                BlinkCmpKindStruct = { fg = "#89b4fa" },
+                BlinkCmpKindEvent = { fg = "#89b4fa" },
+                BlinkCmpKindOperator = { fg = "#89b4fa" },
+                BlinkCmpKindTypeParameter = { fg = "#89b4fa" },
+                ["markup.heading.1.markdown"] = { fg = "#89b4fa" , bold = true, },
+                ["markup.heading.2.markdown"] = { fg = "#fab387" , bold = true, },
+                ["markup.heading.3.markdown"] = { fg = "#a6e3a1" , bold = true, },
+                ["markup.heading.4.markdown"] = { fg = "#b94e2d5" , bold = true, },
+                ["markup.heading.5.markdown"] = { fg = "#cba6f7" , bold = true, },
+                ["markup.heading.6.markdown"] = { fg = "#b4befe" , bold = true, },
+            },
+        }
     },
 
     -- catppuccin
@@ -200,51 +279,21 @@ return {
                 color_overrides = {
                     mocha = {
                         base = "#1d1f21",
+                        -- text = "#dbdbb2",
+                        -- base = "#211f1d",
                         peach = "#e0af68",
                     },
                 },
                 custom_highlights = function(C)
                     return {
-                        BlinkCmpMenu = { fg = C.overlay0, bg = C.base },
-                        BlinkCmpMenuBorder = { fg = C.lavender, bg = C.base },
-                        BlinkCmpMenuSelection = { bg = C.surface0 },
-                        BlinkCmpSignatureHelpBorder = { fg = C.lavender },
-                        BlinkCmpLabel = { fg = C.overlay0 },
-                        BlinkCmpLabelDeprecated = { fg = C.overlay0, style = { "strikethrough" } },
-                        BlinkCmpDocBorder = { fg = C.lavender, bg = C.base },
-                        BlinkCmpDoc = { bg = C.base },
-                        BlinkCmpKindText = { fg = C.teal },
-                        BlinkCmpKindMethod = { fg = C.blue },
-                        BlinkCmpKindFunction = { fg = C.blue },
-                        BlinkCmpKindConstructor = { fg = C.blue },
-                        BlinkCmpKindField = { fg = C.green },
-                        BlinkCmpKindVariable = { fg = C.flamingo },
-                        BlinkCmpKindClass = { fg = C.yellow },
-                        BlinkCmpKindInterface = { fg = C.yellow },
-                        BlinkCmpKindModule = { fg = C.blue },
-                        BlinkCmpKindProperty = { fg = C.green },
-                        BlinkCmpKindUnit = { fg = C.green },
-                        BlinkCmpKindValue = { fg = C.peach },
-                        BlinkCmpKindEnum = { fg = C.green },
-                        BlinkCmpKindKeyword = { fg = C.red },
-                        BlinkCmpKindSnippet = { fg = C.mauve },
-                        BlinkCmpKindColor = { fg = C.red },
-                        BlinkCmpKindFile = { fg = C.blue },
-                        BlinkCmpKindReference = { fg = C.red },
-                        BlinkCmpKindFolder = { fg = C.blue },
-                        BlinkCmpKindEnumMember = { fg = C.red },
-                        BlinkCmpKindConstant = { fg = C.peach },
-                        BlinkCmpKindStruct = { fg = C.blue },
-                        BlinkCmpKindEvent = { fg = C.blue },
-                        BlinkCmpKindOperator = { fg = C.blue },
-                        BlinkCmpKindTypeParameter = { fg = C.blue },
                         ["markup.heading.1.markdown"] = { fg = C.blue , bold = true, },
                         ["markup.heading.2.markdown"] = { fg = C.peach , bold = true, },
                         ["markup.heading.3.markdown"] = { fg = C.green , bold = true, },
                         ["markup.heading.4.markdown"] = { fg = C.teal , bold = true, },
                         ["markup.heading.5.markdown"] = { fg = C.mauve , bold = true, },
                         ["markup.heading.6.markdown"] = { fg = C.lavender , bold = true, },
-
+                        CmpItemAbbrMatch = { fg = C.blue, style = { "bold" } },
+                        CmpItemAbbrMatchFuzzy = { fg = C.blue, style = { "bold" } },
                     }
                 end,
                 highlight_overrides = {
@@ -262,6 +311,7 @@ return {
                     alpha = true,
                     aerial = true,
                     barbar = true,
+                    blink_cmp = true,
                     cmp = true,
                     dap = true,
                     dap_ui = true,
