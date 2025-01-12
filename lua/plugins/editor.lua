@@ -567,6 +567,7 @@ return {
             close_fold_kinds_for_ft = {
                 c = { "region" },
                 cpp = { "comment", "function_definition" },
+                python = { "import_from_statement", "function_definition", "class_definition" },
             },
             preview = {
                 win_config = {
@@ -591,6 +592,7 @@ return {
             { "z6", function() require("ufo").closeFoldsWith(5) end, desc = "Unfold 6 levels" },
             { "z0", function() require("ufo").closeFoldsWith(99) end, desc = "Unfold all" },
             { "à", "za", desc = "Toggle fold", remap = true, silent = true, nowait = true },
+            { "zr", function() require('ufo').openFoldsExceptKinds() end, desc = "fold" },
         },
         init = function()
             vim.keymap.set("n", "zR", function()

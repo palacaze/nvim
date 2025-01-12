@@ -22,6 +22,7 @@ return {
                 "markdownlint",
                 "marksman",
                 "ruff",
+                "basedpyright",
                 "debugpy",
             },
             PATH = "append",

@@ -21,9 +21,10 @@ return {
         lazy = true,
         dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
         opts = {
-            -- Your options go here
-            -- name = "venv",
-            -- auto_refresh = false
+            options = {
+                activate_venv_in_terminal = true,
+                set_environment_variables = true,
+            },
         },
         keys = {
             -- Keymap to open VenvSelector to pick a venv.
@@ -33,15 +34,8 @@ return {
         },
     },
 
-    -- Python indent (follows the PEP8 style)
     {
-        "Vimjas/vim-python-pep8-indent",
-        ft = { "python" },
-    },
-
-    -- Python-related text object
-    {
-        "jeetsukumaran/vim-pythonsense",
+        "Ttibsi/pre-commit.nvim",
         ft = { "python" },
     },
 
