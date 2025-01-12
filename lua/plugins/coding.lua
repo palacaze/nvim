@@ -22,6 +22,7 @@ return {
                 "markdownlint",
                 "marksman",
                 "ruff",
+                "debugpy",
             },
             PATH = "append",
         },

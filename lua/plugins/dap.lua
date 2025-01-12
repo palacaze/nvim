@@ -63,6 +63,34 @@ return {
             opts = { commented = true },
         },
 
+        {
+            "mfussenegger/nvim-dap-python",
+            lazy = true,
+            config = function()
+                require("dap-python").setup("python")
+                table.insert(require("dap").configurations.python, {
+                    type = "python",
+                    request = "launch",
+                    name = "My custom launch configuration",
+                    pythonPath = function()
+                        local cwd = vim.fn.getcwd()
+                        if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+                            return cwd .. "/venv/bin/python"
+                        elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+                            return cwd .. "/.venv/bin/python"
+                        else
+                            return "/usr/bin/python"
+                        end
+                    end,
+                    console = "integratedTerminal",
+                    cmd = "${workspaceFolder}",
+                    program = function()
+                        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                })
+            end
+        },
+
         -- Mason integration
         {
             "jay-babu/mason-nvim-dap.nvim",
