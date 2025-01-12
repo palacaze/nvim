@@ -7,6 +7,7 @@ return {
         dependencies = {
             "rafamadriz/friendly-snippets",
         },
+        enabled = false,
         lazy = false,
 
         ---@module "blink.cmp"
@@ -23,7 +24,7 @@ return {
             },
             keymap = {
                 ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-                ["<C-e>"] = { "hide" },
+                ["<C-e>"] = { "hide", "fallback" },
                 ["<CR>"] = { "accept", "fallback" },
                 ["<Tab>"] = {
                     function(cmp)
@@ -71,7 +72,7 @@ return {
     -- Snippet engine, needed for nvim-cmp and snippet template
     {
         "L3MON4D3/LuaSnip",
-        enabled = false,
+        enabled = true,
         dependencies = {
             -- Snippets ready for use
             "rafamadriz/friendly-snippets",
@@ -179,7 +180,7 @@ return {
     -- Auto-completion engine
     {
         "iguanacucumber/magazine.nvim",
-        enabled = false,
+        enabled = true,
         version = false,
         name = "nvim-cmp",
         event = "InsertEnter",
@@ -196,6 +197,7 @@ return {
         config = function()
             local cmp = require("cmp")
             local luasnip = require("luasnip")
+
             cmp.setup({
                 snippet = {
                     expand = function(args)
@@ -221,8 +223,10 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                    ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {"i"}),
+                    ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {"i"}),
+                    ["<PageUp>"] = cmp.mapping.scroll_docs(-4),
+                    ["<PageDown>"] = cmp.mapping.scroll_docs(4),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<Esc>"] = cmp.mapping(function(fallback)
@@ -232,7 +236,18 @@ return {
                             fallback()
                         end
                     end, { "i", "s" }),
-                    ["<CR>"] = cmp.mapping.confirm({ insert = true }),
+                    ["<CR>"] = cmp.mapping.confirm({ insert = true }),  -- Good
+                    -- ["<CR>"] = cmp.mapping({
+                    --     i = function(fallback)
+                    --         if cmp.visible() and cmp.get_active_entry() then
+                    --             cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                    --         else
+                    --             fallback()
+                    --         end
+                    --     end,
+                    --     s = cmp.mapping.confirm({ select = true }),
+                    --     c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+                    -- }),
                 }),
                 sources = cmp.config.sources({
                     {
@@ -287,8 +302,9 @@ return {
                         cmp.config.compare.order,
                     },
                 },
-                view = {
-                    entries = "native",
+                window = {
+                    completion = { winblend = 0, },
+                    documentation = { winblend = 0, },
                 },
                 completion = {
                     autocomplete = { "TextChanged" },
@@ -305,16 +321,7 @@ return {
                 -- compare = { locality = { lines_count = 300} },
                 formatting = {
                     format = function(entry, vim_item)
-                        -- Kind icons
-                        vim_item.kind = string.format("%s", require("config.icons").kind[vim_item.kind])
-                        -- Source
-                        vim_item.menu = ({
-                            nvim_lsp = "[LSP]",
-                            luasnip = "[Snip]",
-                            buffer = "[Buf]",
-                            path = "[Path]",
-                            conventional_commits = "[commits]",
-                        })[entry.source.name]
+                        vim_item.kind = string.format("%s %s", require("config.icons").kind[vim_item.kind], vim_item.kind)
                         -- Truncate text
                         local label = vim_item.abbr
                         local truncated_label = vim.fn.strcharpart(label, 0, 80)

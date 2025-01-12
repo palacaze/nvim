@@ -77,12 +77,24 @@ local function make_client_capabilities()
         },
     }
 
+    -- Snippets for cmp
+    local cmp_caps = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                },
+            },
+        },
+    }
+
     -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
     return vim.tbl_deep_extend(
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        -- require("cmp_nvim_lsp").default_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities(),
+        cmp_caps,
         ufo_caps
     )
 end
@@ -129,8 +141,8 @@ return {
             "mason.nvim",
             "nvim-treesitter",
             "williamboman/mason-lspconfig.nvim",
-            -- "hrsh7th/cmp-nvim-lsp",
             "lspsaga.nvim",
+            -- "saghen/blink.cmp",
         },
         config = function()
             -- Configure lsp diagnostics
@@ -156,6 +168,7 @@ return {
                         capabilities = make_client_capabilities()
                     }, server.config or {})
 
+                    -- server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
                     require("lspconfig")[name].setup(server_opts)
                 end
             end
