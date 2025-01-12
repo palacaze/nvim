@@ -1,3 +1,5 @@
+
+
 return {
 
     -- A buffer line
@@ -166,10 +168,13 @@ return {
                 [[██   ████ ███████  ██████    ████   ██ ██      ██]]
             }
             dashboard.section.buttons.val = {
-                dashboard.button("f", icons.ui.Search .. " Find file", "<Cmd>Telescope find_files<CR>"),
+                dashboard.button("f", icons.ui.Search .. " Find file", "<Leader><Space>",
+                    { remap = true, silent = true, nowait = true }),
                 dashboard.button("n", icons.ui.File .. " New file", ":silent enew <BAR> startinsert<CR>"),
-                dashboard.button("r", icons.ui.History .. " Recent files", "<Cmd>Telescope oldfiles<CR>"),
-                dashboard.button("g", icons.ui.List .. " Find text", "<Cmd>Telescope live_grep<CR>"),
+                dashboard.button("r", icons.ui.History .. " Recent files", "<Leader>fr",
+                    { remap = true, silent = true, nowait = true }),
+                dashboard.button("g", icons.ui.List .. " Find text", "<Leader>/",
+                    { remap = true, silent = true, nowait = true }),
                 dashboard.button("c", icons.ui.Gear .. " Config", ":e $MYVIMRC<CR>"),
                 dashboard.button("l", icons.ui.Lazy .. " Lazy", ":Lazy<CR>"),
                 dashboard.button("q", icons.ui.Quit .. " Quit", ":qa<CR>"),

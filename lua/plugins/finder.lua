@@ -44,13 +44,14 @@ local function fzflua(builtin, opts)
 
         -- pass word under cursor if required
         if opts and opts.cword ~= nil and opts.cword then
-            opts.default_text = vim.fn.expand("<cword>")
+            opts.search = vim.fn.expand("<cword>")
         end
 
         if builtin == "files" then
             if vim.uv.fs_stat(((opts and opts.cwd) or vim.uv.cwd()) .. "/.git") then
-                opts.show_untracked = true
+                -- show untracked too
                 builtin = "git_files"
+                opts.cmd = "git ls-files --exclude-standard -c --others"
             else
                 builtin = "files"
             end
@@ -100,7 +101,7 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         lazy = true,
-        enabled = true,
+        enabled = false,
         version = false,
         dependencies = {
             {
@@ -111,8 +112,7 @@ return {
         },
         cmd = "Telescope",
         keys = {
-            { "<Leader>,", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer" },
-            { "<M-Tab>", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer", mode = { "n", "i" } },
+            { "_", "<Cmd>Telescope buffers<CR>", desc = "Switch Buffer" },
             { "<Leader>/", telescope("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>*", telescope("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>Telescope command_history<CR>", desc = "Command History" },
@@ -283,18 +283,17 @@ return {
 
     {
         "ibhagwan/fzf-lua",
-        enabled = false,
+        enabled = true,
         lazy = true,
         requires = { 'nvim-tree/nvim-web-devicons' },
         cmd = { "FzfLua" },
         keys = {
-            { "<Leader>,", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
-            { "<M-Tab>", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
+            { "_", "<Cmd>FzfLua buffers<CR>", desc = "Switch Buffer" },
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>*", fzflua("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
             { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
-            { "<Leader>_", fzflua("files", { hidden = true, cwd = false }), desc = "Find files (cwd)" },
+            { "<Leader>_", fzflua("lgrep_curbuf", { cword = true }), desc = "Grep the current buffer" },
             { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
 
             { "<Leader>ff", fzflua("files"), desc = "Find files (root dir)" },
@@ -341,6 +340,7 @@ return {
             },
         },
         opts = {
+            "telescope",
             winopts = {
                 width   = 0.9,
                 height  = 0.9,
@@ -375,6 +375,9 @@ return {
                     ["ctrl-q"] = "select-all+accept",
                 },
             },
+            oldfiles = {
+                include_current_session = true,
+            },
             files = {
                 cwd_prompt = false,
             },
@@ -382,6 +385,9 @@ return {
                 no_header = true,
             },
             previewers = {
+                builtin = {
+                    syntax_limit_b = 1024 * 300
+                },
                 man = {
                     cmd = "man %s | col -bx",
                 },
