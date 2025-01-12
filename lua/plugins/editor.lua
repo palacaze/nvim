@@ -68,8 +68,10 @@ return {
         'MagicDuck/grug-far.nvim',
         cmd = "GrugFar",
         keys = {
-            { "<leader>sr", function() require("grug-far").grug_far() end, desc = "Search and Replace", mode = "n" },
+            { "<leader>sr", function() require("grug-far").open() end, desc = "Search and Replace", mode = "n" },
             { "<leader>sr", function() require("grug-far").with_visual_selection() end, desc = "Search and Replace", mode = "v" },
+            { "<leader>sR", function() require('grug-far').open({ prefills = { paths = vim.fn.expand("%") } }) end, desc = "Search and Replace current file", mode = "n" },
+            { "<leader>sR", function() require('grug-far').with_visual_selection({ prefills = { paths = vim.fn.expand("%") } }) end, desc = "Search and Replace current file", mode = "v" },
         },
         config = true,
     },
