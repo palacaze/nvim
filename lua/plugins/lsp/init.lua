@@ -110,6 +110,13 @@ return {
                 end,
             },
         },
+        config = function(_, opts)
+            require("tiny-inline-diagnostic").setup(opts)
+            vim.diagnostic.config({
+                update_in_insert = false,
+                severity_sort = true,
+            })
+        end
     },
 
     -- nvim-lsp configuration
