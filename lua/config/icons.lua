@@ -63,7 +63,7 @@ return {
         TypeParameter     = " ",
         Unit              = " ",
         Value             = "󰎠 ",
-        Variable          = "β",
+        Variable          = "β ",
         WhileStatement    = "󰑖 ",
     },
     doc = {
