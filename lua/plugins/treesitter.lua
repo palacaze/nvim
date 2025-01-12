@@ -139,7 +139,7 @@ return {
                 enable = false,
                 prev_selection = ",",
                 keymaps = {
-                    ["."] = "textsubjects-smart",
+                    ["<CR>"] = "textsubjects-smart",
                     [";"] = "textsubjects-container-outer",
                     ["i;"] = "textsubjects-container-inner",
                 },
@@ -167,6 +167,17 @@ return {
                         ["@class.outer"] = "V",
                         ["@comment.outer"] = "V",
                         ["@loop.outer"] = "V",
+                    },
+                },
+                swap = {
+                    enable = true,
+                    swap_next = {
+                        ["<leader>sa"] = "@parameter.inner",
+                        ["<leader>fa"] = "@function.inner",
+                    },
+                    swap_previous = {
+                        ["<leader>sA"] = "@parameter.inner",
+                        ["<leader>sF"] = "@function.inner",
                     },
                 },
                 move = {
