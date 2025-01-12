@@ -126,8 +126,16 @@ return {
             float = { padding = 0, win_options = { winblend = 20 }, },
             default_file_explorer = true,
             delete_to_trash = true,
+            lsp_file_methods = {
+                enabled = true,
+                timeout_ms = 5000,
+            },
             keymaps = {
-                ["q"] = "actions.close",
+                ["q"] = {
+                    "actions.close",
+                    opts = { exit_if_last_buf = true },
+                    desc = "Close oil",
+                },
                 ["<BS>"] = "actions.parent",
                 ["gh"] = "actions.toggle_hidden",
                 ["gd"] = {
