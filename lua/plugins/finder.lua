@@ -1,54 +1,6 @@
 -- This file contains setups for both Telescope and Fzf-lua, with equivalent
 -- configs and mappings.
 
--- The following two functions are taken form LazyVim
--- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
-
--- Returns the root directory based on:
--- * lsp workspace folders
--- * lsp root_dir
--- * root pattern of filename of the current buffer
--- * root pattern of cwd
----@return string
-local function get_project_root()
-    ---@type string?
-    local path = vim.api.nvim_buf_get_name(0)
-    path = path ~= "" and vim.uv.fs_realpath(path) or nil
-    ---@type string[]
-    local roots = {}
-    if path then
-        for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
-            local workspace = client.config.workspace_folders
-            local paths = workspace
-                and vim.tbl_map(function(ws)
-                    return vim.uri_to_fname(ws.uri)
-                end, workspace)
-                or client.config.root_dir and { client.config.root_dir }
-                or {}
-            for _, p in ipairs(paths) do
-                local r = vim.uv.fs_realpath(p)
-                if path:find(r, 1, true) then
-                    roots[#roots + 1] = r
-                end
-            end
-        end
-    end
-    table.sort(roots, function(a, b)
-        return #a > #b
-    end)
-    ---@type string?
-    local root = roots[1]
-    if not root then
-        path = path and vim.fs.dirname(path) or vim.uv.cwd()
-        ---@type string?
-        root = vim.fs.find({ ".git", ".clang-format" }, { path = path, upward = true })[1]
-        root = root and vim.fs.dirname(root) or vim.uv.cwd()
-    end
-    ---@cast root string
-    return root
-end
-
-
 -- Returns a function that calls telescope.
 -- cwd defaults to project root, if any. the "files" builtin chooses between
 -- git_files if we are in a git repo and find_fifes otherwise.
@@ -57,7 +9,9 @@ local function telescope(builtin, opts)
     return function()
         builtin = params.builtin
         opts = params.opts
-        opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+        opts = vim.tbl_deep_extend("force", {
+            cwd = require("utils").get_project_root(),
+        }, opts or {})
 
         -- pass word under cursor if required
         if opts.cword ~= nil and opts.cword then
@@ -84,7 +38,9 @@ local function fzflua(builtin, opts)
     return function()
         builtin = params.builtin
         opts = params.opts
-        opts = vim.tbl_deep_extend("force", { cwd = get_project_root() }, opts or {})
+        opts = vim.tbl_deep_extend("force", {
+            cwd = require("utils").get_project_root()
+        }, opts or {})
 
         -- pass word under cursor if required
         if opts and opts.cword ~= nil and opts.cword then
