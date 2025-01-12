@@ -48,7 +48,7 @@ return {
         -- Detect trailing spaces and mixed indent on file saving
         vim.api.nvim_create_autocmd({ "BufWritePost", "BufWinEnter" }, {
             desc = "Detect trailing spaces and mixed indentation",
-            group = vim.api.nvim_create_augroup("MyLualineTSMI", {}),
+            group = vim.api.nvim_create_augroup("MyLualineTSMI", { clear = true }),
             pattern = "*",
             callback = function()
                 vim.b.pal_mixed_indent = mixed_indent()
@@ -63,7 +63,13 @@ return {
             globalstatus = false,
             icons_enabled = true,
             theme = "pal",
-            disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+            disabled_filetypes = {
+                statusline = {
+                    "dashboard",
+                    "alpha",
+                    "OverseerList",
+                }
+            },
         },
         sections = {
             lualine_a = {
@@ -101,6 +107,9 @@ return {
                 },
             },
             lualine_x = {
+                {
+                    "overseer",
+                },
                 {
                     "diagnostics",
                     symbols = {

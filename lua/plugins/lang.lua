@@ -153,13 +153,15 @@ return {
 
     {
         "Civitasv/cmake-tools.nvim",
-        enabled = false,
         enabled = true,
+        dependencies = { "overseer.nvim" },
         ft = { "cpp", "c", "cmake" },
         cmd = {
             "CMakeGenerate",
             "CMakeBuild",
             "CMakeRun",
+            "CMakeRunCurrentFile",
+            "CMakeRunTest",
             "CMakeDebug",
             "CMakeLaunchArgs",
             "CMakeSelectBuildType",
@@ -168,8 +170,10 @@ return {
             "CMakeSelectKit",
             "CMakeSelectConfigurePreset",
             "CMakeSelectBuildPreset",
-            "CMakeOpen",
-            "CMakeClose",
+            "CMakeOpenRunner",
+            "CMakeOpenExecutor",
+            "CMakeCloseRunner",
+            "CMakeCloseExecutor",
             "CMakeInstall",
             "CMakeClean",
             "CMakeStop",
@@ -188,13 +192,17 @@ return {
             { "<Leader>cr", "<Cmd>CMakeRun<CR>", desc = "CMake Run" },
             { "<Leader>cR", "<Cmd>CMakeQuickRun<CR>", desc = "CMake Run (choose)" },
             { "<Leader>csb", "<Cmd>CMakeSelectBuildType<CR>", desc = "Cmake Select build type" },
+            { "<Leader>csd", "<Cmd>CMakeSelectBuildDir<CR>", desc = "Cmake Select build dir" },
             { "<Leader>csB", "<Cmd>CMakeSelectBuildTarget<CR>", desc = "Cmake Select build target" },
             { "<Leader>cst", "<Cmd>CMakeSelectLaunchTarget<CR>", desc = "Cmake Select launch target" },
             { "<Leader>csk", "<Cmd>CMakeSelectKit<CR>", desc = "Cmake Select kit" },
             { "<Leader>cspc", "<Cmd>CMakeSelectConfigurePreset<CR>", desc = "Cmake Select configure preset" },
             { "<Leader>cspb", "<Cmd>CMakeSelectBuildPreset<CR>", desc = "Cmake Select build preset" },
-            { "<Leader>cc", "<Cmd>CMakeOpen<CR>", desc = "Cmake Toggle Open/Close" },
+            { "<Leader>cc", "<Cmd>CMakeOpenRunner<CR>", desc = "Cmake Toggle Open/Close" },
             { "<Leader>cK", "<Cmd>CMakeStop<CR>", desc = "Stop Cmake process" },
+            { "<Leader>cu", function()
+                vim.g.show_cmake_ui = vim.g.show_cmake_ui == nil or not vim.g.show_cmake_ui
+            end, desc = "Toggle CMake UI" },
         },
         opts = {
             cmake_generate_options = {},
@@ -202,6 +210,15 @@ return {
             cmake_soft_link_compile_commands = false,
             cmake_compile_commands_from_lsp = false,
             cmake_build_directory = "build/out/${variant:buildType}",
+            cmake_virtual_text_support = false,
+            cmake_executor = {
+                name = "overseer",
+                opts = {
+                    new_task_opts = {
+                        components = { { "on_output_quickfix", open_on_exit = "failure", set_diagnostics = true }, "default" },
+                    };
+                },
+            },
         },
     },
 

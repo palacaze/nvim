@@ -140,6 +140,7 @@ return {
             delay = 200,
             filetypes_denylist = {
                 "alpha",
+                "cmake_tools_terminal",
                 "dashboard",
                 "DiffviewFiles",
                 "dirvish",

@@ -72,6 +72,15 @@ return {
         },
     },
 
+    neocmake = {
+        executable = "neocmakelsp",
+        config ={
+            init_options = {
+                builddirectory = ".sbuild"
+            }
+        }
+    },
+
     lua_ls = {
         executable = "lua-language-server",
         setup = function()
