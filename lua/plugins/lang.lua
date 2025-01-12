@@ -77,7 +77,6 @@ return {
     -- Pretty formatting of markdown documents
     {
         "OXY2DEV/markview.nvim",
-        enabled = false,
         lazy = false,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -107,7 +106,7 @@ return {
 
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        enabled = true,
+        enabled = false,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "echasnovski/mini.icons",
