@@ -83,18 +83,10 @@ return {
             "nvim-tree/nvim-web-devicons"
         },
         opts = {
-            modes = { "n", "no", "c" },
-            hybrid_modes = { },
-            -- callbacks = {
-            --     on_enable = function(_, win)
-            --         vim.wo[win].conceallevel = 2
-            --         vim.wo[win].concealcursor = "nc"
-            --     end,
-            --     on_disable = function(_, win)
-            --         vim.wo[win].conceallevel = 0
-            --         vim.wo[win].concealcursor = ""
-            --     end,
-            -- },
+            preview = {
+                modes = { "n", "no", "c" },
+                hybrid_modes = { },
+            }
         },
         config = function(_, opts)
             local markview = require("markview")
