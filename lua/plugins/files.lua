@@ -163,6 +163,7 @@ return {
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
+        enabled = false,
         keys = {
             -- { "<Leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon append" },
             { "<A-h>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, desc = "Harpoon toggle" },
