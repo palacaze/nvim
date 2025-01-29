@@ -8,7 +8,7 @@ return {
                 pylsp = {
                     plugins = {
                         flake8 = { enabled = false },
-                        pylint = { enabled = true, args = { "--jobs=0" } },
+                        pylint = { enabled = false, args = { "--jobs=0" } },
                         pyflakes = { enabled = false },
                         pycodestyle = { enabled = false },
                         mccabe = { enabled = false },
