@@ -49,9 +49,7 @@ local function fzflua(builtin, opts)
 
         if builtin == "files" then
             if vim.uv.fs_stat(((opts and opts.cwd) or vim.uv.cwd()) .. "/.git") then
-                -- show untracked too
                 builtin = "git_files"
-                opts.cmd = "git ls-files --exclude-standard -c --others"
             else
                 builtin = "files"
             end
@@ -292,7 +290,7 @@ return {
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>*", fzflua("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
-            { "<Leader><Space>", fzflua("files"), desc = "Find files (root dir)" },
+            { "<Leader><Space>", fzflua("files", { winopts = { preview = { hidden = true }}}), desc = "Find files (root dir)" },
             { "<Leader>_", fzflua("lgrep_curbuf", { cword = true }), desc = "Grep the current buffer" },
             { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
 
@@ -340,11 +338,14 @@ return {
             },
         },
         opts = {
-            "telescope",
+            "default",
             winopts = {
                 width   = 0.9,
                 height  = 0.9,
-                preview = { layout = "flex" },
+                preview = {
+                    -- hidden = true,
+                    layout = "flex",
+                },
             },
             fzf_opts = {
                 ["--layout"] = "reverse",
@@ -381,8 +382,20 @@ return {
             files = {
                 cwd_prompt = false,
             },
+            git = {
+                files = {
+                    -- show untracked too
+                    cmd = "git ls-files --exclude-standard -c --others",
+                    git_icons = true,
+                    file_icons = true,
+                    color_icons = true,
+                },
+            },
             grep = {
                 no_header = true,
+                actions = {
+                    ["ctrl-r"] = { function(...) require("fzf-lua").actions.toggle_ignore(...) end }
+                },
             },
             previewers = {
                 builtin = {
