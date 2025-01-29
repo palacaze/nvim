@@ -123,8 +123,9 @@ return {
             { "<Leader>m", function() require("oil").toggle_float() end, mode = "n", desc = "Open parent directory" },
         },
         opts = {
-            float = { padding = 0, win_options = { winblend = 20 }, },
+            float = { padding = 2, win_options = { winblend = 0 }, },
             default_file_explorer = true,
+            skip_confirm_for_simple_edits = true,
             delete_to_trash = true,
             lsp_file_methods = {
                 enabled = true,
