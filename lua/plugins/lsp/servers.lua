@@ -54,6 +54,7 @@ return {
             },
             cmd = {
                 "clangd",
+                "--hidden-features",
                 "--log=error",
                 "--enable-config",
                 "--background-index",
