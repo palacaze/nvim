@@ -33,6 +33,7 @@ return {
     --     config = {
     --         settings = {
     --             basedpyright = {
+    --                 disableOrganizeImports = true,
     --                 analysis = {
     --                     autoSearchPaths = true,
     --                     diagnosticMode = "openFilesOnly",
@@ -61,7 +62,7 @@ return {
                 "--clang-tidy",
                 "--header-insertion=never",
                 "--completion-style=detailed",
-                "--function-arg-placeholders",
+                "--function-arg-placeholders=1",
                 "--all-scopes-completion",
                 "--pch-storage=memory",
             },
@@ -92,7 +93,10 @@ return {
                 Lua = {
                     runtime = { version = "LuaJIT" },
                     completion = { callSnippet = "Replace" },
-                    workspace = { checkThirdParty = false },
+                    workspace = {
+                        checkThirdParty = false,
+                        library = { vim.env.VIMRUNTIME },
+                    },
                     telemetry = { enable = false },
                 },
             },

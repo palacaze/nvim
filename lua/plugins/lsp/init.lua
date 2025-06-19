@@ -66,39 +66,6 @@ local function on_attach(attached_func)
     })
 end
 
-local function make_client_capabilities()
-    -- UFO needs those for improved folding
-    local ufo_caps = {
-        textDocument = {
-            foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-            },
-        },
-    }
-
-    -- Snippets for cmp
-    local cmp_caps = {
-        textDocument = {
-            completion = {
-                completionItem = {
-                    snippetSupport = true,
-                },
-            },
-        },
-    }
-
-    -- Update capabilities with those of cmp_nvim_lsp and what other plugins offer
-    return vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities(),
-        cmp_caps,
-        ufo_caps
-    )
-end
-
 
 return {
 
@@ -142,7 +109,7 @@ return {
             "nvim-treesitter",
             "williamboman/mason-lspconfig.nvim",
             "lspsaga.nvim",
-            -- "saghen/blink.cmp",
+            "saghen/blink.cmp",
         },
         config = function()
             -- Configure lsp diagnostics
@@ -163,12 +130,27 @@ return {
                         server.setup()
                     end
 
-                    local server_opts = vim.tbl_deep_extend("force", {
-                        single_file_support = true,
-                        capabilities = make_client_capabilities()
-                    }, server.config or {})
+                    local server_opts = vim.tbl_deep_extend("force",
+                        server.config or {},
+                        {
+                            single_file_support = true,
+                        }
+                    )
 
-                    -- server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
+                    local ufo_caps = {
+                        textDocument = {
+                            foldingRange = {
+                                dynamicRegistration = false,
+                                lineFoldingOnly = true,
+                            },
+                        },
+                    }
+
+                    server_opts.capabilities = vim.tbl_deep_extend("force",
+                        require("blink.cmp").get_lsp_capabilities(ufo_caps, true),
+                        server_opts.capabilities or {}
+                    )
+
                     require("lspconfig")[name].setup(server_opts)
                 end
             end
@@ -221,7 +203,7 @@ return {
             on_attach = function(client, bufnr)
                 require("plugins.lsp.mappings").on_attach(client, bufnr)
             end,
-            capabilities = make_client_capabilities(),
+            capabilities = vim.lsp.protocol.make_client_capabilities(),
             settings = {
                 ltex = {
                     enabled = { "markdown", },
