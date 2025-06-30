@@ -63,6 +63,40 @@ return {
         lazy = true,
     },
 
+    -- jellybeans
+    {
+        "wtfox/jellybeans.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("jellybeans").setup({
+                background = {
+                    dark = "jellybeans",
+                    light = "jellybeans_light",
+                },
+                italics = true,
+                flat_ui = true,
+                plugins = { all = true, },
+                transparent = false,
+                on_colors =function(c)
+                    c.float_bg = "#151921"
+                    c.bg = "#151515"
+                    c.fg = "#dbdbb2"
+                end,
+                on_highlights = function(hl, c)
+                    hl["@comment.documentation.cpp"] = { fg = "#C99484", bold = true }
+                    hl["@string.documentation.python"] = { fg = "#C99484", bold = true }
+                    -- hl.Comment = { fg = "#C99484" }  -- #D39583  #C99484  #6874A9
+                    hl["UfoFoldedEllipsis"] = { fg = "#55CB14", bold = true, bg = "NONE" }
+                    hl["Folded"] = { bg = "NONE" }
+                    hl["FoldColumn"] = { bg = c.bg }
+                    hl["SignColumn"] = { bg = c.bg }
+                end,
+            })
+            vim.cmd.colorscheme("jellybeans")
+        end,
+    },
+
     -- kanagawa
     {
         "rebelot/kanagawa.nvim",
@@ -265,8 +299,8 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = false,
-        priority = 1000,
+        lazy = true,
+        -- priority = 1000,
         config = function()
             require("catppuccin").setup({
                 flavor = "mocha",
@@ -335,7 +369,7 @@ return {
                     which_key = true,
                 },
             })
-            vim.cmd.colorscheme("catppuccin")
+            -- vim.cmd.colorscheme("catppuccin")
         end,
     }
 
