@@ -67,9 +67,6 @@ return {
         "rachartier/tiny-inline-diagnostic.nvim",
         lazy = true,
         event = "BufEnter",  -- VeryLazy and LspAttach do not work
-        init = function()
-            configure_diagnostics()
-        end,
         opts = {
             options = {
                 show_source = false,
@@ -107,7 +104,7 @@ return {
         },
         config = function()
             -- Configure lsp diagnostics
-            -- configure_diagnostics()
+            configure_diagnostics()
 
             -- Configure functions to be executed on lsp client attaching to a buffer
             on_attach(function(client, buffer)
@@ -141,8 +138,9 @@ return {
                     }
 
                     server_opts.capabilities = vim.tbl_deep_extend("force",
-                        require("blink.cmp").get_lsp_capabilities(ufo_caps, true),
-                        server_opts.capabilities or {}
+                        require("blink.cmp").get_lsp_capabilities({}, true),
+                        server_opts.capabilities or {},
+                        ufo_caps
                     )
 
                     require("lspconfig")[name].setup(server_opts)
