@@ -19,11 +19,11 @@ local function fzflua(builtin, opts)
         end
 
         if builtin == "files" then
-            if vim.uv.fs_stat(((opts and opts.cwd) or vim.uv.cwd()) .. "/.git") then
+            -- if vim.uv.fs_stat(((opts and opts.cwd) or vim.uv.cwd()) .. "/.git") then
                 builtin = "git_files"
-            else
+            -- else
                 builtin = "files"
-            end
+            -- end
         end
         require("fzf-lua")[builtin](opts)
     end
@@ -43,7 +43,7 @@ return {
             { "<Leader>/", fzflua("live_grep"), desc = "Grep (root dir)" },
             { "<Leader>*", fzflua("live_grep", { cword = true }), desc = "Grep Word under cursor (root dir)" },
             { "<Leader>:", "<Cmd>FzfLua command_history<CR>", desc = "Command History" },
-            { "<Leader><Space>", fzflua("files", { winopts = { preview = { hidden = true }}}), desc = "Find files (root dir)" },
+            { "<Leader><Space>", fzflua("files", { formatter =  "path.filename_first" ,winopts = { preview = { hidden = true }}}), desc = "Find files (root dir)" },
             { "<Leader>_", fzflua("lgrep_curbuf", { cword = true }), desc = "Grep the current buffer" },
             { "<F3>", "<Cmd>FzfLua resume<CR>", desc = "Resume last search (fzf)" },
 
@@ -102,7 +102,7 @@ return {
             },
             fzf_opts = {
                 ["--layout"] = "reverse",
-                ["--marker"] = "+",
+                -- ["--marker"] = "+",
             },
             keymap = {
                 builtin = {
@@ -129,6 +129,15 @@ return {
                     ["ctrl-q"] = "select-all+accept",
                 },
             },
+            previewers = {
+                builtin = {
+                    syntax_limit_b = 1024 * 300,
+                    snacks_image = { enabled = false },
+                },
+                man = {
+                    cmd = "man %s | col -bx",
+                },
+            },
             oldfiles = {
                 include_current_session = true,
             },
@@ -138,7 +147,7 @@ return {
             git = {
                 files = {
                     -- show untracked too
-                    cmd = "git ls-files --exclude-standard -c --others",
+                    -- cmd = "git ls-files --exclude-standard -c --others",
                     git_icons = true,
                     file_icons = true,
                     color_icons = true,
@@ -148,14 +157,6 @@ return {
                 no_header = true,
                 actions = {
                     ["ctrl-r"] = { function(...) require("fzf-lua").actions.toggle_ignore(...) end }
-                },
-            },
-            previewers = {
-                builtin = {
-                    syntax_limit_b = 1024 * 300
-                },
-                man = {
-                    cmd = "man %s | col -bx",
                 },
             },
         },

@@ -3,6 +3,7 @@ return {
     {
         "stevearc/oil.nvim",
         cmds = { "Oil" },
+        dependencies = { { "nvim-mini/mini.icons" } },
         lazy = false,
         keys = {
             { "-", function() require("oil").toggle_float() end, mode = "n", desc = "Open parent directory" },
@@ -17,12 +18,17 @@ return {
                 enabled = true,
                 timeout_ms = 5000,
             },
+            preview_win = {
+                preview_method = "load",
+            },
             keymaps = {
                 ["q"] = {
                     "actions.close",
                     opts = { exit_if_last_buf = true },
                     desc = "Close oil",
                 },
+                ["<C-down>"] = "actions.preview_scroll_down",
+                ["<C-up>"] = "actions.preview_scroll_up",
                 ["<BS>"] = "actions.parent",
                 ["gh"] = "actions.toggle_hidden",
                 ["gd"] = {
@@ -43,13 +49,17 @@ return {
                 },
             },
         },
-        dependencies = { { "echasnovski/mini.icons" } },
     },
 
     -- Neo-tree file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
         version = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
         cmd = "Neotree",
         keys = {
             { "<F5>", "<Cmd>Neotree toggle<CR>", desc = "Toggle File Explorer", mode = { "n", "i" } },
@@ -138,6 +148,7 @@ return {
                             vim.cmd("Neotree reveal")
                         end
                     end,
+                    ["P"] = "toggle_preview",
                 },
             },
             filesystem = {
@@ -152,7 +163,7 @@ return {
                     leave_dirs_open = true,
                 },
                 hijack_netrw_behavior = "open_current",
-                use_libuv_file_watcher = true,
+                -- use_libuv_file_watcher = true,
                 window = {
                     mappings = {
                         ["h"] = "toggle_hidden",
