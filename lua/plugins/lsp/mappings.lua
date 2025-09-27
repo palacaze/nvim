@@ -46,7 +46,7 @@ local config = {
     references = { desc = "Display references", keys = { "gr", "<Leader>lR" }, cap = "referencesProvider" },
     type_definition = { desc = "Display type definition", keys = {"gT"}, cap = "typeDefinitionProvider" },
     implementations = { desc = "List implementations", keys = {"<Leader>li"}, cap = "implementationProvider" },
-    code_action = { desc = "Execute code action", keys = {"<Leader>la", "<M-a>"} }, -- Test fails for some reason: cap = "codeActionProvider"
+    -- code_action = { desc = "Execute code action", keys = {"<Leader>la", "<M-a>"} }, -- Test fails for some reason: cap = "codeActionProvider"
     incoming_calls = { desc = "Incoming calls", keys = {"<Leader>lI"}, cap = "callHierarchyProvider" },
     outgoing_calls = { desc = "Outgoing calls", keys = {"<Leader>lO"}, cap = "callHierarchyProvider" },
     document_symbols = { desc = "Document symbols", keys = {"<Leader>ls"}, cap = "documentSymbolProvider" },
@@ -73,7 +73,7 @@ local native_proto = {
     references = vim.lsp.buf.references,
     type_definition = vim.lsp.buf.type_definition,
     implementations = vim.lsp.buf.implementation,
-    code_action = vim.lsp.buf.code_action,
+    -- code_action = vim.lsp.buf.code_action,
     incoming_calls = vim.lsp.buf.incoming_calls,
     outgoing_calls = vim.lsp.buf.outgoing_calls,
     document_symbols = vim.lsp.buf.document_symbol,
@@ -101,7 +101,7 @@ local saga_proto = {
     hover_diagnostic = "<Cmd>Lspsaga show_line_diagnostics<CR>",
     definition = "<Cmd>Lspsaga peek_definition<CR>",
     references = "<Cmd>Lspsaga finder<CR>",
-    code_action = "<Cmd>Lspsaga code_action<CR>",
+    -- code_action = "<Cmd>Lspsaga code_action<CR>",
     incoming_calls = "<cmd>Lspsaga incoming_calls<CR>",
     outgoing_calls = "<cmd>Lspsaga outgoing_calls<CR>",
     rename = "<Cmd>Lspsaga rename<CR>",

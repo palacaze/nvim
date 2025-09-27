@@ -40,6 +40,30 @@ end
 return {
 
     {
+        "rachartier/tiny-code-action.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "ibhagwan/fzf-lua",
+        },
+        event = "LspAttach",
+        keys = {
+            { "<M-a>", function() require("tiny-code-action").code_action() end, desc = "Execute code action"  },
+        },
+        opts = {
+            backend = "difftastic",
+            picker = {
+                "buffer",
+                opts = {
+                    hotkeys = true,
+                    hotkeys_mode = "text_diff_based",
+                    auto_preview = false,
+                    position = "cursor",
+                },
+            },
+        },
+    },
+
+    {
         "rachartier/tiny-inline-diagnostic.nvim",
         lazy = true,
         event = "BufEnter",  -- VeryLazy and LspAttach do not work
@@ -284,6 +308,7 @@ return {
                 },
             },
             code_action = {
+                enable = false,
                 show_server_name = true,
                 extend_gitsigns = true,
                 keys = {
