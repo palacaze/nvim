@@ -111,6 +111,23 @@ return {
         executable = "vscode-json-language-server",
     },
 
+    gitlab_ci_ls = {
+        executable = "gitlab-ci-ls",
+    },
+
+    yamlls = {
+        executable = "yaml-language-server",
+        config = {
+            settings = {
+                yaml = {
+                    schemas = {
+                        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*gitlab-ci*.yml"
+                    },
+                },
+            },
+        },
+    },
+
     gopls = {
         executable = "gopls",
     },

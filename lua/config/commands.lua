@@ -227,6 +227,13 @@ vim.api.nvim_create_user_command("Devdocs", function(opts)
     vim.cmd.OpenBrowser(url)
 end, { desc = "Search in devdocs", nargs = "*" })
 
+-- Custom filetypes
+vim.filetype.add({
+    pattern = {
+        ["%.?gitlab%-ci.*%.ya?ml"] = "yaml.gitlab",
+    },
+})
+
 -- Configure the puml plugin
 require("config.puml").setup({
     format = "svg",
