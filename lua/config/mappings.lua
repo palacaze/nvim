@@ -11,6 +11,10 @@ u.map("n", "»", ">>", "Increase indentation")
 u.map("v", "«", "<gv", "Decrease indentation")
 u.map("v", "»", ">gv", "Increase indentation")
 
+-- loclist
+u.map("n", "]l", ":lnext<CR>", "Next in loclist")
+u.map("n", "[l", ":lprevious<CR>", "Previous in loclist")
+
 -- Change directory to that of current file
 u.map("n", "<Leader>~", "<Cmd>:cd %:p:h<CR>:pwd<CR>", "CD to the directory of the current file")
 
@@ -32,13 +36,18 @@ u.map("v", "<Leader>y", '"+y', "Copy to clipboard")
 u.map("n", "<Leader>yy", '"+yy', "Copy line to clipboard")
 u.map("n", "<Leader>Y", '"+y$', "Copy to the end of the line to clipboard")
 
--- Paste from clipboard, note needed with Yanky
+-- Duplicate a line and comment out the first line
+u.map("n", "yc", "yygccp", "Duplicate and comment old", { remap = true })
+
+-- Paste from clipboard, not needed with Yanky
 -- u.map("nv", "<Leader>p", '"+p', "Paste from to clipboard")
 -- u.map("nv", "<Leader>P", '"+P', "Paste before from to clipboard")
 
 -- Text formating
 u.map("nv", "Q", "gwip", "Reformat paragraph")
 u.map("n", "<Leader>Q", "ggVGgq", "Reformat the full file")
+
+u.map("v", "<leader>M", "!pandoc -t markdown_strict-grid_tables<CR>", "Align selected md table using pandoc")
 
 -- Allow moving up and down in wrapped lines.
 -- u.map("nvx", "<Up>", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", { silent = true, noremap = true, nowait = true, expr = true })
