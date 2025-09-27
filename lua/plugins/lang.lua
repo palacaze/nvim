@@ -96,16 +96,9 @@ return {
     },
 
     {
-        "iamcco/markdown-preview.nvim",
-        ft = { "markdown", "plantuml" },
-        build = "cd app && npm install",
-        init = function()
-            vim.g.mkdp_filetypes = { "markdown", "plantuml" }
-            vim.g.mkdp_preview_options = vim.empty_dict()
-            vim.g.mkdp_preview_options.disable_sync_scroll = 1
-            vim.g.mkdp_preview_options.uml = { imageFormat = "svg", server = vim.g.puml_server }
-            -- vim.g.mkdp_markdown_css = vim.fn.stdpath("config") .. "/assets/mkdp.css"
-        end,
+        "brianhuster/live-preview.nvim",
+        ft = { "markdown" },
+        dependencies = { "ibhagwan/fzf-lua", },
     },
 
     {
@@ -179,6 +172,7 @@ return {
         },
     },
 
+    -- Godbolt
     {
         "p00f/godbolt.nvim",
         ft = { "cpp", "c" },
