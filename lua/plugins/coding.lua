@@ -29,35 +29,6 @@ return {
         },
     },
 
-    -- make tables
-    {
-        "dhruvasagar/vim-table-mode",
-        enabled = false,
-        keys = {
-            { "<Leader>||", desc = "Toggle table mode" },
-            { "<Leader><Bar>T", desc = "Convert selection into table (ask)" },
-            { "<Leader><Bar>t", desc = "Convert selection into table (,)" },
-            { "<Leader><Bar>a", desc = "Align table" },
-            { "<Leader><Bar>d", desc = "Delete row" },
-            { "<Leader><Bar>D", desc = "Delete column" },
-            { "<Leader><Bar>I", desc = "Insert column Before" },
-            { "<Leader><Bar>i", desc = "Insert column After" },
-        },
-        cmd = { "TableModeToggle", "TalbeModeEnable", "Tableize", "TableModeRealign" },
-        init = function()
-            vim.g.table_mode_corner = "|"
-            vim.g.table_mode_map_prefix = "<Leader><Bar>"
-            vim.g.table_mode_toggle_map = "<Bar>"
-            vim.g.table_mode_realign_map = "<Leader><Bar>a"
-            vim.g.table_mode_delete_row_map = "<Leader><Bar>d"
-            vim.g.table_mode_delete_column_map = "<Leader><Bar>D"
-            vim.g.table_mode_insert_column_before_map = "<Leader><Bar>I"
-            vim.g.table_mode_insert_column_after_map = "<Leader><Bar>i"
-            vim.g.table_mode_tableize_map = "<Leader><Bar>t"
-            vim.g.table_mode_tableize_d_map = "<Leader><Bar>T"
-        end,
-    },
-
     -- better matchit
     {
         "andymass/vim-matchup",
@@ -170,72 +141,6 @@ return {
                     ["<left>"] = "actions.left",
                     ["<right>"] = "actions.right",
                     ["<esc>"] = "actions.close",
-                },
-            },
-        },
-    },
-
-    -- A breadcrumb bar showing symbols
-    {
-        "Bekaboo/dropbar.nvim",
-        enabled = false,
-        cond = vim.fn.has("nvim-0.10") > 0,
-        event = { "VeryLazy" },
-        keys = {
-            { "<Leader>.", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
-            { "<M-.>", function() require('dropbar.api').pick() end, desc = "Pick symbol" },
-        },
-        opts = {
-            bar = {
-                sources = function(_, _)
-                    local sources = require('dropbar.sources')
-                    return {
-                        sources.path,
-                        {
-                            get_symbols = function(buf, win, cursor)
-                                if vim.bo[buf].ft == 'markdown' then
-                                    return sources.markdown.get_symbols(buf, win, cursor)
-                                end
-                                local is_cpp = vim.bo[buf].ft == "cpp"
-                                for _, source in ipairs({ sources.lsp, sources.treesitter }) do
-                                    local symbols = source.get_symbols(buf, win, cursor)
-                                    if not vim.tbl_isempty(symbols) then
-                                        if is_cpp then
-                                            for _, sym in ipairs(symbols) do
-                                                if sym.name == "(anonymous namespace)" then
-                                                    sym.name = "󰊠 "
-                                                end
-                                            end
-                                        end
-                                        return symbols
-                                    end
-                                end
-                                return {}
-                            end,
-                        },
-                    }
-                end
-            },
-            general = {
-                update_interval = 100,
-                enable = function(buf, win)
-                    local name = vim.api.nvim_buf_get_name(buf)
-                    local filetype = vim.bo[buf].filetype
-                    return not vim.api.nvim_win_get_config(win).zindex
-                        and vim.bo[buf].buftype == ""
-                        and name ~= ""
-                        and name:find("diffview://", 1, true) ~= 1
-                        and not vim.wo[win].diff
-                end,
-            },
-            menu = {
-                keymaps = {
-                    ["<Esc>"] = function()
-                        local menu = require("dropbar.api").get_current_dropbar_menu()
-                        if menu then
-                            menu:close(true)
-                        end
-                    end,
                 },
             },
         },

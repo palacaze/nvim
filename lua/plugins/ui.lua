@@ -1,5 +1,3 @@
-
-
 return {
 
     -- A buffer line
@@ -51,32 +49,6 @@ return {
                 ["neo-tree"] = {event = "BufWipeout"},
             },
             letters = "ecitusaranmovpdélbjzkqxgyhàfECITUSARANMOVPDÉLBJZKQXGYHÀF",
-        },
-    },
-
-    -- Window names with global statusbar
-    {
-        "b0o/incline.nvim",
-        enabled = false,
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            hide = {
-                cursorline = false,
-                focused_win = false,
-                only_win = true,
-            },
-            highlight = {
-                groups = {
-                    InclineNormal = { guibg = "#AC8681", guifg = "#161616" },
-                    InclineNormalNC = { guifg = "#AC8681", guibg = "#161616" },
-                },
-            },
-            window = { margin = { vertical = 0, horizontal = 1 } },
-            render = function(props)
-                local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-                local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-                return { { icon, guifg = color }, { " " }, { filename } }
-            end,
         },
     },
 
@@ -241,13 +213,6 @@ return {
                 })
             end,
         },
-    },
-
-    -- Neovim plugin for locking a buffer to a window
-    {
-        "stevearc/stickybuf.nvim",
-        enabled = false,
-        config = true,
     },
 
     -- Icons, for neo-tree and others

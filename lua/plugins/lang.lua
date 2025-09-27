@@ -34,11 +34,6 @@ return {
         },
     },
 
-    {
-        "Ttibsi/pre-commit.nvim",
-        ft = { "python" },
-    },
-
     -- Sphinx / reST support
     {
         "stsewd/sphinx.nvim",
@@ -65,13 +60,6 @@ return {
     {
         "weirongxu/plantuml-previewer.vim",
         ft = { "plantuml", "markdown" },
-    },
-
-    -- Format markdown tables
-    {
-        "Kicamon/markdown-table-mode.nvim",
-        enabled = false,
-        config = true,
     },
 
     -- Pretty formatting of markdown documents

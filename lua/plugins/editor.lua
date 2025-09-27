@@ -37,32 +37,6 @@ return {
         end,
     },
 
-    {
-        "mrjones2014/legendary.nvim",
-        priority = 10000,  -- must happen first to capture the keymaps and commands
-        lazy = false,
-        -- sqlite is only needed if you want to use frecency sorting
-        dependencies = { "kkharji/sqlite.lua" },
-        opts = {
-            extensions = {
-                lazy_nvim = true,
-                which_key = false,
-            },
-            select_prompt = ' Commands '
-        },
-    },
-
-    -- Search/replace in multiple files
-    {
-        "nvim-pack/nvim-spectre",
-        enabled = false,
-        cmd = "Spectre",
-        keys = {
-            { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-        },
-        opts = { open_cmd = "noswapfile vnew" },
-    },
-
     -- Find And Replace plugin for neovim
     {
         'MagicDuck/grug-far.nvim',
@@ -262,15 +236,6 @@ return {
         end,
     },
 
-    -- Smooth escaping
-    {
-        "max397574/better-escape.nvim",
-        enabled = false,
-        opts = {
-            mapping = {"ii", "uu"},
-        },
-    },
-
     -- Improved Yand and Put
     {
         "gbprod/yanky.nvim",
@@ -441,18 +406,6 @@ return {
         },
     },
 
-    -- Highlight words and expressions
-    {
-        "azabiong/vim-highlighter",
-        init = function()
-            vim.g.HiSet   = 'é<CR>'
-            vim.g.HiErase = 'é<BS>'
-            vim.g.HiClear = 'é<C-L>'
-            vim.g.HiFind  = 'é<Tab>'
-            vim.g.HiSetSL = 'è<CR>'
-        end,
-    },
-
     -- Highlight words with different colors
     {
         "Mr-LLLLL/interestingwords.nvim",
@@ -500,17 +453,6 @@ return {
             end
         end,
         config = true,
-    },
-
-    -- Bionic Reading
-    {
-        "nullchilly/fsread.nvim",
-        cmd = { "FSRead", "FSClear", "FSToggle" },
-        config = function()
-            vim.g.flow_strengh = 0.5
-            vim.api.nvim_set_hl(0, "FSPrefix", { fg = "#d8d0A3", bold = true })
-            vim.api.nvim_set_hl(0, "FSSuffix", { fg = "#A2A199", bold = false })
-        end,
     },
 
     -- UFO Better folding
