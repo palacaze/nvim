@@ -28,7 +28,16 @@ opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noinsert,noselect,popup"
 opt.conceallevel = 3
 opt.cursorline = false
-opt.diffopt:append("linematch:60")
+opt.diffopt = {
+    "internal",
+    "filler",
+    "closeoff",
+    "context:12",
+    "algorithm:histogram",
+    "linematch:200",
+    "indent-heuristic",
+    "iwhite",
+}
 opt.directory = swapdir
 opt.emoji = true
 opt.encoding = "utf8"
