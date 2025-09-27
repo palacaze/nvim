@@ -2,7 +2,7 @@ return {
 
     -- mason automatic lsp, debuggers & other tools installation
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         build = ":MasonUpdate",
         cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall" },
         opts = {

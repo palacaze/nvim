@@ -107,7 +107,7 @@ return {
             { "folke/lazydev.nvim", config = true },
             "mason.nvim",
             "nvim-treesitter",
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason-lspconfig.nvim",
             "lspsaga.nvim",
             "saghen/blink.cmp",
         },

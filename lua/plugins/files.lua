@@ -2,7 +2,7 @@ return {
 
     -- mini file manager
     {
-        "echasnovski/mini.files",
+        "nvim-mini/mini.files",
         enabled = false,
         version = false,
         opts = {
