@@ -66,17 +66,15 @@ return {
 
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        enabled = false,
+        enabled = true,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "echasnovski/mini.icons",
+            "nvim-mini/mini.icons",
         },
         lazy = true,
         ft = { "markdown" },
         opts = {
-            -- heading = {
-                -- backgrounds = { "markdownH1", "markdownH2", "markdownH3", "markdownH4", "markdownH5", "markdownH6" },
-            -- },
+            completions = { lsp = { enabled = true } },
             code = {
                 width = "block",
                 right_pad = 4,
@@ -86,8 +84,7 @@ return {
             },
             heading = {
                 width = "block",
-                right_pad = 4,
-                -- min_width = 30,
+                -- right_pad = 4,
             },
             win_options = {
                 conceallevel = {
