@@ -3,12 +3,6 @@ return {
     { "folke/lazy.nvim", version = "*" },
     { "nvim-lua/plenary.nvim", lazy = true },
     {
-        "antoinemadec/FixCursorHold.nvim",
-        init = function()
-            vim.g.cursorhold_updatetime = 100
-        end
-    },
-    {
         "stevearc/profile.nvim",
         enabled = false,
         lazy = true,
@@ -41,5 +35,4 @@ return {
             vim.keymap.set("", "<F8>", toggle_profile)
         end,
     },
-
 }
