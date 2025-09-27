@@ -91,6 +91,12 @@ return {
                     hl["Folded"] = { bg = "NONE" }
                     hl["FoldColumn"] = { bg = c.bg }
                     hl["SignColumn"] = { bg = c.bg }
+                    hl["RenderMarkdownH1Bg"] = { fg = "#89b4fa", bg = "#1b2432" }
+                    hl["RenderMarkdownH2Bg"] = { fg = "#fab387", bg = "#32231b" }
+                    hl["RenderMarkdownH3Bg"] = { fg = "#a6e3a1", bg = "#212d20" }
+                    hl["RenderMarkdownH4Bg"] = { fg = "#b94e2d", bg = "#250f09" }
+                    hl["RenderMarkdownH5Bg"] = { fg = "#cba6f7", bg = "#282131" }
+                    hl["RenderMarkdownH6Bg"] = { fg = "#b4befe", bg = "#242632" }
                 end,
             })
             vim.cmd.colorscheme("jellybeans")
@@ -192,6 +198,7 @@ return {
     -- flexoki
     {
         "nuvic/flexoki-nvim",
+        lazy = true,
         name = "flexoki",
     },
 
