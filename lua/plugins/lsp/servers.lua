@@ -74,6 +74,10 @@ return {
         },
     },
 
+    dockerls = {
+        executable = "docker-langserver",
+    },
+
     neocmake = {
         executable = "neocmakelsp",
         config ={
