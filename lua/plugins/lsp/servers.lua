@@ -78,6 +78,10 @@ return {
         executable = "docker-langserver",
     },
 
+    just = {
+        executable = "just-lsp",
+    },
+
     neocmake = {
         executable = "neocmakelsp",
         config ={
