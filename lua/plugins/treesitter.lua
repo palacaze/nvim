@@ -1,33 +1,3 @@
--- Overriding of treesitter queries.
--- Right now this is not easy, see https://github.com/neovim/neovim/issues/23373
-
-local function safe_read(filename, read_quantifier)
-    local file, err = io.open(filename, 'r')
-    if not file then
-        error(err)
-    end
-    local content = file:read(read_quantifier)
-    io.close(file)
-    return content
-end
-
-local function read_query_files(filenames, extra_content)
-    local contents = { extra_content }
-    for _, filename in ipairs(filenames) do
-        table.insert(contents, safe_read(filename, '*a'))
-    end
-    return table.concat(contents, '')
-end
-
-local function extend_query(lang, query_name, extended_text)
-    vim.treesitter.query.set(
-        lang,
-        query_name,
-        read_query_files(vim.treesitter.query.get_files(lang, query_name), extended_text)
-    )
-end
-
-
 return {
     {
         "JoosepAlviste/nvim-ts-context-commentstring",
@@ -205,36 +175,6 @@ return {
         },
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
-
-            -- Inject reST syntax highlighting into python docstrings
-            -- extend_query("python", "injections", [[
-            --     ((call
-            --      function: (attribute
-            --      object: (identifier) @_re)
-            --      arguments: (argument_list (string) @regex))
-            --       (#eq? @_re "re")
-            --       (#lua-match? @regex "^r.*"))
-            --
-            --      ; Module docstring
-            --      ((module . (expression_statement (string) @rst))
-            --       (#offset! @rst 0 3 0 -3))
-            --
-            --      ; Class docstring
-            --      ((class_definition
-            --       body: (block . (expression_statement (string) @rst)))
-            --       (#offset! @rst 0 3 0 -3))
-            --
-            --      ; Function/method docstring
-            --      ((function_definition
-            --       body: (block . (expression_statement (string) @rst)))
-            --       (#offset! @rst 0 3 0 -3))
-            --
-            --      ; Attribute docstring
-            --      (((expression_statement (assignment)) . (expression_statement (string) @rst))
-            --       (#offset! @rst 0 3 0 -3))
-            --
-            --      (comment) @comment
-            -- ]])
             vim.treesitter.query.set("javascript", "injections", "")
             vim.treesitter.query.set("lua", "injections", "")
 
