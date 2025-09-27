@@ -62,7 +62,7 @@ opt.fillchars = {
 opt.foldenable = true
 opt.foldlevel = 99
 opt.foldlevelstart = 99
-opt.foldcolumn = '1'
+opt.foldcolumn = "auto:1"
 opt.formatoptions = "lcqtrnj2"
 if vim.fn.executable("rg") then
     opt.grepformat:append("%f:%l:%c:%m")
