@@ -159,7 +159,6 @@ opt.writebackup = true
 
 -- neovide
 
-vim.o.guifont = "JetBrains_Mono,Noto_Emoji:h10"
 vim.g.neovide_cursor_animation_length = 0
 vim.g.neovide_cursor_animate_in_insert_mode = false
 vim.g.neovide_cursor_animate_command_line = false
