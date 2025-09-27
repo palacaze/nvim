@@ -170,6 +170,7 @@ return {
                 },
                 filetypes = {
                     "alpha",
+                    "bigfile",
                     "checkhealth",
                     "dashboard",
                     "dropbar_menu",
