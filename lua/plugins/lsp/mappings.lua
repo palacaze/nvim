@@ -30,12 +30,6 @@ local function pick(method)
             fzflua[method](--[[ { winopts = { width = 0.5, height = 0.5 }} ]])
         end
     end
-
-    local tel = require("telescope.builtin")
-    return function()
-        local theme = require("telescope.themes").get_ivy()
-        tel[method](theme)
-    end
 end
 
 local config = {

@@ -62,28 +62,6 @@ return {
         ft = { "plantuml", "markdown" },
     },
 
-    -- Pretty formatting of markdown documents
-    {
-        "OXY2DEV/markview.nvim",
-        lazy = false,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
-        },
-        opts = {
-            preview = {
-                modes = { "n", "no", "c" },
-                hybrid_modes = { },
-            }
-        },
-        config = function(_, opts)
-            local markview = require("markview")
-            local presets = require("markview.presets")
-            opts.headings = presets.headings.glow_labels
-            markview.setup(opts)
-        end,
-    },
-
     {
         "MeanderingProgrammer/render-markdown.nvim",
         enabled = false,

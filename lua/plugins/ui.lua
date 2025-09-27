@@ -85,46 +85,6 @@ return {
         },
     },
 
-    -- Scrollbars
-    {
-        "petertriho/nvim-scrollbar",
-        enabled = false,
-        dependencies = { "nvim-hlslens" },
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            set_highlights = true,
-            excluded_filetypes = {
-                "alpha",
-                "prompt",
-                "TelescopePrompt",
-                "noice",
-                "guihua",
-                "neo-tree",
-                "neo-tree-popup",
-                "Trouble",
-            },
-            excluded_buftypes = {
-                "terminal",
-                "prompt",
-                "nofile",
-            },
-            handlers = {
-                cursor = false,
-                diagnostic = true,
-                gitsigns = true,
-                handle = true,
-                search = true,
-            },
-            marks = {
-                Search = {
-                    text = { "-", "=" },
-                    priority = 1,
-                    color = "#55CB14",
-                },
-            },
-        },
-    },
-
     -- dashboard
     {
         "goolord/alpha-nvim",
@@ -189,29 +149,6 @@ return {
         },
         opts = {
             default_picker = "native",
-        },
-    },
-
-    -- Smooth scrolling
-    {
-        "karb94/neoscroll.nvim",
-        enabled =false,
-        opts = {
-            easing_function = "quadratic",
-            stop_eof = false,
-            -- Boost performance by firing less events
-            pre_hook = function()
-                vim.opt.eventignore:append({
-                    "WinScrolled",
-                    "CursorMoved",
-                })
-            end,
-            post_hook = function()
-                vim.opt.eventignore:remove({
-                    "WinScrolled",
-                    "CursorMoved",
-                })
-            end,
         },
     },
 

@@ -31,41 +31,6 @@ end
 
 return {
 
-    -- Nicer search
-    {
-        "kevinhwang91/nvim-hlslens",
-        enabled = false,
-        lazy = true,
-        keys = {
-            { "n", [[<Cmd>execute("normal! " . v:count1 . "n")<CR><Cmd>lua require("hlslens").start()<CR>]], desc = "Next match" },
-            { "N", [[<Cmd>execute("normal! " . v:count1 . "N")<CR><Cmd>lua require("hlslens").start()<CR>]], desc = "Previous match" },
-            { "*", [[*<Cmd>lua require("hlslens").start()<CR>]], desc = "Search forward" },
-            { "#", [[#<Cmd>lua require("hlslens").start()<CR>]], desc = "Search backward" },
-            { "g*", [[g*<Cmd>lua require("hlslens").start()<CR>]], desc = "Like *, but also incomplete match" },
-            { "g#", [[g#<Cmd>lua require("hlslens").start()<CR>]], desc = "Like #, but also incomplete match" },
-        },
-        main = "hlslens",
-        opts = {
-            nearest_only = true,
-            nearest_float_when = "never",
-            build_position_cb = function(plist, _, _, _)
-                require("scrollbar.handlers.search").handler.show(plist.start_pos)
-            end,
-        },
-        config = function(_, opts)
-            require("hlslens").setup(opts)
-            require("scrollbar.handlers.search").setup({
-                handlers = { search = true },
-            })
-            vim.cmd([[
-                augroup scrollbar_search_hide
-                    autocmd!
-                    autocmd CmdlineLeave : lua require('scrollbar.handlers.search').handler.hide()
-                augroup END
-            ]])
-        end,
-    },
-
     -- Finder using fzf
     {
         "ibhagwan/fzf-lua",
