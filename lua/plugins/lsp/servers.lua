@@ -60,6 +60,7 @@ return {
                 "--enable-config",
                 "--background-index",
                 "--clang-tidy",
+                "--cross-file-rename",
                 "--header-insertion=never",
                 "--completion-style=detailed",
                 "--function-arg-placeholders=1",
@@ -84,9 +85,10 @@ return {
 
     neocmake = {
         executable = "neocmakelsp",
-        config ={
+        config = {
             init_options = {
-                builddirectory = ".sbuild"
+                format = { enable = true, },
+                lint = { enable = true, },
             }
         }
     },
