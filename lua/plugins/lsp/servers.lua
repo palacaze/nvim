@@ -21,7 +21,6 @@ return {
                     },
                 },
             },
-            root_dir = require("lspconfig.util").find_git_ancestor,
             flags = {
                 debounce_text_changes = 200,
             },
@@ -47,9 +46,6 @@ return {
     clangd = {
         executable = "clangd",
         config = {
-            capabilities = { offsetEncoding = { "utf-16" } },
-            filetypes = { "c", "cpp" },
-            root_dir = require("lspconfig.util").root_pattern(".clangd", ".clang-tidy", ".clang-format", "compile_commands.json", ".git"),
             flags = {
                 debounce_text_changes = 500,
             },
@@ -60,7 +56,6 @@ return {
                 "--enable-config",
                 "--background-index",
                 "--clang-tidy",
-                "--cross-file-rename",
                 "--header-insertion=never",
                 "--completion-style=detailed",
                 "--function-arg-placeholders=1",
@@ -86,6 +81,15 @@ return {
     neocmake = {
         executable = "neocmakelsp",
         config = {
+            capabilities = {
+                textDocument = {
+                    completion = {
+                        completionItem = {
+                            snippetSupport = true,
+                        },
+                    },
+                },
+            },
             init_options = {
                 format = { enable = true, },
                 lint = { enable = true, },
@@ -128,8 +132,13 @@ return {
     yamlls = {
         executable = "yaml-language-server",
         config = {
+            capabilities = {
+                documentFormattingProvider = true
+            },
             settings = {
+                redhat = { telemetry = { enabled = false } },
                 yaml = {
+                    format = { enable = true },
                     schemas = {
                         ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*gitlab-ci*.yml"
                     },

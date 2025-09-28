@@ -114,8 +114,8 @@ return {
             -- Configure servers
             local servers = require("plugins.lsp.servers")
 
-            -- server configuration functon
-            local function setup_server(name, server)
+            -- configure all the servers known to us
+            for name, server in pairs(servers) do
                 if vim.fn.executable(server.executable) > 0 then
                     if vim.tbl_get(server, "setup") then
                         server.setup()
@@ -123,33 +123,12 @@ return {
 
                     local server_opts = vim.tbl_deep_extend("force",
                         server.config or {},
-                        {
-                            single_file_support = true,
-                        }
+                        { single_file_support = true, }
                     )
 
-                    local ufo_caps = {
-                        textDocument = {
-                            foldingRange = {
-                                dynamicRegistration = false,
-                                lineFoldingOnly = true,
-                            },
-                        },
-                    }
-
-                    server_opts.capabilities = vim.tbl_deep_extend("force",
-                        require("blink.cmp").get_lsp_capabilities({}, true),
-                        server_opts.capabilities or {},
-                        ufo_caps
-                    )
-
-                    require("lspconfig")[name].setup(server_opts)
+                    vim.lsp.config(name, server_opts)
+                    vim.lsp.enable(name)
                 end
-            end
-
-            -- configure all the servers known to us
-            for name, server in pairs(servers) do
-                setup_server(name, server)
             end
         end,
     },
