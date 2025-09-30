@@ -116,7 +116,7 @@ u.map("nv", "<Leader>$", function() vim.cmd.Devdocs(u.get_selection()) end, "Sea
 -- F3 = Resume last search (fzf / telescope)
 -- S-F3 = Next error in lsp
 
-u.map("ni", "<F4>", "<Cmd>ClangdSwitchSourceHeader<CR>", "Switch between header and source file")
+u.map("ni", "<F4>", "<Cmd>LspClangdSwitchSourceHeader<CR>", "Switch between header and source file")
 -- S-F4 = Undotree toggle
 -- F5 = Neo Tree toggle
 -- S-F5 = Telescope file_browser
